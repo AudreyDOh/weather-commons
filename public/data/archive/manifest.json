@@ -1,0 +1,14 @@
+{
+  "retrievedAt": "2026-09-03T03:01:30.165Z",
+  "requests": [
+    "https://archive-api.open-meteo.com/v1/archive?latitude=12%2C12%2C12%2C12%2C12%2C12%2C12%2C13%2C13%2C13%2C13%2C13%2C13%2C13%2C14%2C14%2C14%2C14%2C14%2C14%2C14%2C15%2C15%2C15%2C15%2C15%2C15%2C15%2C16%2C16%2C16%2C16%2C16%2C16%2C16%2C17%2C17%2C17%2C17%2C17%2C17%2C17%2C18%2C18%2C18%2C18%2C18%2C18%2C18&longitude=103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109&start_date=1966-10-01&end_date=1966-10-01&hourly=wind_speed_100m%2Cwind_direction_100m&wind_speed_unit=ms&models=era5&timezone=GMT&elevation=nan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan&cell_selection=nearest",
+    "https://archive-api.open-meteo.com/v1/archive?latitude=15.5&longitude=107&start_date=1966-10-01&end_date=1966-10-31&daily=precipitation_sum&models=era5&timezone=GMT&elevation=nan&cell_selection=nearest"
+  ],
+  "sha256": {
+    "public/data/archive/era5-wind-raw.json": "f45c1295e783123260582e74aa8f8a72cd6ae0a5d4e31b98326ba239aa4f4d19",
+    "public/data/archive/era5-rain-raw.json": "0c57f2a6ecddff9b1a93535058e042a76b3f7935f248440302b32095f519b2d4",
+    "public/data/popeye-archive.json": "9bef9e19d00d69cdca51e88c9f46a0e0e88b57ab7cc53fd334e8164565fc1890",
+    "public/data/laos-geography.json": "4f0170861bfc7c5e723317fd53a389003ba3cfc39c0a1c62f3c16e0cff243dd3"
+  },
+  "transform": "Meteorological FROM direction: u=-speed*sin(direction), v=-speed*cos(direction). Row-major south to north, west to east. 00 UTC frame retained; held stationary during simulation. Rainfall displayed separately, not coupled to tracers."
+}

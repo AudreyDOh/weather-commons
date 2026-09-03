@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "id": "atlantic-drift",
+  "title": "The ocean between us",
+  "author": "Weather Commons · Pilot 01",
+  "kind": "idealized",
+  "description": "Follow a passive tracer through an idealized Atlantic circulation. Change the conditions. Watch another geography emerge.",
+  "source": {
+    "title": "Idealized Atlantic transport · v1",
+    "url": "https://www.arl.noaa.gov/hysplit/",
+    "license": "CC BY 4.0 (pilot content)",
+    "note": "Synthetic stationary wind field, midpoint integration and seeded random-walk diffusion. Inspired by Lagrangian transport methods; not HYSPLIT output, observed weather, or a forecast. Height evolves by idealized vertical diffusion with reflecting boundaries at 0 and 12 km above a smooth reference sphere. The same horizontal wind applies at every height. No vertical wind, wind shear, terrain, chemistry, cloud physics or rain prediction."
+  },
+  "parameters": {
+    "wind": 18,
+    "diffusion": 18000,
+    "lifetime": 48,
+    "longitude": -65,
+    "latitude": 33,
+    "seed": 42,
+    "releaseHeight": 3000,
+    "verticalDiffusion": 3
+  },
+  "chapters": [
+    {
+      "label": "01 / RELEASE",
+      "title": "A point of departure",
+      "text": "A cloud of 2,400 passive tracers starts east of the North American coast. Every point starts at 3 km above the reference sphere, with a location, a clock, and the same initial weight. This release is a thought experiment.",
+      "longitude": -65,
+      "latitude": 33
+    },
+    {
+      "label": "02 / TRANSPORT",
+      "title": "An atmosphere in motion",
+      "text": "A prescribed jet and rotating circulation carry the tracers east. The trajectories are calculated, not prerecorded. Wind speed changes their travel; diffusion changes their spread.",
+      "longitude": -38,
+      "latitude": 40,
+      "source": "https://www.arl.noaa.gov/hysplit/"
+    },
+    {
+      "label": "03 / OBSERVATION",
+      "title": "The gaps between instruments",
+      "text": "The Azores anchor this stop in a real geography. An observing-network registry can tell us what instruments exist; it cannot alone tell us which observations a particular model used.",
+      "longitude": -25.67,
+      "latitude": 37.74,
+      "source": "https://oscar.wmo.int/surface/"
+    },
+    {
+      "label": "04 / KNOWLEDGE",
+      "title": "Where a field becomes a forecast",
+      "text": "ECMWF combines observations with model information to estimate the atmospheric state. Our synthetic field exposes the interface mechanics; an observational contribution must bring its own provenance.",
+      "longitude": -0.95,
+      "latitude": 51.43,
+      "source": "https://www.ecmwf.int/en/research/data-assimilation"
+    },
+    {
+      "label": "05 / COMMONS",
+      "title": "A shared sky. Unequal knowledge.",
+      "text": "Which institutions can observe this movement? Who can calculate it, act on it, or contest its description? Export this experiment with its assumptions and build another account.",
+      "longitude": -20,
+      "latitude": 35
+    }
+  ]
+}

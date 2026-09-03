@@ -1,0 +1,632 @@
+{
+  "retrievedAt": "2026-09-03T03:01:30.165Z",
+  "windUrl": "https://archive-api.open-meteo.com/v1/archive?latitude=12%2C12%2C12%2C12%2C12%2C12%2C12%2C13%2C13%2C13%2C13%2C13%2C13%2C13%2C14%2C14%2C14%2C14%2C14%2C14%2C14%2C15%2C15%2C15%2C15%2C15%2C15%2C15%2C16%2C16%2C16%2C16%2C16%2C16%2C16%2C17%2C17%2C17%2C17%2C17%2C17%2C17%2C18%2C18%2C18%2C18%2C18%2C18%2C18&longitude=103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C103%2C104%2C105%2C106%2C107%2C108%2C109&start_date=1966-10-01&end_date=1966-10-01&hourly=wind_speed_100m%2Cwind_direction_100m&wind_speed_unit=ms&models=era5&timezone=GMT&elevation=nan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan&cell_selection=nearest",
+  "rainUrl": "https://archive-api.open-meteo.com/v1/archive?latitude=15.5&longitude=107&start_date=1966-10-01&end_date=1966-10-31&daily=precipitation_sum&models=era5&timezone=GMT&elevation=nan&cell_selection=nearest",
+  "validTime": "1966-10-01T00:00:00Z",
+  "requestedPoints": [
+    {
+      "lat": 12,
+      "lon": 103
+    },
+    {
+      "lat": 12,
+      "lon": 104
+    },
+    {
+      "lat": 12,
+      "lon": 105
+    },
+    {
+      "lat": 12,
+      "lon": 106
+    },
+    {
+      "lat": 12,
+      "lon": 107
+    },
+    {
+      "lat": 12,
+      "lon": 108
+    },
+    {
+      "lat": 12,
+      "lon": 109
+    },
+    {
+      "lat": 13,
+      "lon": 103
+    },
+    {
+      "lat": 13,
+      "lon": 104
+    },
+    {
+      "lat": 13,
+      "lon": 105
+    },
+    {
+      "lat": 13,
+      "lon": 106
+    },
+    {
+      "lat": 13,
+      "lon": 107
+    },
+    {
+      "lat": 13,
+      "lon": 108
+    },
+    {
+      "lat": 13,
+      "lon": 109
+    },
+    {
+      "lat": 14,
+      "lon": 103
+    },
+    {
+      "lat": 14,
+      "lon": 104
+    },
+    {
+      "lat": 14,
+      "lon": 105
+    },
+    {
+      "lat": 14,
+      "lon": 106
+    },
+    {
+      "lat": 14,
+      "lon": 107
+    },
+    {
+      "lat": 14,
+      "lon": 108
+    },
+    {
+      "lat": 14,
+      "lon": 109
+    },
+    {
+      "lat": 15,
+      "lon": 103
+    },
+    {
+      "lat": 15,
+      "lon": 104
+    },
+    {
+      "lat": 15,
+      "lon": 105
+    },
+    {
+      "lat": 15,
+      "lon": 106
+    },
+    {
+      "lat": 15,
+      "lon": 107
+    },
+    {
+      "lat": 15,
+      "lon": 108
+    },
+    {
+      "lat": 15,
+      "lon": 109
+    },
+    {
+      "lat": 16,
+      "lon": 103
+    },
+    {
+      "lat": 16,
+      "lon": 104
+    },
+    {
+      "lat": 16,
+      "lon": 105
+    },
+    {
+      "lat": 16,
+      "lon": 106
+    },
+    {
+      "lat": 16,
+      "lon": 107
+    },
+    {
+      "lat": 16,
+      "lon": 108
+    },
+    {
+      "lat": 16,
+      "lon": 109
+    },
+    {
+      "lat": 17,
+      "lon": 103
+    },
+    {
+      "lat": 17,
+      "lon": 104
+    },
+    {
+      "lat": 17,
+      "lon": 105
+    },
+    {
+      "lat": 17,
+      "lon": 106
+    },
+    {
+      "lat": 17,
+      "lon": 107
+    },
+    {
+      "lat": 17,
+      "lon": 108
+    },
+    {
+      "lat": 17,
+      "lon": 109
+    },
+    {
+      "lat": 18,
+      "lon": 103
+    },
+    {
+      "lat": 18,
+      "lon": 104
+    },
+    {
+      "lat": 18,
+      "lon": 105
+    },
+    {
+      "lat": 18,
+      "lon": 106
+    },
+    {
+      "lat": 18,
+      "lon": 107
+    },
+    {
+      "lat": 18,
+      "lon": 108
+    },
+    {
+      "lat": 18,
+      "lon": 109
+    }
+  ],
+  "returnedPoints": [
+    {
+      "latitude": 12,
+      "longitude": 103,
+      "elevation": 443
+    },
+    {
+      "latitude": 12,
+      "longitude": 104,
+      "elevation": 329
+    },
+    {
+      "latitude": 12,
+      "longitude": 105,
+      "elevation": 10
+    },
+    {
+      "latitude": 12,
+      "longitude": 106,
+      "elevation": 63
+    },
+    {
+      "latitude": 12,
+      "longitude": 107,
+      "elevation": 247
+    },
+    {
+      "latitude": 12,
+      "longitude": 108,
+      "elevation": 758
+    },
+    {
+      "latitude": 12,
+      "longitude": 109,
+      "elevation": 332
+    },
+    {
+      "latitude": 13,
+      "longitude": 103,
+      "elevation": 21
+    },
+    {
+      "latitude": 13,
+      "longitude": 104,
+      "elevation": 4
+    },
+    {
+      "latitude": 13,
+      "longitude": 105,
+      "elevation": 41
+    },
+    {
+      "latitude": 13,
+      "longitude": 106,
+      "elevation": 60
+    },
+    {
+      "latitude": 13,
+      "longitude": 107,
+      "elevation": 194
+    },
+    {
+      "latitude": 13,
+      "longitude": 108,
+      "elevation": 385
+    },
+    {
+      "latitude": 13,
+      "longitude": 109,
+      "elevation": 278
+    },
+    {
+      "latitude": 14,
+      "longitude": 103,
+      "elevation": 91
+    },
+    {
+      "latitude": 14,
+      "longitude": 104,
+      "elevation": 86
+    },
+    {
+      "latitude": 14,
+      "longitude": 105,
+      "elevation": 115
+    },
+    {
+      "latitude": 14,
+      "longitude": 106,
+      "elevation": 86
+    },
+    {
+      "latitude": 14,
+      "longitude": 107,
+      "elevation": 218
+    },
+    {
+      "latitude": 14,
+      "longitude": 108,
+      "elevation": 729
+    },
+    {
+      "latitude": 14,
+      "longitude": 109,
+      "elevation": 153
+    },
+    {
+      "latitude": 15,
+      "longitude": 103,
+      "elevation": 169
+    },
+    {
+      "latitude": 15,
+      "longitude": 104,
+      "elevation": 135
+    },
+    {
+      "latitude": 15,
+      "longitude": 105,
+      "elevation": 138
+    },
+    {
+      "latitude": 15,
+      "longitude": 106,
+      "elevation": 371
+    },
+    {
+      "latitude": 15,
+      "longitude": 107,
+      "elevation": 398
+    },
+    {
+      "latitude": 15,
+      "longitude": 108,
+      "elevation": 1312
+    },
+    {
+      "latitude": 15,
+      "longitude": 109,
+      "elevation": 0
+    },
+    {
+      "latitude": 16,
+      "longitude": 103,
+      "elevation": 187
+    },
+    {
+      "latitude": 16,
+      "longitude": 104,
+      "elevation": 145
+    },
+    {
+      "latitude": 16,
+      "longitude": 105,
+      "elevation": 165
+    },
+    {
+      "latitude": 16,
+      "longitude": 106,
+      "elevation": 329
+    },
+    {
+      "latitude": 16,
+      "longitude": 107,
+      "elevation": 915
+    },
+    {
+      "latitude": 16,
+      "longitude": 108,
+      "elevation": 307
+    },
+    {
+      "latitude": 16,
+      "longitude": 109,
+      "elevation": 0
+    },
+    {
+      "latitude": 17,
+      "longitude": 103,
+      "elevation": 212
+    },
+    {
+      "latitude": 17,
+      "longitude": 104,
+      "elevation": 263
+    },
+    {
+      "latitude": 17,
+      "longitude": 105,
+      "elevation": 164
+    },
+    {
+      "latitude": 17,
+      "longitude": 106,
+      "elevation": 340
+    },
+    {
+      "latitude": 17,
+      "longitude": 107,
+      "elevation": 45
+    },
+    {
+      "latitude": 17,
+      "longitude": 108,
+      "elevation": 0
+    },
+    {
+      "latitude": 17,
+      "longitude": 109,
+      "elevation": 0
+    },
+    {
+      "latitude": 18,
+      "longitude": 103,
+      "elevation": 192
+    },
+    {
+      "latitude": 18,
+      "longitude": 104,
+      "elevation": 182
+    },
+    {
+      "latitude": 18,
+      "longitude": 105,
+      "elevation": 651
+    },
+    {
+      "latitude": 18,
+      "longitude": 106,
+      "elevation": 157
+    },
+    {
+      "latitude": 18,
+      "longitude": 107,
+      "elevation": 0
+    },
+    {
+      "latitude": 18,
+      "longitude": 108,
+      "elevation": 0
+    },
+    {
+      "latitude": 18,
+      "longitude": 109,
+      "elevation": 0
+    }
+  ],
+  "grid": {
+    "width": 7,
+    "height": 7,
+    "west": 103,
+    "south": 12,
+    "dx": 1,
+    "dy": 1,
+    "u": [
+      -1.81376,
+      1.20004,
+      0.60227,
+      0.11168,
+      -0.69622,
+      -1.30169,
+      -0.3193,
+      -1.39151,
+      0.99793,
+      -0.78799,
+      -2.50772,
+      -4.70489,
+      -4.0985,
+      -0.10459,
+      -1.77938,
+      -2.20901,
+      0.21694,
+      0.1892,
+      -0.30407,
+      -2.32301,
+      0.60227,
+      -4.02173,
+      -3.56685,
+      -1.30994,
+      -0.49716,
+      -1.20004,
+      -1.22562,
+      3.18,
+      -3.72259,
+      -5.13203,
+      -3.9118,
+      -2.38821,
+      -3.18827,
+      1.10309,
+      -3.03491,
+      -2.79522,
+      -3.89748,
+      -3.41405,
+      -3.41847,
+      0.49935,
+      -3.91682,
+      -5.43396,
+      -1.6126,
+      -2.20524,
+      -1.49967,
+      2.60292,
+      0.58172,
+      -0.11866,
+      -3.19755
+    ],
+    "v": [
+      -1.69136,
+      -1.9972,
+      -3.8026,
+      -3.19805,
+      -2.59834,
+      -2.00442,
+      -2.60047,
+      1.01099,
+      -0.50847,
+      -3.70718,
+      -2.59682,
+      -1.00006,
+      -1.99897,
+      -1.19543,
+      -4.40412,
+      -2.2875,
+      -3.10242,
+      -1.80008,
+      -0.99456,
+      -3.08273,
+      -3.8026,
+      -3.37463,
+      -3.82498,
+      -3.59902,
+      -0.29872,
+      -1.9972,
+      -3.19285,
+      -5.50792,
+      -3.47137,
+      -4.4612,
+      -5.19113,
+      -2.30627,
+      -1.41951,
+      -1.10309,
+      -5.47512,
+      -2.10635,
+      -0.8998,
+      -2.48045,
+      -3.078,
+      -0.90086,
+      -3.17177,
+      -5.06725,
+      -1.79098,
+      -1.48745,
+      -2.39998,
+      -2.89083,
+      -3.29911,
+      -3.39793,
+      -4.40105
+    ],
+    "units": "m/s"
+  },
+  "rain": {
+    "latitude": 15.5,
+    "longitude": 107,
+    "dates": [
+      "1966-10-01",
+      "1966-10-02",
+      "1966-10-03",
+      "1966-10-04",
+      "1966-10-05",
+      "1966-10-06",
+      "1966-10-07",
+      "1966-10-08",
+      "1966-10-09",
+      "1966-10-10",
+      "1966-10-11",
+      "1966-10-12",
+      "1966-10-13",
+      "1966-10-14",
+      "1966-10-15",
+      "1966-10-16",
+      "1966-10-17",
+      "1966-10-18",
+      "1966-10-19",
+      "1966-10-20",
+      "1966-10-21",
+      "1966-10-22",
+      "1966-10-23",
+      "1966-10-24",
+      "1966-10-25",
+      "1966-10-26",
+      "1966-10-27",
+      "1966-10-28",
+      "1966-10-29",
+      "1966-10-30",
+      "1966-10-31"
+    ],
+    "mm": [
+      0.3,
+      1.5,
+      0,
+      0.1,
+      2.2,
+      2,
+      0.6,
+      0.8,
+      0.9,
+      1.5,
+      0.7,
+      0,
+      0,
+      0.2,
+      0,
+      0,
+      0,
+      1.6,
+      19.6,
+      2.5,
+      3.3,
+      34,
+      28.4,
+      8.7,
+      3.8,
+      2.5,
+      2.1,
+      0.6,
+      0.7,
+      0.7,
+      0.4
+    ]
+  }
+}
