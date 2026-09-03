@@ -10,6 +10,9 @@ import { geography } from './case-study';
 import { cloudHeightGeometry } from './cloud-height';
 import type { EarthInspection } from './earth-inspection';
 import type { GlobeProps } from '@/components/weather/globe';
+import { cameraTilt, cameraHeading } from './navigation';
+import { inTerrainRegion, regionalTerrain } from './terrain-catalog';
+import type { createTerrainTiles } from './terrain-tiles';
 
 const vertex = `varying vec2 vUv; varying vec3 vNormal; varying vec3 vPosition;
 void main(){vUv=uv;vNormal=normalize(normalMatrix*normal);vPosition=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
@@ -50,6 +53,10 @@ export function createEarthScene(
     lastScale = -1,
     lastDepthScale = -1;
   const loader = new THREE.TextureLoader();
+  let terrainTiles: ReturnType<typeof createTerrainTiles> | null = null,
+    terrainLoading = false,
+    lastTerrainReport = 0,
+    smoothedDatum: number | null = null;
   const earth = loader.load(
     '/data/earth-january-2004.jpg',
     undefined,
@@ -68,10 +75,15 @@ export function createEarthScene(
   aerial.anisotropy = 4;
   const groundMaterial = new THREE.ShaderMaterial({
     vertexShader: vertex,
-    uniforms: { earth: { value: earth }, cutCity: { value: false } },
+    uniforms: {
+      earth: { value: earth },
+      cutCity: { value: false },
+      cutRegion: { value: false },
+    },
     fragmentShader: `
-    uniform sampler2D earth;uniform bool cutCity; varying vec2 vUv;varying vec3 vNormal;varying vec3 vPosition;
+    uniform sampler2D earth;uniform bool cutCity,cutRegion; varying vec2 vUv;varying vec3 vNormal;varying vec3 vPosition;
     void main(){if(cutCity){float lo=vUv.x*360.-180.,la=vUv.y*180.-90.;if(lo>-74.024&&lo<-74.0&&la>40.699&&la<40.717)discard;}vec3 rgb=texture2D(earth,vUv).rgb;
+      if(cutRegion){float lo=degrees(atan(vPosition.x,vPosition.z)),la=degrees(asin(normalize(vPosition).y));if(lo> -121.98&&lo< -121.55&&la>46.72&&la<47.0)discard;}
       float e=length(vPosition)-1.;
       if(e<-.000005) rgb=mix(vec3(.045,.11,.16),vec3(.3,.52,.58),exp(e*65.));
       float light=.6+.4*max(0.,dot(normalize(vNormal),normalize(vec3(-.4,.7,1.))));
@@ -608,7 +620,33 @@ export function createEarthScene(
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
     },
-    draw(state: GlobeProps, lon: number, lat: number, zoom: number) {
+    draw(
+      state: GlobeProps,
+      lon: number,
+      lat: number,
+      zoom: number,
+      heading = 0,
+      tilt = 35,
+    ) {
+      const tileActive =
+        state.detailEnabled &&
+        state.terrainVisible &&
+        !state.fabricFocus &&
+        !state.goesEnabled &&
+        !state.retrievedCloudVisible &&
+        inTerrainRegion(lon, lat, 2) &&
+        zoom > 8;
+      if (tileActive && !terrainTiles && !terrainLoading) {
+        terrainLoading = true;
+        import('./terrain-tiles')
+          .then(({ createTerrainTiles }) => {
+            if (alive)
+              terrainTiles = createTerrainTiles(scene, camera, renderer);
+          })
+          .catch(() => {
+            onError('Regional terrain renderer unavailable');
+          });
+      }
       const scale = state.fabricFocus
         ? 0
         : state.terrainVisible
@@ -628,24 +666,64 @@ export function createEarthScene(
       const pivot = zoom > 4 ? 1 : Math.max(0, (zoom - 1) / 3);
       const localHeight = state.fabricFocus
         ? 0
-        : elevationAt(grid, lon, lat) * scale;
+        : ((tileActive ? terrainTiles?.elevation(lon, lat) : null) ??
+          elevationAt(grid, lon, lat) * scale);
       const datum =
         1 +
         (state.oceanOpacity < 0.5 ? localHeight : Math.max(0, localHeight)) /
           EARTH_METRES;
-      camera.position.copy(radial).multiplyScalar(datum + distance);
-      const target = radial.clone().multiplyScalar(pivot * datum);
-      if (zoom > 30) {
-        const north = earthPoint(lon, Math.min(89.9, lat + 0.1))
-          .sub(radial)
-          .normalize();
-        camera.position.addScaledVector(north, -distance * 0.7);
+      smoothedDatum =
+        smoothedDatum === null
+          ? datum
+          : smoothedDatum + (datum - smoothedDatum) * 0.12;
+      const target = radial.clone().multiplyScalar(pivot * smoothedDatum);
+      const north = new THREE.Vector3(0, 1, 0)
+        .addScaledVector(radial, -radial.y)
+        .normalize();
+      const east = new THREE.Vector3().crossVectors(north, radial).normalize();
+      const angle = (cameraHeading(zoom, heading) * Math.PI) / 180,
+        pitch = cameraTilt(zoom, tilt);
+      const horizontal = north
+        .clone()
+        .multiplyScalar(-Math.cos(angle))
+        .addScaledVector(east, Math.sin(angle));
+      camera.position
+        .copy(radial)
+        .multiplyScalar(smoothedDatum + distance * Math.cos(pitch))
+        .addScaledVector(horizontal, distance * Math.sin(pitch));
+      camera.up
+        .copy(north)
+        .multiplyScalar(Math.cos(angle))
+        .addScaledVector(east, -Math.sin(angle));
+      if (tileActive && terrainTiles) {
+        const p = camera.position,
+          lo = (Math.atan2(p.x, p.z) * 180) / Math.PI,
+          la = (Math.asin(p.y / p.length()) * 180) / Math.PI,
+          h = terrainTiles.elevation(lo, la);
+        if (h !== null && p.length() < 1 + (h + 20) / EARTH_METRES)
+          p.setLength(1 + (h + 20) / EARTH_METRES);
       }
-      camera.up.set(0, 1, 0);
       camera.lookAt(target);
       camera.updateMatrixWorld();
+      const terrainStatus = terrainTiles?.update(tileActive);
+      if (performance.now() - lastTerrainReport > 500) {
+        lastTerrainReport = performance.now();
+        state.onTerrainStatus(
+          terrainStatus ?? {
+            active: tileActive,
+            loaded: 0,
+            visible: 0,
+            level: 0,
+            loading: tileActive,
+            error: '',
+          },
+        );
+      }
       ground.visible = true;
       groundMaterial.uniforms.cutCity.value = false;
+      groundMaterial.uniforms.cutRegion.value = Boolean(
+        tileActive && terrainTiles?.ready,
+      );
       ocean.visible = state.oceanVisible && !state.fabricFocus;
       (ocean.material as THREE.MeshBasicMaterial).opacity = state.oceanOpacity;
       coast.visible = state.coastVisible && !state.fabricFocus;
@@ -877,10 +955,16 @@ export function createEarthScene(
             ? buildings.children.filter((o) => o instanceof THREE.Mesh)
             : []),
           ...(retrievedCloud.visible ? [retrievedCloud] : []),
+          ...(terrainTiles?.group.visible ? [terrainTiles.group] : []),
         ],
         false,
       );
       const hit = all.find((h) => {
+        if (h.object === ground && groundMaterial.uniforms.cutRegion.value) {
+          const lo = (Math.atan2(h.point.x, h.point.z) * 180) / Math.PI,
+            la = (Math.asin(h.point.y / h.point.length()) * 180) / Math.PI;
+          if (inTerrainRegion(lo, la)) return false;
+        }
         if (h.object !== ground || !citySurface.visible) return true;
         const lon = (Math.atan2(h.point.x, h.point.z) * 180) / Math.PI,
           lat = (Math.asin(h.point.y / h.point.length()) * 180) / Math.PI;
@@ -897,6 +981,19 @@ export function createEarthScene(
         | undefined;
       const building =
         ids && buildingData.find((b) => b.id === ids[hit.faceIndex ?? 0]);
+      if (hit.object.userData.regionalTerrain) {
+        const value = terrainTiles?.elevation(longitude, latitude);
+        if (value !== null && value !== undefined)
+          return {
+            longitude,
+            latitude,
+            kind: 'relief',
+            value: Math.round(value),
+            title: 'USGS 3DEP regional elevation',
+            note: 'Sample from the archived ~60 m DEM export. Rendered tile detail varies with zoom. Source elevations are displayed radially on a reference sphere; no ellipsoidal-height or flood-depth inference.',
+            source: regionalTerrain.manifest,
+          };
+      }
       if (building)
         return {
           longitude,
@@ -956,6 +1053,7 @@ export function createEarthScene(
     },
     dispose() {
       alive = false;
+      terrainTiles?.dispose();
       for (const texture of ownedTextures) texture.dispose();
       (
         satelliteMaterial.uniforms.source.value as THREE.Texture | null

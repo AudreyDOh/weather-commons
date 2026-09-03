@@ -1,0 +1,517 @@
+{
+  "title": "Mount Rainier / USGS terrain and aerial mosaic",
+  "bounds": [
+    -121.98,
+    46.72,
+    -121.55,
+    47.0
+  ],
+  "gridSize": 513,
+  "sourceSpacingMetresApprox": 61,
+  "imagerySpacingMetresApprox": 8,
+  "levels": 4,
+  "tileCount": 85,
+  "meshCellsPerTile": 64,
+  "heightRangeMetres": [
+    451.9745178222656,
+    4384.07080078125
+  ],
+  "heightReference": "3DEP source elevations; the service catalogue records vertical datums. Displayed radially on a reference sphere, not transformed to ellipsoidal heights.",
+  "kind": "modelled bare-earth elevation / observed aerial composite",
+  "source": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer",
+  "imagerySource": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer",
+  "transform": "Archive F32 DEM export (513 x 513, bilinear, WGS84) and four 2048 x 2048 NAIP exports assembled as a 4096 x 4096 mosaic. Cell-centred DEM sampled onto four quadtree levels of 65 x 65 vertices. Local ECEF-like spherical coordinates in metres with tile translations and standard Y-up glTF; renderer maps into shared Earth axes. Source colours unlit. Image crops JPEG quality 88. 3000 m downward skirts are display seam handling, not measured cliff faces. Fixed regional extent; no invented detail beyond archived source resolution.",
+  "files": [
+    {
+      "file": "dem-service.json",
+      "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer?f=pjson",
+      "retrievedAt": "2026-09-03T15:35:42.225387+00:00",
+      "sha256": "a300a739a6e47627d1cd6921fca368004d88a8ac62d6d32c64571c669e4349bb"
+    },
+    {
+      "file": "naip-service.json",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer?f=pjson",
+      "retrievedAt": "2026-09-03T15:35:42.165081+00:00",
+      "sha256": "b366ed805aa7d4fadee33def15c3e952a763134c4c9c2d07f4ad1bfabd033172"
+    },
+    {
+      "file": "dem.tif",
+      "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage?bbox=-121.98%2C46.72%2C-121.55%2C47.0&bboxSR=4326&imageSR=4326&adjustAspectRatio=false&f=image&size=513%2C513&format=tiff&pixelType=F32&interpolation=RSP_BilinearInterpolation&renderingRule=%7B%22rasterFunction%22%3A+%22None%22%7D",
+      "retrievedAt": "2026-09-03T15:35:44.315370+00:00",
+      "sha256": "e78d15ecc43d7d3c3f7ba4b71fa31cec63ce5d86c869d710a0f30252489c90d5"
+    },
+    {
+      "file": "dem-catalogue.json",
+      "url": "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/query?geometry=-121.98%2C46.72%2C-121.55%2C47.0&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=%2A&returnGeometry=false&f=json",
+      "retrievedAt": "2026-09-03T15:35:44.227031+00:00",
+      "sha256": "9d425749c74e95e374401c66acf14e0f83de8e3386dfe0f67739aa361b536ebf"
+    },
+    {
+      "file": "naip-catalogue.json",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?geometry=-121.98%2C46.72%2C-121.55%2C47.0&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=%2A&returnGeometry=false&f=json",
+      "retrievedAt": "2026-09-03T15:35:44.776270+00:00",
+      "sha256": "29ec80b630a6dab0cf94ebbaf2ee3ddae5811d5779b8882e46df78aa9b9030c9"
+    },
+    {
+      "file": "aerial-0-0.jpg",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/exportImage?bbox=-121.98%2C46.86%2C-121.765%2C47.0&bboxSR=4326&imageSR=4326&adjustAspectRatio=false&f=image&size=2048%2C2048&format=jpg&compressionQuality=90",
+      "retrievedAt": "2026-09-03T15:36:57.075376+00:00",
+      "sha256": "446c333ae79072ffd839be1c6195844eb0893cb88cc9f710080fbcff964eb164"
+    },
+    {
+      "file": "aerial-1-0.jpg",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/exportImage?bbox=-121.765%2C46.86%2C-121.55%2C47.0&bboxSR=4326&imageSR=4326&adjustAspectRatio=false&f=image&size=2048%2C2048&format=jpg&compressionQuality=90",
+      "retrievedAt": "2026-09-03T15:36:59.461493+00:00",
+      "sha256": "cdb8bc136114532e58e6f96536d9f0c14cc55818870520606e78e9927feb2674"
+    },
+    {
+      "file": "aerial-0-1.jpg",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/exportImage?bbox=-121.98%2C46.72%2C-121.765%2C46.86&bboxSR=4326&imageSR=4326&adjustAspectRatio=false&f=image&size=2048%2C2048&format=jpg&compressionQuality=90",
+      "retrievedAt": "2026-09-03T15:37:06.575474+00:00",
+      "sha256": "1e1adb9594d542897d71ffeab1bcd263323f9c455f5a82c55a6ce45d53d36849"
+    },
+    {
+      "file": "aerial-1-1.jpg",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/exportImage?bbox=-121.765%2C46.72%2C-121.55%2C46.86&bboxSR=4326&imageSR=4326&adjustAspectRatio=false&f=image&size=2048%2C2048&format=jpg&compressionQuality=90",
+      "retrievedAt": "2026-09-03T15:37:09.613348+00:00",
+      "sha256": "58ad5eaecf9ace76eaada9ec6fb05ebac18263bcef9941cc069af98ac7a6159f"
+    }
+  ],
+  "derived": [
+    {
+      "file": "0-0-0.glb",
+      "sha256": "7a07d8cc920f18fbefff974645ae5d02cf44fdeb312acd41cffe5f53f5987152",
+      "bytes": 233652
+    },
+    {
+      "file": "1-0-0.glb",
+      "sha256": "4cad48069ea3326d355ec9217a261f6a44b2b3c1ea2fd4fe29e2ef9f56cbc127",
+      "bytes": 228968
+    },
+    {
+      "file": "2-0-0.glb",
+      "sha256": "5ad5ccd3263843b0d081d2517be7bae01760b85390eed035281c520642e78027",
+      "bytes": 217844
+    },
+    {
+      "file": "3-0-0.glb",
+      "sha256": "292f30cb96528e8293d72d299db695431264310b16fa798d416a101bd7b197a5",
+      "bytes": 235276
+    },
+    {
+      "file": "3-1-0.glb",
+      "sha256": "5b8c66c997b0a9d2b1ee815ff62fc9e6896803dbd7cde0f93e0bf361fc51335f",
+      "bytes": 239520
+    },
+    {
+      "file": "3-0-1.glb",
+      "sha256": "1e132bd5292a15f86a25f48b553a030da7b5b8b182ac2b25cb1c24b870a95d94",
+      "bytes": 229824
+    },
+    {
+      "file": "3-1-1.glb",
+      "sha256": "c1829652eb4a3591706e3b56c44b74c28280baaed8834249573c38cf229803bc",
+      "bytes": 243540
+    },
+    {
+      "file": "2-1-0.glb",
+      "sha256": "f6872fa6900e9490a739dab2986ee7feb4f46b4e2eb2108100f4d9b607b82e04",
+      "bytes": 228536
+    },
+    {
+      "file": "3-2-0.glb",
+      "sha256": "7d585f4f305f1c397d84102e992693cfb8fee3144784a4d60ee9ce46ecd2bfd3",
+      "bytes": 242204
+    },
+    {
+      "file": "3-3-0.glb",
+      "sha256": "0e45ddafadc7203e3085b3215218b4db406459ed2463d3ca417bddaa04c564b1",
+      "bytes": 237964
+    },
+    {
+      "file": "3-2-1.glb",
+      "sha256": "fc0843fd745664170f8a236d0c04fa9e96175fa81ce3e6ecd601e763c5ead278",
+      "bytes": 250388
+    },
+    {
+      "file": "3-3-1.glb",
+      "sha256": "cf423acc103e4935e9c9405989e83e52f71562c9ded5bc81cf7887125cf77d5e",
+      "bytes": 245640
+    },
+    {
+      "file": "2-0-1.glb",
+      "sha256": "8e2f9ed064dd5c31aa18bc94a5a930dfda6b4cb946aec26a17c2177cb3917a46",
+      "bytes": 224984
+    },
+    {
+      "file": "3-0-2.glb",
+      "sha256": "f4cd67640c563c51c7936ca91ee491af7469d87a46e7c476af12f601144e4999",
+      "bytes": 236964
+    },
+    {
+      "file": "3-1-2.glb",
+      "sha256": "a10e87df0a2c75843088b43e0c74f5924b6eb859fcb30ad3c9241c3a1b859800",
+      "bytes": 242220
+    },
+    {
+      "file": "3-0-3.glb",
+      "sha256": "74d9fa2db5d9bb71b7e136c0c2992d0c6ff4f01426f1a38a4d7192e5a6a4bdfb",
+      "bytes": 239072
+    },
+    {
+      "file": "3-1-3.glb",
+      "sha256": "4ed974aae93259214409a0ee68265b68c977d72deff989586b6149f084532d2d",
+      "bytes": 242524
+    },
+    {
+      "file": "2-1-1.glb",
+      "sha256": "b7aee1db9efc2501d18f3af6fa70d2be9e890a75acc019eb2b6a2987900ca654",
+      "bytes": 249552
+    },
+    {
+      "file": "3-2-2.glb",
+      "sha256": "56fe0b31860799e8d38beb0c1069f7fdae56eeac30d9b1ed7da575be3859fe58",
+      "bytes": 251752
+    },
+    {
+      "file": "3-3-2.glb",
+      "sha256": "edccadfd047dca611721fafc0deee55b3696aceb5f67455172ee1b39be897eaf",
+      "bytes": 258944
+    },
+    {
+      "file": "3-2-3.glb",
+      "sha256": "ec5e169f0edd8849242af5bc4e81c3a2f492fbbb3f76263973fbaea80873297d",
+      "bytes": 251660
+    },
+    {
+      "file": "3-3-3.glb",
+      "sha256": "4686ac6745cf0906072deb1808106f2a0871df9d80fb09160e27033e56ec60b2",
+      "bytes": 249216
+    },
+    {
+      "file": "1-1-0.glb",
+      "sha256": "b199e71dfd658c413243fd74ab5a2f98c10bdf27f14648d0eb6e3f5b4e534bd9",
+      "bytes": 231640
+    },
+    {
+      "file": "2-2-0.glb",
+      "sha256": "3a7606303cfb845798418b5b308e9c27d239b6cbd0bdd592b32be0abfffd1ad8",
+      "bytes": 225796
+    },
+    {
+      "file": "3-4-0.glb",
+      "sha256": "8f4e5565453c8704234da87020f16145da52840702f8689f362630509ebf2388",
+      "bytes": 237096
+    },
+    {
+      "file": "3-5-0.glb",
+      "sha256": "6c3376ba467b9a565370d2324d6ffcc80a568610772d11058ab6b8da02cd0c9a",
+      "bytes": 235188
+    },
+    {
+      "file": "3-4-1.glb",
+      "sha256": "ac522ad19249da943b7789855e4e255cec2841f35468313cc04e0212ca441e89",
+      "bytes": 255108
+    },
+    {
+      "file": "3-5-1.glb",
+      "sha256": "0ac1f509ab61134b595223a95570532ae79df497033242645440bc10a4e25d7d",
+      "bytes": 237408
+    },
+    {
+      "file": "2-3-0.glb",
+      "sha256": "73ccae229dc8e209ca2b4aa99285ad4074532d4ab4cf7563b513af204e68231a",
+      "bytes": 217416
+    },
+    {
+      "file": "3-6-0.glb",
+      "sha256": "0fbf62b8a13f499c74293f2dc3849e49e616ff3f05770ce129d94ed666d2a351",
+      "bytes": 229792
+    },
+    {
+      "file": "3-7-0.glb",
+      "sha256": "a079130d2f2ffe44187250abaa0bad1e31aa2f88e3e84ea31fa3d1096f305014",
+      "bytes": 230728
+    },
+    {
+      "file": "3-6-1.glb",
+      "sha256": "2e245e014444ef57936bda2110a946251faa3df8355025eea250e5164c627ff9",
+      "bytes": 239316
+    },
+    {
+      "file": "3-7-1.glb",
+      "sha256": "1e3774c1129daa99fdebf52cd0fe2025dba26f5aa18d1bc102a1b3dd389a0d9f",
+      "bytes": 237428
+    },
+    {
+      "file": "2-2-1.glb",
+      "sha256": "a1db7f79a1e82718ddeedec70c6139510b1389ebd6e948973f6a56a39eed99c0",
+      "bytes": 250860
+    },
+    {
+      "file": "3-4-2.glb",
+      "sha256": "f400059d1fd72d7d12e28b2b425cdb57e4e078c8bdd7d50fbdc7fe9cba617607",
+      "bytes": 252464
+    },
+    {
+      "file": "3-5-2.glb",
+      "sha256": "9ca72e8a874ea275d5e2fefa02514181cfffc76346c9559929755361be33a180",
+      "bytes": 251928
+    },
+    {
+      "file": "3-4-3.glb",
+      "sha256": "3a3f85d90f690a26c0d3c33da62bd2732da145d8772bc16d811272a35b8992ce",
+      "bytes": 255360
+    },
+    {
+      "file": "3-5-3.glb",
+      "sha256": "c4bba71c19c00bf7f963ec37ef1f3078c80843335cdefe4060fd5ac15cf1565d",
+      "bytes": 253872
+    },
+    {
+      "file": "2-3-1.glb",
+      "sha256": "d6a257c491ed5dc080ea65da5bcb62b9ecbe74a50fd97a0b4b80241dde00a8ca",
+      "bytes": 229572
+    },
+    {
+      "file": "3-6-2.glb",
+      "sha256": "4a65662aeaa57ac60915b67e556edefb5638ae5f3c7bb13a1ca14f1440e9b735",
+      "bytes": 252016
+    },
+    {
+      "file": "3-7-2.glb",
+      "sha256": "9a481655d24dc0ae6ab0866b078d507cb8a6565a97984fdee10f18e03dd6735c",
+      "bytes": 240760
+    },
+    {
+      "file": "3-6-3.glb",
+      "sha256": "e4aa2cc757867fff9cf9386d10f9e6a24e1fb5948590cc62e7310aa911e47bf5",
+      "bytes": 238572
+    },
+    {
+      "file": "3-7-3.glb",
+      "sha256": "f2e621ade597481e2360302f3063107c6844dced76d8b735e4c065f236b77eec",
+      "bytes": 239496
+    },
+    {
+      "file": "1-0-1.glb",
+      "sha256": "347e0f75ac2c52777815fc92c856c0736fd91a84c384cb5bdbecbc84cde3bdb5",
+      "bytes": 223108
+    },
+    {
+      "file": "2-0-2.glb",
+      "sha256": "409f28b2f762e504285086cc307cf7d8cf59df55e42919999ea8bfd6633e49b6",
+      "bytes": 219468
+    },
+    {
+      "file": "3-0-4.glb",
+      "sha256": "85d36a4203d8f0e109327988d71ea14aa24d73be1c0320be78f93dd02d1b53c3",
+      "bytes": 231988
+    },
+    {
+      "file": "3-1-4.glb",
+      "sha256": "16ef4633f26d81a37461cba15a81a8af6beb0a07770a3dcdaa1b0c2dd01249cf",
+      "bytes": 239680
+    },
+    {
+      "file": "3-0-5.glb",
+      "sha256": "e8dba2bf11a9a6e03eb056823ca8098b24b013ad856e16f9818b224e995fca5f",
+      "bytes": 236344
+    },
+    {
+      "file": "3-1-5.glb",
+      "sha256": "f046a73d13f850072d477ec4432ee6a0e4225ebbb4c37c75a24ae58b1ad0cd62",
+      "bytes": 243788
+    },
+    {
+      "file": "2-1-2.glb",
+      "sha256": "d11d3beb087af740e2727407ebd058b69f3a6c3d3480e504ee0ba9c050d3f784",
+      "bytes": 240484
+    },
+    {
+      "file": "3-2-4.glb",
+      "sha256": "b2f511eb742d1b7632d002fea5aaf918b0091402f6c24eff2f5908e842006b45",
+      "bytes": 247756
+    },
+    {
+      "file": "3-3-4.glb",
+      "sha256": "7e3315060232338e0200d9e76df825555b891acf6ddc5bab1b23f6cf5b69581f",
+      "bytes": 225748
+    },
+    {
+      "file": "3-2-5.glb",
+      "sha256": "9eb194967032d371612b79f78427b1d805b2f5000b1179bc0d95387c5a85d4a9",
+      "bytes": 253204
+    },
+    {
+      "file": "3-3-5.glb",
+      "sha256": "125761c8a1be66bf9a7a3941ecf5c9891f84da4bdb1a9d65bd04a53920d58500",
+      "bytes": 253440
+    },
+    {
+      "file": "2-0-3.glb",
+      "sha256": "51a71d7ee96ddca15c39c35a7f947908bcfddab5fbc6b8038fcc91504f2bd817",
+      "bytes": 222300
+    },
+    {
+      "file": "3-0-6.glb",
+      "sha256": "68838b4232a1387a09875f4d0f99de2eb33baa5e86dbdfddeb4580e0ef1a20ec",
+      "bytes": 237144
+    },
+    {
+      "file": "3-1-6.glb",
+      "sha256": "97c5a597ff222e16f4187acb7264f985806676fff85ea56174f23c4090c137df",
+      "bytes": 242632
+    },
+    {
+      "file": "3-0-7.glb",
+      "sha256": "f2a5b584019fb87202ef6fefc78529f34b591991b529e3660f191848526cbcd7",
+      "bytes": 243592
+    },
+    {
+      "file": "3-1-7.glb",
+      "sha256": "179d0551a262aa0663ce831af77dc381d93151369dc8be8436062d0fe9c89408",
+      "bytes": 242200
+    },
+    {
+      "file": "2-1-3.glb",
+      "sha256": "388268bf4a8d5d7a2967bf72bf5c94eac9b62d2286e8f461f3d376b819165077",
+      "bytes": 223364
+    },
+    {
+      "file": "3-2-6.glb",
+      "sha256": "0cc98c5dcfe4cb8ce044e2feb73b5e6cb8d2f84d1cd962dc84421d38d50e41ae",
+      "bytes": 245056
+    },
+    {
+      "file": "3-3-6.glb",
+      "sha256": "833446876109ba3700ac63a92c13c8c764fc04587f4289cb985346eb9496ca00",
+      "bytes": 245152
+    },
+    {
+      "file": "3-2-7.glb",
+      "sha256": "a96335edb8def7ed32e8d901ad0fcc936096f5a80f2af127c19eeb538522a479",
+      "bytes": 241228
+    },
+    {
+      "file": "3-3-7.glb",
+      "sha256": "b9dd30f14e76a8a119fda58942298cb4f0e09bdcd6290dbaed60908ef31b59fa",
+      "bytes": 246416
+    },
+    {
+      "file": "1-1-1.glb",
+      "sha256": "eb7ca3cbe6b6bb7ee254990f74e1d2dadec9a355bca95ab56f361ca21931bc13",
+      "bytes": 230584
+    },
+    {
+      "file": "2-2-2.glb",
+      "sha256": "265bb1f38de5a8f3aa31ca741f4f28dd2fe1148b6b0e139eb4ce0d49468ec70a",
+      "bytes": 237996
+    },
+    {
+      "file": "3-4-4.glb",
+      "sha256": "8f5a421689ebb4783c4e9cb70dcc87415dfb983908c0f9c6dd852da065726457",
+      "bytes": 220752
+    },
+    {
+      "file": "3-5-4.glb",
+      "sha256": "b82d82bf69355e230fa36a1fa52083bd05b0fdc2582bf9a5df2bb670c66179e1",
+      "bytes": 233544
+    },
+    {
+      "file": "3-4-5.glb",
+      "sha256": "feb769c72459161ea323e7d69db8d191c2ca556862b81c08757735ff4d10602e",
+      "bytes": 244916
+    },
+    {
+      "file": "3-5-5.glb",
+      "sha256": "9c2f874ec6d37fa4759dcd3e93a3ae65265fa5c48be852533bdeb3e049e85b79",
+      "bytes": 255388
+    },
+    {
+      "file": "2-3-2.glb",
+      "sha256": "b27ebca3265f185444d1a77a72d3d8f64c6a1fc9b2ba6c179c76e4d277ac9b87",
+      "bytes": 232972
+    },
+    {
+      "file": "3-6-4.glb",
+      "sha256": "67eb776e993400ae5bb8fd8f1e7969032895f4aa53d6f4831e2317cf24ee61c0",
+      "bytes": 258640
+    },
+    {
+      "file": "3-7-4.glb",
+      "sha256": "50869e4d7dc3cde7b5d16185e98f9385e3e3ee371df3dfb7a951c8d9e3e69f3c",
+      "bytes": 236920
+    },
+    {
+      "file": "3-6-5.glb",
+      "sha256": "88e2891f9f7401928f5344ec6924ddd116efad3281ad60bd8c78a99509d62aad",
+      "bytes": 246660
+    },
+    {
+      "file": "3-7-5.glb",
+      "sha256": "a1b15417edcfdf9c9bb0ae7bc3be668b419a10a074cac4f90d6f35e1392c50e8",
+      "bytes": 228620
+    },
+    {
+      "file": "2-2-3.glb",
+      "sha256": "fa01a6d3407f4e6adad40ac373458bad64745a3132434c924e6adba30d30daa5",
+      "bytes": 245188
+    },
+    {
+      "file": "3-4-6.glb",
+      "sha256": "7a9fe1205c491c3938701128654e945560f4ae766c32a2b8974c34525c22cf3c",
+      "bytes": 252620
+    },
+    {
+      "file": "3-5-6.glb",
+      "sha256": "d983dea08b1134d8964e1a181b2bf432049360def30377967353407c71ec8f03",
+      "bytes": 253108
+    },
+    {
+      "file": "3-4-7.glb",
+      "sha256": "5f34ce3dd56d161248d50a45477b3b0b186b9b506fe462d3899643eb0139fbbc",
+      "bytes": 254692
+    },
+    {
+      "file": "3-5-7.glb",
+      "sha256": "a0a315e4d3a9e1ca0c8eb976a9b54caa77e280ca36a8f47d931db06e62db9efb",
+      "bytes": 253128
+    },
+    {
+      "file": "2-3-3.glb",
+      "sha256": "f0571088771fbe3cbf32ad196695bb0a92e34dcca7942e351f874d94c43c5e3d",
+      "bytes": 210072
+    },
+    {
+      "file": "3-6-6.glb",
+      "sha256": "d21240c46180e5974fcf8653b62d07afc4d2c583ed7cdd6fea754fbfebe8da28",
+      "bytes": 238192
+    },
+    {
+      "file": "3-7-6.glb",
+      "sha256": "36d521917051d46bfbaf752a77eba2ceca9ddebf6c80ceeb3a167e064c3883e5",
+      "bytes": 226032
+    },
+    {
+      "file": "3-6-7.glb",
+      "sha256": "0aec7a867494345fad9bd3867477e31a227f2943de573c62d34de83798bcb892",
+      "bytes": 241280
+    },
+    {
+      "file": "3-7-7.glb",
+      "sha256": "3f749f52509b903daba65652bd38a9dcdaf594485449a1702c6cfced137eecdd",
+      "bytes": 228944
+    },
+    {
+      "file": "tileset.json",
+      "sha256": "0079c15568c6699a8b644988a680a36eb711230e6c378a945c81a71496c3c276",
+      "bytes": 30363
+    },
+    {
+      "file": "elevation.f32",
+      "sha256": "662944433e47cbcb1faa10b69ec4b2b0c8f407fe8d84199a420e5a496dcd6c32",
+      "bytes": 1052676
+    }
+  ]
+}

@@ -182,6 +182,9 @@ export function SatelliteControls({
 }
 
 export function ReliefControls(p: {
+  detailEnabled: boolean;
+  setDetailEnabled: (value: boolean) => void;
+  onTerrain: () => void;
   terrain: boolean;
   setTerrain: (v: boolean) => void;
   scale: number;
@@ -246,6 +249,36 @@ export function ReliefControls(p: {
       <Button variant="outline" onClick={p.onRelief}>
         Inspect Atlantic relief ↗
       </Button>
+      <Button variant="outline" onClick={p.onTerrain}>
+        Enter regional terrain / Rainier ↗
+      </Button>
+      <div className="control-row">
+        <span>Regional detail on approach</span>
+        <Button
+          variant="ghost"
+          aria-pressed={p.detailEnabled}
+          onClick={() => p.setDetailEnabled(!p.detailEnabled)}
+        >
+          {p.detailEnabled ? 'On' : 'Off'}
+        </Button>
+      </div>
+      <details>
+        <summary>What loads as I zoom?</summary>
+        <p>
+          The Rainier sample loads progressively finer terrain and aerial
+          textures as you approach. Coarse tiles remain while detail arrives.
+          Its best elevation samples are about 60 m apart; the aerial mosaic is
+          about 8 m per pixel. This regional archive has a finite edge.
+        </p>
+        <p>
+          USGS 3DEP bare-earth elevation, shown at 1× height, with NAIP imagery.
+          Aerial and terrain dates differ. This is not live weather or a
+          street-scale survey.
+        </p>
+        <a href="/data/archive/rainier/manifest.json" download>
+          Regional sources, tile transforms and hashes ↓
+        </a>
+      </details>
       <div className="control-row">
         <span>Built fabric / NYC sample</span>
         <Button

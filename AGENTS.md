@@ -18,6 +18,7 @@ This repository is a browser-based research pilot for the Realtime Weather worki
 - Never infer exposure, injury, rainfall change, or political causality from tracer proximity alone.
 - Student imports are data only. Validate their schema and do not execute imported content.
 - ACHA cloud-top heights are retrieved quantities, not volumetric clouds. Preserve quality flags, scan intervals, source navigation and the distinction between source height and display exaggeration. Keep imagery time separate from model time.
+- Regional tiles use a spherical reference adapter, not general ellipsoidal ECEF. Keep source elevation, display exaggeration, mesh spacing and imagery pixel size distinct. Do not connect external tilesets without declaring their coordinate and height references. See `docs/STREAMING.md`.
 
 ## Interface direction
 

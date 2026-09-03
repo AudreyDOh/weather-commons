@@ -28,6 +28,10 @@ import Globe from './globe';
 import { SatelliteControls, ReliefControls } from './earth-controls';
 import { EarthSources } from './earth-sources';
 import type { EarthInspection } from '@/lib/weather/earth-inspection';
+import {
+  emptyTerrainStatus,
+  type TerrainStatus,
+} from '@/lib/weather/terrain-catalog';
 import { useSatellite } from '@/lib/weather/use-satellite';
 import { ObservationControls } from './observation-controls';
 import { useObservation } from '@/lib/weather/use-observation';
@@ -63,6 +67,9 @@ function saveFile(filename: string, value: unknown) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 export default function WeatherLab() {
+  const [detailEnabled, setDetailEnabled] = useState(true),
+    [terrainStatus, setTerrainStatus] =
+      useState<TerrainStatus>(emptyTerrainStatus);
   const [inspection, setInspection] = useState<EarthInspection | null>(null);
   const satellite = useSatellite();
   const [lightBackground, setLightBackground] = useState(true),
@@ -244,9 +251,11 @@ export default function WeatherLab() {
       ? 'clouds'
       : satellite.enabled
         ? 'satellite'
-        : earthFocus
-          ? 'seafloor'
-          : 'transport';
+        : earthFocus && earthFocus.longitude < -120 && earthFocus.latitude > 45
+          ? 'terrain'
+          : earthFocus
+            ? 'seafloor'
+            : 'transport';
   const chooseView = (view: string) => {
     setInspection(null);
     setPanel('');
@@ -262,16 +271,22 @@ export default function WeatherLab() {
     setBuildingsVisible(view === 'city');
     setTerrainVisible(true);
     setTerrainScale(view === 'seafloor' ? 60 : view === 'clouds' ? 1 : 20);
+    if (view === 'terrain') {
+      setTerrainScale(1);
+      setDetailEnabled(true);
+    }
     setOceanVisible(true);
     setOceanOpacity(view === 'seafloor' ? 0.12 : 0.22);
     setEarthFocus(
-      view === 'city'
-        ? { longitude: -74.012, latitude: 40.708, zoom: 6000 }
-        : view === 'seafloor'
-          ? { longitude: -30, latitude: 28, zoom: 1.8 }
-          : view === 'transport'
-            ? null
-            : { longitude: -75, latitude: 12, zoom: 1 },
+      view === 'terrain'
+        ? { longitude: -121.76, latitude: 46.86, zoom: 400 }
+        : view === 'city'
+          ? { longitude: -74.012, latitude: 40.708, zoom: 6000 }
+          : view === 'seafloor'
+            ? { longitude: -30, latitude: 28, zoom: 1.8 }
+            : view === 'transport'
+              ? null
+              : { longitude: -75, latitude: 12, zoom: 1 },
     );
     if (view === 'clouds') satellite.setIndex(Math.min(satellite.index, 11));
     if (view === 'satellite')
@@ -388,6 +403,7 @@ export default function WeatherLab() {
             <option value="satellite">01 / Satellite imagery</option>
             <option value="clouds">02 / Cloud-top heights</option>
             <option value="seafloor">03 / Land + seafloor</option>
+            <option value="terrain">Regional terrain / Rainier</option>
             <option value="city">04 / Built fabric</option>
             <option value="transport">05 / Transport + history</option>
           </select>
@@ -470,6 +486,9 @@ export default function WeatherLab() {
             }}
           />
           <ReliefControls
+            detailEnabled={detailEnabled}
+            setDetailEnabled={setDetailEnabled}
+            onTerrain={() => chooseView('terrain')}
             terrain={terrainVisible}
             setTerrain={setTerrainVisible}
             scale={terrainScale}
@@ -799,6 +818,8 @@ export default function WeatherLab() {
             <span>NORTH ATLANTIC / GLOBAL VIEW</span>
           </div>
           <Globe
+            detailEnabled={detailEnabled}
+            onTerrainStatus={setTerrainStatus}
             onInspect={setInspection}
             retrievedCloud={satellite.height.loaded}
             retrievedCloudVisible={satellite.heightEnabled}
@@ -867,7 +888,9 @@ export default function WeatherLab() {
                   ? satellite.lift
                     ? `Image lifted ${satellite.lift} km × ${depthScale} · assumed`
                     : 'Image on surface · height not encoded'
-                  : `Relief ${terrainScale}× · tracer height ${depthScale}×`}
+                  : terrainStatus.active
+                    ? 'Regional terrain 1× · source elevation'
+                    : `Relief ${terrainScale}× · tracer height ${depthScale}×`}
           </div>
           <div className="earth-reading">
             <span>
@@ -890,7 +913,9 @@ export default function WeatherLab() {
                     ? `${satellite.view.loaded?.product.label ?? satellite.product.label} · ${observedTime?.slice(11, 16) ?? 'Loading'} UTC`
                     : earthView === 'transport'
                       ? contribution.title
-                      : `NOAA ETOPO1 · relief ${terrainScale}×`}
+                      : earthView === 'terrain'
+                        ? 'Mount Rainier / USGS 3DEP + NAIP'
+                        : `NOAA ETOPO1 · relief ${terrainScale}×`}
             </p>
             <button onClick={() => setPanel('sources')}>
               {fabricFocus
@@ -901,8 +926,29 @@ export default function WeatherLab() {
                     ? 'What do the colours reveal? ↗'
                     : earthView === 'transport'
                       ? 'What is documented, and what is calculated? ↗'
-                      : 'What lies beneath the sea-level surface? ↗'}
+                      : earthView === 'terrain'
+                        ? 'How does resolution change what we see? ↗'
+                        : 'What lies beneath the sea-level surface? ↗'}
             </button>
+            {earthView === 'terrain' && (
+              <div className="tile-status" aria-live="polite">
+                {!detailEnabled
+                  ? 'Regional detail off / overview only'
+                  : terrainStatus.error ||
+                    (terrainStatus.active && terrainStatus.visible
+                      ? `Finest visible mesh ~${Math.round(487 / 2 ** terrainStatus.level)} m · source ~60 m${terrainStatus.loading ? ' / refining' : ''}`
+                      : 'Approach the region to load detail')}
+                <details>
+                  <summary>Coverage and loading</summary>
+                  <p>
+                    USGS regional archive · {terrainStatus.visible} visible /{' '}
+                    {terrainStatus.loaded} cached tiles. Aerial pixels ~8 m at
+                    the finest level. Outside this sample, Earth remains an
+                    overview.
+                  </p>
+                </details>
+              </div>
+            )}
             {satellite.heightEnabled && (
               <div
                 className="height-legend"
@@ -1534,9 +1580,11 @@ export default function WeatherLab() {
               <span>
                 {fabricFocus
                   ? 'OSM + USGS NAIP / local sample'
-                  : 'NOAA ETOPO1 / global overview'}
+                  : earthView === 'terrain'
+                    ? 'USGS 3DEP + NAIP / regional tiles'
+                    : 'NOAA ETOPO1 / global overview'}
               </span>
-              <p>Drag to orbit · scroll to zoom · click to inspect</p>
+              <p>Double-click to approach · click to inspect</p>
               <button onClick={() => setPanel('layers')}>
                 Adjust layers ↗
               </button>

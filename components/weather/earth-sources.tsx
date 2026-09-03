@@ -4,6 +4,17 @@ import { Button } from '@/components/ui/button';
 
 const datasets = [
   {
+    title: 'USGS 3DEP + NAIP / regional 3D Tiles',
+    kind: 'Modelled elevation + observed aerial mosaic',
+    detail:
+      'Mount Rainier sample. Four geometry/image levels load on approach. Archived elevation export: about 60 m sample spacing; aerial mosaic: about 8 m pixels. Regional coverage only.',
+    meaning:
+      'Bare-earth terrain is placed on a reference sphere at 1× height. Geometric refinement adds archived source detail, never new measurements. Tile-edge skirts hide display seams. Source elevation datums and acquisition records are retained in the catalogue; dates are not synchronized with weather layers.',
+    source:
+      'https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer',
+    archive: '/data/archive/rainier/manifest.json',
+  },
+  {
     title: 'GOES-19 / spectral imagery',
     kind: 'Observed · processed composite',
     detail:

@@ -24,10 +24,11 @@
 
 - [x] Add a time controller that keeps observation time separate from simulation time.
 - [x] Implement a low-resolution daily imagery adapter using NASA GIBS: six archived 2048 × 1024 WMS frames, local playback, scrubbing, opacity and provenance.
-- [ ] Add resolution-dependent imagery tiles for closer inspection; this first archive has a fixed global overview resolution.
+- [x] Add bounded resolution-dependent NAIP imagery tiles to the Rainier terrain sample.
+- [ ] Extend resolution-dependent imagery beyond Rainier, with coverage, licensing and source-date controls.
 - [ ] Add a regional 5–10-minute cloud loop adapter for GOES, Himawari, or Meteosat, with an explicit source label and frame timestamp.
 - [x] Bound the pilot cache to six overview frames, fetched on demand with next-frame preloading; no live NASA calls are made in participant browsers.
-- [x] Use an evicting four-entry GOES frame cache. A tile cache remains future work.
+- [x] Use an evicting four-entry GOES frame cache. Regional terrain now has its own bounded, evicting tile cache.
 
 ## Next: true depth
 
@@ -39,7 +40,11 @@
 - [x] Add a bounded OSM extrusion + NAIP aerial-texture city sample, with reported/assumed heights distinguished.
 - [x] Keep camera, imagery and particles in the same geographic 3D scene.
 - [x] Add building-level inspection of height provenance.
-- [ ] Add resolution-dependent terrain meshes and shared local terrain datums.
+- [x] Add a bounded regional OGC 3D Tiles terrain pyramid with progressively refined meshes/textures, source inspection and fallback.
+- [x] Add continuous globe/map/orbit navigation and explicit gesture hints.
+- [ ] Add shared, calibrated terrain datums and an ellipsoid-aware adapter for external ECEF tilesets.
+- [ ] Improve global/regional boundary transitions without hiding source coverage limits.
+- [ ] Extend the regional catalogue and stream urban geometry; the current Manhattan sample is still a single bounded load.
 - [x] Add ACHA cloud-top retrieval geometry with quality flags, source navigation, twelve matched scan windows and inspectable source heights.
 - [ ] Add ocean-current fields only with documented data and equations.
 - [ ] Add surveyed facades/photogrammetric 3D Tiles with licensing and provenance; remove the local flat city datum when suitable terrain is available.

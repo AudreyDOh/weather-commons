@@ -11,12 +11,13 @@
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
     "format": "oxfmt",
-    "check": "tsc --noEmit && node scripts/check-simulation.mjs && node scripts/check-case.mjs && node scripts/check-imagery.mjs && node scripts/check-goes.mjs && node scripts/check-earth.mjs && node scripts/check-cloud-height.mjs",
+    "check": "tsc --noEmit && node scripts/check-simulation.mjs && node scripts/check-case.mjs && node scripts/check-imagery.mjs && node scripts/check-goes.mjs && node scripts/check-earth.mjs && node scripts/check-cloud-height.mjs && node scripts/check-terrain.mjs",
     "data:popeye": "node scripts/fetch-case.mjs && node scripts/prepare-geography.mjs && node scripts/check-case.mjs",
     "data:imagery": "node scripts/fetch-imagery.mjs",
     "data:goes": "node scripts/fetch-goes.mjs"
   },
   "dependencies": {
+    "3d-tiles-renderer": "^0.5.2",
     "@base-ui/react": "1.7.0",
     "@shadcn/react": "0.3.0",
     "class-variance-authority": "0.7.1",

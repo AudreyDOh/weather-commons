@@ -1,4 +1,44 @@
 /* One quiet reading surface around a colour-rich scientific scene. */
+.earth-workspace .navigation-hint {
+  position: absolute;
+  left: 28px;
+  bottom: 14px;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  max-width: 560px;
+  font-size: 12px;
+  line-height: 1.6;
+  background: var(--panel);
+  padding: 6px 10px;
+  pointer-events: none;
+}
+.earth-workspace .navigation-hint button {
+  pointer-events: auto;
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.earth-workspace .tile-status {
+  pointer-events: auto;
+  font-size: 12px;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+@media (max-width: 760px) {
+  .earth-workspace .navigation-hint {
+    left: 16px;
+    right: 16px;
+    bottom: 64px;
+    max-width: none;
+    gap: 4px;
+    font-size: 12px;
+  }
+  .earth-workspace .navigation-hint span:nth-child(2) {
+    display: none;
+  }
+}
 .earth-workspace {
   --background: #fafaf7;
   --foreground: #171b1d;

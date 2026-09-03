@@ -26,3 +26,13 @@ Chromium with WebGL, desktop 1440 × 960 and mobile 390 × 844:
 - Test on integrated GPUs, touch devices and lower-bandwidth connections before a workshop release.
 - Replace overview relief and the local flat city datum before street-scale analysis. Assess footprints, imagery dates and height conventions for each new city sample.
 - Test persistent participant storage and permissions once those services exist; this local pilot has no shared accounts or contribution backend.
+
+## Milestone 07: navigation and regional streaming
+
+`pnpm check` additionally verifies every Rainier source/derived hash, 85 GLB headers and buffer layouts, four quadtree levels, transforms against source-grid heights within 1 m at selected surface vertices, geographic bounds, longitude wrapping, camera-mode thresholds, continuous tilt and heading-aware pan math.
+
+Chromium/WebGL desktop review exercised globe → map → orbit, orbit drag, wheel approach, the city pan toggle, single-click terrain inspection and double-click approach without an unwanted inspector. The reviewed terrain click returned an archived 4,144 m sample. No regional GLBs were requested in the initial globe view; the Rainier preset initially requested five tiles, then refined from ~244 m to ~61 m mesh spacing on approach. A 390 × 844 viewport had no horizontal document overflow. No page errors occurred in these interactions.
+
+A deliberate network failure blocked level 2/3 GLBs. The app retained the five downloaded ancestors in cache; when the tile renderer reported zero visible regional tiles, the global overview remained available. The status showed the failure and actual visible/cache counts. Re-entering after restoring the connection cleared the error and rendered regional detail again. This checks overview fallback, not a guarantee that the tile library always draws a regional ancestor after every failure. Coverage disclosure initially intercepted no clicks because of inherited pointer-event styling; this was corrected and retested. Physical-device pinch ergonomics and low-end GPU memory still require workshop hardware testing.
+
+The regional archive boundary remains visibly distinct against the coarse global overview. It is a finite coverage sample, not seamless worldwide terrain. The cache settings are estimated eviction targets; observed request counts are not simultaneous resident-tile counts. The existing large-client-chunk build advisory remains an optimization task.

@@ -20,7 +20,7 @@ The local pilot opens at the URL printed by `pnpm dev`. It has no accounts, serv
 
 The opening view is one rotatable **3D Earth**. **Explore** switches between imagery, cloud-top height, land/seafloor, built fabric and transport/history. Click **Sources** for the dataset ledger, or click the Earth to inspect a source sample. **Earth** opens layer controls: choose a GOES product, play its ten-minute archive, change opacity, inspect Atlantic relief, or enter a bounded Lower Manhattan building sample. **Paper / White** switches to a dark background. Satellite colours retain NOAA's processing; navigation of the published JPEGs uses an explicitly approximate GOES fixed-grid registration.
 
-Land and seafloor are a displaced NOAA ETOPO1 mesh, with a separate transparent sea-level surface. The city sample combines 522 OpenStreetMap building extrusions with USGS NAIP ground/roof imagery. These layers share a Three.js depth buffer with vectors, sites and calculated tracers. Twelve matched NOAA ACHA cloud-top-height grids are now triangulated as a separate, quality-masked surface. A 0–20 km colour legend and 1×/20×/50×/100× height scales distinguish retrieval values from display exaggeration. Terrain tiles and photogrammetric facades remain future work.
+Land and seafloor are a displaced NOAA ETOPO1 mesh, with a separate transparent sea-level surface. The city sample combines 522 OpenStreetMap building extrusions with USGS NAIP ground/roof imagery. These layers share a Three.js depth buffer with vectors, sites and calculated tracers. Twelve matched NOAA ACHA cloud-top-height grids are now triangulated as a separate, quality-masked surface. A 0–20 km colour legend and 1×/20×/50×/100× height scales distinguish retrieval values from display exaggeration. A bounded Mount Rainier sample now streams USGS 3DEP terrain and NAIP aerial textures as OGC 3D Tiles. Photogrammetric facades remain future work.
 
 - A fast, browser-worker passive-tracer simulation with documented assumptions, reproducible seeded runs, 3D height, diffusion, decay, and grid boundaries.
 - Two studies: a synthetic Atlantic teaching field and an archival Project Popeye study based on a deliberately limited 1966 ERA5 reanalysis snapshot.
@@ -33,6 +33,12 @@ Land and seafloor are a displaced NOAA ETOPO1 mesh, with a separate transparent 
 It is not a forecast, an atmospheric-dynamics solver, an exposure assessment, a weather-modification reconstruction, or a decision tool. Refer to [SOURCES.md](SOURCES.md) for evidentiary scope.
 
 The bottom timeline follows the current view: dated observation frames for satellite/cloud layers, elapsed model time for transport. **Conditions → Active study** switches between the two teaching studies. These clocks are independent.
+
+## Moving through scales
+
+Choose **Explore → Regional terrain / Rainier**. Scroll or pinch to approach; drag rotates the globe, pans at regional scale, and orbits at close range. The camera tilts gradually without changing scenes. **Shift-drag** swaps pan and orbit; **Use pan** offers the same choice without a modifier key. Double-click a surface to approach that location; single-click to inspect its source. Arrow keys pan, Shift-arrow keys orbit, and +/− zoom.
+
+Rainier is a finite ~32 km regional archive, with four levels of geometry and aerial texture. The interface reports the finest visible mesh spacing: roughly 487, 244, 122 or 61 m. The best archived aerial pixels are ~8 m. Zooming past those limits adds no source detail. Regional elevation stays at 1×; global relief and cloud exaggeration remain separate. See [docs/STREAMING.md](docs/STREAMING.md) for the architecture and what a global service would add.
 
 ## Repository map
 

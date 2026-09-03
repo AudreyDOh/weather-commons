@@ -24,11 +24,15 @@ Milestone 05 adds a dedicated GOES instrument view with GeoColor, Airmass RGB, S
 
 Replaces the separate GOES viewer and 2D overlay compositor with a shared Three.js scene. Nominal GOES geographic sampling, full-colour observation playback, sourced ETOPO1 terrain/seafloor, transparent water, atmospheric shells, depth-tested vectors/tracers, and an OSM/NAIP urban sample. White/dark interface, regular bundled Libre Franklin, accessible sliders and revised mobile navigation. Archived inputs, transforms, limits and geometric checks accompany the build. Adds NOAA ACHA cloud-top retrieval geometry, quality masking, independent height scales, a source catalogue, source-sample/building inspection and five guided views. Contextual timelines separate source scans from elapsed simulation time. No solver or deployment change.
 
+## 07 — Continuous navigation and streamed terrain
+
+Adds globe/map/orbit camera behavior in the same scene, progressive tilt, heading-aware panning, pinch zoom, double-click approach and a close-range pan toggle. A real USGS 3DEP/NAIP Mount Rainier archive becomes 85 OGC 3D Tiles with four geometry/texture levels, lazy loading, configured cache/request/parse budgets and coarse fallback. Source inspection and UI labels distinguish current mesh spacing, archived resolution, finite coverage and 1× source heights. Raw responses, catalogue metadata, generation script and geometry/hash checks are included. No solver or deployment change.
+
 ## Next bounded milestone
 
-Validation for milestone 06 is recorded in [VALIDATION.md](VALIDATION.md). The repository remains private and no website deployment is included.
+Validation for milestones 06–07 is recorded in [VALIDATION.md](VALIDATION.md). The repository remains private and no website deployment is included.
 
-Replace approximate JPEG colour registration with calibrated ABI channel/RGB reprojection and assess parallax against the ACHA layer. Add tiled regional terrain and extend participant packages beyond wind fields. Preserve scan time, solver time, retrieved height and display exaggeration as separate quantities.
+Replace approximate JPEG colour registration with calibrated ABI channel/RGB reprojection and assess parallax against the ACHA layer. Extend regional coverage with calibrated height/reference adapters and extend participant packages beyond wind fields. Preserve scan time, solver time, retrieved height and display exaggeration as separate quantities.
 
 ## Recording policy
 

@@ -5,3 +5,4 @@ public/data/archive/** -text
 *.f32 binary
 *.nc binary
 *.tif binary
+*.glb binary
