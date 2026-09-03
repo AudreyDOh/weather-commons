@@ -24,6 +24,7 @@ The local pilot opens at the URL printed by `pnpm dev`. It has no accounts, serv
 - An evidence casebook that marks observed/reanalyzed input, synthetic assumptions, calculation, archival claims, and non-inference.
 - Validated portable JSON contributions for workshop research and narration.
 - A dated satellite observation sequence: open **Layers → Show sequence**, then play, scrub, or blend six NASA Terra/MODIS daily mosaics. Its 2024 observation clock is independent of the simulation clock.
+- **Cloud isolation** removes dark and strongly coloured pixels approximately. Under **Cloud mask & height**, set an assumed shell height and choose 1×, 50× or 200× exaggeration. This is a thin image shell, not measured or volumetric clouds. **Original satellite mosaic** restores the ground-level image.
 
 It is not a forecast, an atmospheric-dynamics solver, an exposure assessment, a weather-modification reconstruction, or a decision tool. Refer to [SOURCES.md](SOURCES.md) for evidentiary scope.
 

@@ -29,23 +29,47 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
     precision highp float;
     uniform vec2 resolution; uniform vec3 camera; uniform float radius;
     uniform sampler2D earth; uniform sampler2D observation;
-    uniform float observationOpacity; out vec4 color;
+    uniform float observationOpacity;
+    uniform bool cloudOnly;
+    uniform float cloudRadius, cloudThreshold;
+    out vec4 color;
+    vec2 sphereUV(vec2 q){
+      float z=sqrt(max(0.,1.-dot(q,q))), c=cos(camera.y), s=sin(camera.y);
+      float latitude=asin(clamp(q.y*c+z*s,-1.,1.));
+      float longitude=camera.x+atan(q.x,z*c-q.y*s);
+      return vec2(fract(longitude/6.2831853+.5),.5-latitude/3.14159265);
+    }
     void main(){
       vec2 q=(gl_FragCoord.xy-resolution*.5)/radius;
       float d=dot(q,q);
       vec3 bg=vec3(.0235);
-      if(d>1.){float glow=exp(-(sqrt(d)-1.)*55.)*.07;color=vec4(bg+glow,1.);return;}
-      float z=sqrt(1.-d), c=cos(camera.y), s=sin(camera.y);
-      float latitude=asin(clamp(q.y*c+z*s,-1.,1.));
-      float longitude=camera.x+atan(q.x,z*c-q.y*s);
-      vec2 uv=vec2(fract(longitude/6.2831853+.5),.5-latitude/3.14159265);
-      vec3 tex=texture(earth,uv).rgb;
-      vec4 observed=texture(observation,uv);
-      tex=mix(tex,observed.rgb,observed.a*observationOpacity);
-      float gray=dot(tex,vec3(.2126,.7152,.0722));
-      tex=mix(vec3(gray),tex,.025);
-      float light=.38+.62*max(0.,dot(vec3(q,z),normalize(vec3(-.35,.45,1.))));
-      color=vec4(tex*light*.9+vec3(.018,.022,.024)*pow(1.-z,3.),1.);
+      vec3 result=bg;
+      if(d>1.) result+=exp(-(sqrt(d)-1.)*55.)*.07;
+      if(d<=1.){
+        float z=sqrt(1.-d);
+        vec2 uv=sphereUV(q);
+        vec3 tex=texture(earth,uv).rgb;
+        if(!cloudOnly){
+          vec4 observed=texture(observation,uv);
+          tex=mix(tex,observed.rgb,observed.a*observationOpacity);
+        }
+        float gray=dot(tex,vec3(.2126,.7152,.0722));
+        tex=mix(vec3(gray),tex,.025);
+        float light=.38+.62*max(0.,dot(vec3(q,z),normalize(vec3(-.35,.45,1.))));
+        result=tex*light*.9+vec3(.018,.022,.024)*pow(1.-z,3.);
+      }
+      if(cloudOnly && observationOpacity>0. && d<=cloudRadius*cloudRadius){
+        vec2 cq=q/cloudRadius;
+        vec4 sampleColor=texture(observation,sphereUV(cq));
+        float bright=dot(sampleColor.rgb,vec3(.2126,.7152,.0722));
+        float chroma=max(max(sampleColor.r,sampleColor.g),sampleColor.b)-min(min(sampleColor.r,sampleColor.g),sampleColor.b);
+        // A display heuristic, not MOD35 cloud classification or measured height.
+        float mask=smoothstep(cloudThreshold,cloudThreshold+.22,bright)*(1.-smoothstep(.10,.32,chroma))*sampleColor.a;
+        float cz=sqrt(max(0.,1.-dot(cq,cq)));
+        float light=.55+.45*max(0.,dot(vec3(cq,cz),normalize(vec3(-.35,.45,1.))));
+        result=mix(result,vec3(bright*light),mask*observationOpacity);
+      }
+      color=vec4(result,1.);
     }`,
   );
   const program = gl.createProgram()!;
@@ -104,6 +128,12 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
     program,
     'observationOpacity',
   );
+  const cloudUniforms = ['cloudOnly', 'cloudRadius', 'cloudThreshold'].map(
+    (name) => gl.getUniformLocation(program, name),
+  );
+  let cloudMode = true,
+    cloudRadius = 1,
+    threshold = 0.5;
   gl.activeTexture(gl.TEXTURE0);
   gl.bindTexture(gl.TEXTURE_2D, texture);
   let observationImage: HTMLImageElement | null = null;
@@ -140,6 +170,24 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
   };
   image.src = '/data/earth-january-2004.jpg';
   return {
+    setCloudLayer(
+      enabled: boolean,
+      heightKm: number,
+      scale: number,
+      cutoff: number,
+    ) {
+      const nextRadius = 1 + (heightKm * scale) / 6371;
+      if (
+        enabled === cloudMode &&
+        nextRadius === cloudRadius &&
+        cutoff === threshold
+      )
+        return false;
+      cloudMode = enabled;
+      cloudRadius = nextRadius;
+      threshold = cutoff;
+      return true;
+    },
     setObservation(input: HTMLImageElement | null, opacity: number) {
       const nextOpacity = input ? opacity : 0;
       if (input === observationImage && nextOpacity === observationOpacity)
@@ -185,6 +233,9 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
       );
       gl.uniform1f(uniforms[2], radius);
       gl.uniform1f(observationUniform, observationOpacity);
+      gl.uniform1i(cloudUniforms[0], cloudMode ? 1 : 0);
+      gl.uniform1f(cloudUniforms[1], cloudRadius);
+      gl.uniform1f(cloudUniforms[2], threshold);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       return canvas;
     },

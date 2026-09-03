@@ -578,6 +578,10 @@ export default function WeatherLab() {
           <Globe
             observationImage={observation.image}
             observationOpacity={observation.opacity}
+            cloudOnly={observation.cloudOnly}
+            cloudHeightKm={observation.cloudHeightKm}
+            cloudScale={observation.cloudScale}
+            cloudThreshold={observation.cloudThreshold}
             snapshot={snapshot}
             contribution={contribution}
             focus={
@@ -610,7 +614,8 @@ export default function WeatherLab() {
             }}
           />
           <div className="depth-caption">
-            Height {depthScale === 1 ? 'at true scale' : '×' + depthScale} ·
+            Tracer height{' '}
+            {depthScale === 1 ? 'at true scale' : '×' + depthScale} ·
             calculated, not observed
           </div>
           {observation.enabled && (
@@ -618,7 +623,18 @@ export default function WeatherLab() {
               className="observation-caption"
               onClick={() => setPanel('layers')}
             >
-              <span>Observed / {observation.displayedDate ?? 'Loading'}</span>
+              <span>
+                {observation.cloudOnly
+                  ? 'Approximate cloud mask'
+                  : 'Observed mosaic'}{' '}
+                / {observation.displayedDate ?? 'Loading'}
+              </span>
+              {observation.cloudOnly && (
+                <span>
+                  Assumed {observation.cloudHeightKm} km ·{' '}
+                  {observation.cloudScale}× height · unmeasured
+                </span>
+              )}
               <span>
                 Terra · MODIS · daily mosaic · separate from model time
               </span>

@@ -2461,6 +2461,16 @@ body {
   letter-spacing: .07em;
 }
 .observation-controls summary { cursor: pointer; padding: 10px 0; }
+.observation-controls select {
+  width: 100%;
+  border: 1px solid #ffffff30;
+  padding: 9px 5px;
+  background: #141414;
+  color: #ddd9d0;
+  font: inherit;
+  font-size: var(--type-meta);
+  text-transform: uppercase;
+}
 .observation-controls a { display: block; padding: 8px 0; text-decoration: underline; }
 .observation-caption {
   position: absolute;

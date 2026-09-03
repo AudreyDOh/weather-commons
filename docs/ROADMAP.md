@@ -25,6 +25,10 @@
 
 ## Next: true depth
 
+- [x] Add approximate visual cloud isolation on a separate shell with explicit assumed height, true-scale and exaggerated-scale controls.
+- [ ] Replace brightness isolation with a quality-screened scientific cloud mask (MOD35/MYD35) and pair it with compatible cloud-top retrievals (MOD06/MYD06). Preserve missing swaths and record acquisition-time alignment.
+- [ ] Move particles, vector layers and shells into a shared depth-tested renderer before claiming physically correct occlusion between all layers.
+
 - [ ] Replace the smooth ground sphere with a terrain/bathymetry mesh driven by GEBCO and a terrain source.
 - [ ] Render independent ground, bathymetry, ocean-current, cloud, atmospheric, vector, and institutional layers.
 - [ ] Keep camera, imagery, and particle rendering in compatible geographic projections.

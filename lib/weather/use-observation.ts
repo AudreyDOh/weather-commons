@@ -10,6 +10,10 @@ export function useObservation() {
   const [playing, setPlaying] = useState(false);
   const [index, setIndex] = useState(0);
   const [opacity, setOpacity] = useState(1);
+  const [cloudOnly, setCloudOnly] = useState(true);
+  const [cloudHeightKm, setCloudHeightKm] = useState(6);
+  const [cloudScale, setCloudScale] = useState(50);
+  const [cloudThreshold, setCloudThreshold] = useState(0.5);
   const [displayed, setDisplayed] = useState<{
     image: HTMLImageElement;
     date: string;
@@ -95,6 +99,14 @@ export function useObservation() {
     },
     opacity,
     setOpacity,
+    cloudOnly,
+    setCloudOnly,
+    cloudHeightKm,
+    setCloudHeightKm,
+    cloudScale,
+    setCloudScale,
+    cloudThreshold,
+    setCloudThreshold,
     status,
     displayedDate: displayed?.date ?? null,
     image: enabled ? (displayed?.image ?? null) : null,

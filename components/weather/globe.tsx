@@ -11,6 +11,10 @@ import type { Contribution, Snapshot } from '@/lib/weather/types';
 type Props = {
   observationImage: HTMLImageElement | null;
   observationOpacity: number;
+  cloudOnly: boolean;
+  cloudHeightKm: number;
+  cloudScale: number;
+  cloudThreshold: number;
   snapshot: Snapshot | null;
   contribution: Contribution;
   focus: { longitude: number; latitude: number; zoom?: number };
@@ -168,6 +172,15 @@ export default function Globe(props: Props) {
       lastFrame = now;
       const state = current.current;
       if (
+        surface?.setCloudLayer(
+          state.cloudOnly,
+          state.cloudHeightKm,
+          state.cloudScale,
+          state.cloudThreshold,
+        )
+      )
+        baseDirty = true;
+      if (
         surface?.setObservation(
           state.observationImage,
           state.observationOpacity,
@@ -223,12 +236,13 @@ export default function Globe(props: Props) {
         b.strokeStyle = '#4a626944';
         b.lineWidth = 1;
         b.stroke();
+        // Draw the full GPU frame before the ground clip, so the cloud shell can extend above the limb.
+        const earth = surface?.draw(base.width, base.height, lon, lat, r * dpr);
+        if (earth) b.drawImage(earth, 0, 0, width, height);
         b.save();
         b.beginPath();
         b.arc(cx, cy, r - 0.5, 0, Math.PI * 2);
         b.clip();
-        const earth = surface?.draw(base.width, base.height, lon, lat, r * dpr);
-        if (earth) b.drawImage(earth, 0, 0, width, height);
         if (state.gridVisible) {
           b.strokeStyle = '#69818a21';
           b.lineWidth = 0.65;

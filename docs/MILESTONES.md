@@ -10,6 +10,8 @@ Six genuine NASA GIBS Terra/MODIS daily mosaics, 24–29 September 2024, rendere
 
 ## Next bounded milestone
 
+Milestone 03 adds approximate GPU cloud isolation, explicit missing-swath explanation, an independent spherical cloud shell, assumed-height and exaggeration controls, and an unambiguous tracer-height caption. Ground-level source imagery remains selectable. Real cloud mask/height retrievals and fully shared depth testing remain open tasks.
+
 Add a regional geostationary cloud sequence with a precise acquisition-time catalogue, before attempting cloud-height products or terrain/bathymetry meshes. Preserve the distinctions between displayed acquisition time, model time, cloud appearance, and measured height. Introduce dynamic-resolution tiles when deeper zoom is addressed.
 
 ## Recording policy

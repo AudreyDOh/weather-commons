@@ -11,6 +11,8 @@
 
 ## Deliberate limits
 
+Cloud isolation now removes darker and strongly coloured pixels using a GPU display heuristic. It is not NASA MOD35 classification: snow/ice/bright terrain can leak through and thin clouds can disappear. The extracted texture sits on a separate front-facing spherical shell, default assumed height 6 km at 50× exaggeration. Controls allow 0–12 km and 1×/50×/200×. The original mosaic remains a ground-level layer. Cloud geometry is not volumetric; tracers and vector annotations remain foreground overlays rather than a shared depth-tested scene. Missing swath coverage stays missing in both modes.
+
 The pilot is not an operational forecast, a cloud microphysics model, an exposure model, or a reconstruction of Project Popeye. The historical wind field is one 00:00 UTC 100 m reanalysis frame held constant. The Earth is an orthographic sphere with a static 2004 background and an optional 2024 daily satellite archive. Terrain and bathymetry are not yet meshes, and no live feed or shared storage is connected. Satellite images combine surface and clouds without measured cloud heights. The observation date never alters the solver's time or wind.
 
 ## Verification
