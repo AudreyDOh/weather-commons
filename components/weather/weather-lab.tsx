@@ -25,7 +25,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import Globe from './globe';
-import GoesLab from './goes-lab';
+import { SatelliteControls, ReliefControls } from './earth-controls';
+import { EarthSources } from './earth-sources';
+import type { EarthInspection } from '@/lib/weather/earth-inspection';
+import { useSatellite } from '@/lib/weather/use-satellite';
 import { ObservationControls } from './observation-controls';
 import { useObservation } from '@/lib/weather/use-observation';
 import Casebook, { GeographicAnalysis } from './casebook';
@@ -60,7 +63,20 @@ function saveFile(filename: string, value: unknown) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 export default function WeatherLab() {
-  const [goesOpen, setGoesOpen] = useState(true);
+  const [inspection, setInspection] = useState<EarthInspection | null>(null);
+  const satellite = useSatellite();
+  const [lightBackground, setLightBackground] = useState(true),
+    [terrainVisible, setTerrainVisible] = useState(true),
+    [terrainScale, setTerrainScale] = useState(20),
+    [oceanVisible, setOceanVisible] = useState(true),
+    [oceanOpacity, setOceanOpacity] = useState(0.22),
+    [buildingsVisible, setBuildingsVisible] = useState(false),
+    [fabricFocus, setFabricFocus] = useState(false);
+  const [earthFocus, setEarthFocus] = useState<{
+    longitude: number;
+    latitude: number;
+    zoom: number;
+  } | null>({ longitude: -75.2, latitude: 12, zoom: 1 });
   const observation = useObservation();
   const [contribution, setContribution] = useState<Contribution>(popeye),
     [draft, setDraft] = useState<Parameters>(popeye.parameters),
@@ -68,7 +84,7 @@ export default function WeatherLab() {
     [running, setRunning] = useState(false),
     [speed, setSpeed] = useState(1),
     [tab, setTab] = useState('experiment'),
-    [panel, setPanel] = useState('casebook'),
+    [panel, setPanel] = useState(''),
     [guide, setGuide] = useState(-1),
     [coastVisible, setCoastVisible] = useState(true),
     [bordersVisible, setBordersVisible] = useState(true),
@@ -94,7 +110,7 @@ export default function WeatherLab() {
   useEffect(() => {
     const escape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setGoesOpen(false);
+        setInspection(null);
         setPanel('');
         setGuide(-1);
         setChapter(-1);
@@ -143,6 +159,11 @@ export default function WeatherLab() {
     return () => document.removeEventListener('visibilitychange', pause);
   }, [running]);
   const run = (c: Contribution) => {
+    setEarthFocus(null);
+    setFabricFocus(false);
+    satellite.setEnabled(false);
+    satellite.setHeightEnabled(false);
+    satellite.setPlaying(false);
     setContribution(c);
     setDraft(c.parameters);
     setSnapshot(empty);
@@ -182,6 +203,11 @@ export default function WeatherLab() {
     if (file.current) file.current.value = '';
   };
   const selectStudy = (c: Contribution) => {
+    setEarthFocus(null);
+    setFabricFocus(false);
+    satellite.setEnabled(false);
+    satellite.setHeightEnabled(false);
+    satellite.setPlaying(false);
     run(c);
     setRunning(false);
     worker.current?.postMessage({ type: 'running', value: false });
@@ -212,8 +238,64 @@ export default function WeatherLab() {
     setPlacesVisible(step === 5);
     setSectionVisible(false);
   };
+  const earthView = fabricFocus
+    ? 'city'
+    : satellite.heightEnabled
+      ? 'clouds'
+      : satellite.enabled
+        ? 'satellite'
+        : earthFocus
+          ? 'seafloor'
+          : 'transport';
+  const chooseView = (view: string) => {
+    setInspection(null);
+    setPanel('');
+    setGuide(-1);
+    setChapter(-1);
+    setSite(null);
+    setRunning(false);
+    satellite.setPlaying(false);
+    satellite.setHeightEnabled(view === 'clouds');
+    satellite.setEnabled(view === 'satellite');
+    observation.setEnabled(false);
+    setFabricFocus(view === 'city');
+    setBuildingsVisible(view === 'city');
+    setTerrainVisible(true);
+    setTerrainScale(view === 'seafloor' ? 60 : view === 'clouds' ? 1 : 20);
+    setOceanVisible(true);
+    setOceanOpacity(view === 'seafloor' ? 0.12 : 0.22);
+    setEarthFocus(
+      view === 'city'
+        ? { longitude: -74.012, latitude: 40.708, zoom: 6000 }
+        : view === 'seafloor'
+          ? { longitude: -30, latitude: 28, zoom: 1.8 }
+          : view === 'transport'
+            ? null
+            : { longitude: -75, latitude: 12, zoom: 1 },
+    );
+    if (view === 'clouds') satellite.setIndex(Math.min(satellite.index, 11));
+    if (view === 'satellite')
+      satellite.setIndex(
+        Math.min(satellite.index, satellite.product.frames.length - 1),
+      );
+    if (view === 'transport') {
+      setRegionZoom(5);
+      setPanel('casebook');
+      setPlacesVisible(true);
+    }
+  };
+  const observedTime = satellite.heightEnabled
+    ? satellite.height.manifest.frames[
+        satellite.height.loaded?.index ?? satellite.index
+      ].start
+    : satellite.view.loaded?.frame.time;
   return (
-    <main className={'weather-app' + (goesOpen ? ' is-goes' : '')}>
+    <main
+      className={
+        'weather-app earth-workspace ' +
+        (lightBackground ? 'paper-theme' : 'night-theme')
+      }
+    >
       <header className="topbar">
         <Link className="brand" href="/" aria-label="Weather Commons home">
           <span className="brand-symbol">
@@ -235,30 +317,26 @@ export default function WeatherLab() {
         <nav aria-label="Workspace">
           <Button
             variant="ghost"
-            aria-expanded={goesOpen}
-            className={goesOpen ? 'nav-active' : ''}
+            aria-expanded={panel === 'layers'}
+            className={panel === 'layers' ? 'nav-active' : ''}
             onClick={() => {
-              setGoesOpen((value) => !value);
-              setRunning(false);
-              observation.setPlaying(false);
+              setPanel(panel === 'layers' ? '' : 'layers');
             }}
           >
-            GOES
+            Earth
           </Button>
-          {[
-            'casebook',
-            'experiment',
-            'layers',
-            'infrastructure',
-            'evidence',
-          ].map((p) => (
+          {['casebook', 'experiment', 'infrastructure', 'evidence'].map((p) => (
             <Button
               key={p}
               variant="ghost"
               aria-expanded={panel === p}
               className={panel === p ? 'nav-active' : ''}
               onClick={() => {
-                setGoesOpen(false);
+                setFabricFocus(false);
+                setEarthFocus(null);
+                satellite.setEnabled(false);
+                satellite.setHeightEnabled(false);
+                satellite.setPlaying(false);
                 if (p === 'casebook' && !isCase) {
                   setGuide(guide >= 0 ? -1 : 0);
                   setPanel('');
@@ -286,12 +364,92 @@ export default function WeatherLab() {
             Contribute <Plus size={12} />
           </Button>
         </nav>
+        <Button
+          className="theme-switch"
+          variant="ghost"
+          aria-label="Toggle white or dark background"
+          onClick={() => setLightBackground((v) => !v)}
+        >
+          {lightBackground ? 'Paper / White' : 'Space / Dark'}
+        </Button>
         <div className="top-status">
           <span className="live-dot" /> LOCAL RESEARCH LAB{' '}
           <span className="version">PILOT / 0.1</span>
         </div>
       </header>
-      <section className="workspace" inert={goesOpen}>
+      <section className="workspace">
+        <div className="view-picker" aria-label="Ways into the Earth">
+          <label htmlFor="earth-view">Explore</label>
+          <select
+            id="earth-view"
+            value={earthView}
+            onChange={(e) => chooseView(e.target.value)}
+          >
+            <option value="satellite">01 / Satellite imagery</option>
+            <option value="clouds">02 / Cloud-top heights</option>
+            <option value="seafloor">03 / Land + seafloor</option>
+            <option value="city">04 / Built fabric</option>
+            <option value="transport">05 / Transport + history</option>
+          </select>
+          <button
+            onClick={() => setPanel(panel === 'sources' ? '' : 'sources')}
+            aria-expanded={panel === 'sources'}
+          >
+            Sources ↗
+          </button>
+        </div>
+        {panel === 'sources' && <EarthSources onClose={() => setPanel('')} />}
+        {inspection && (
+          <aside className="earth-inspector" aria-label="Inspect source sample">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              className="panel-close"
+              aria-label="Close inspection"
+              onClick={() => setInspection(null)}
+            >
+              <X />
+            </Button>
+            <span>{inspection.kind} / source sample</span>
+            <h2>{inspection.title}</h2>
+            <p className="inspection-value">
+              {inspection.value.toLocaleString()} m{' '}
+              {inspection.kind === 'relief'
+                ? 'relative to sea level'
+                : inspection.kind === 'building'
+                  ? 'building height'
+                  : inspection.kind === 'cloud'
+                    ? 'cloud-top height'
+                    : 'display datum'}
+            </p>
+            <span>
+              {Math.abs(inspection.latitude).toFixed(3)}°{' '}
+              {inspection.latitude >= 0 ? 'N' : 'S'} /{' '}
+              {Math.abs(inspection.longitude).toFixed(3)}°{' '}
+              {inspection.longitude >= 0 ? 'E' : 'W'}
+            </span>
+            {inspection.index !== undefined && (
+              <p>
+                Scan{' '}
+                {satellite.height.manifest.frames[inspection.index].start.slice(
+                  11,
+                  19,
+                )}
+                –
+                {satellite.height.manifest.frames[inspection.index].end.slice(
+                  11,
+                  19,
+                )}{' '}
+                UTC / 03 Sep 2026
+              </p>
+            )}
+            <p>{inspection.note}</p>
+            <a href={inspection.source} target="_blank" rel="noreferrer">
+              Inspect source record ↗
+            </a>
+          </aside>
+        )}
+
         <aside className="intro" hidden={panel !== 'layers'}>
           <Button
             className="panel-close"
@@ -303,7 +461,56 @@ export default function WeatherLab() {
             <X />
           </Button>
           <div className="eyebrow">A COLLECTIVE ATMOSPHERIC INQUIRY</div>
-          <ObservationControls observation={observation} />
+          <SatelliteControls
+            satellite={satellite}
+            onLocate={() => {
+              setFabricFocus(false);
+              setEarthFocus({ longitude: -75.2, latitude: 12, zoom: 1 });
+              satellite.setEnabled(true);
+            }}
+          />
+          <ReliefControls
+            terrain={terrainVisible}
+            setTerrain={setTerrainVisible}
+            scale={terrainScale}
+            setScale={setTerrainScale}
+            ocean={oceanVisible}
+            setOcean={setOceanVisible}
+            opacity={oceanOpacity}
+            setOpacity={setOceanOpacity}
+            buildings={buildingsVisible}
+            setBuildings={setBuildingsVisible}
+            onRelief={() => {
+              satellite.setEnabled(false);
+              satellite.setHeightEnabled(false);
+              satellite.setPlaying(false);
+              observation.setEnabled(false);
+              setFabricFocus(false);
+              setTerrainVisible(true);
+              setTerrainScale(60);
+              setOceanOpacity(0.12);
+              setEarthFocus({ longitude: -30, latitude: 28, zoom: 1.8 });
+            }}
+            onBuildings={() => {
+              satellite.setHeightEnabled(false);
+              setBuildingsVisible(true);
+              setFabricFocus(true);
+              satellite.setPlaying(false);
+              setEarthFocus({
+                longitude: -74.012,
+                latitude: 40.708,
+                zoom: 6000,
+              });
+            }}
+          />
+          <details className="legacy-observation">
+            <summary>Earlier MODIS archive</summary>
+            <ObservationControls observation={observation} />
+            <p>
+              Hide GOES to view MODIS on the globe. The two archives have
+              different dates.
+            </p>
+          </details>
           <h1>
             Realtime
             <br />
@@ -592,7 +799,22 @@ export default function WeatherLab() {
             <span>NORTH ATLANTIC / GLOBAL VIEW</span>
           </div>
           <Globe
-            suspended={goesOpen}
+            onInspect={setInspection}
+            retrievedCloud={satellite.height.loaded}
+            retrievedCloudVisible={satellite.heightEnabled}
+            retrievedCloudScale={satellite.heightScale}
+            transportVisible={earthView === 'transport'}
+            lightBackground={lightBackground}
+            terrainVisible={terrainVisible}
+            terrainScale={terrainScale}
+            oceanVisible={oceanVisible}
+            oceanOpacity={oceanOpacity}
+            buildingsVisible={buildingsVisible}
+            fabricFocus={fabricFocus}
+            goesImage={satellite.view.loaded?.image ?? null}
+            goesEnabled={satellite.enabled}
+            goesOpacity={satellite.opacity}
+            satelliteLiftKm={satellite.lift}
             observationImage={observation.image}
             observationOpacity={observation.opacity}
             cloudOnly={observation.cloudOnly}
@@ -604,9 +826,10 @@ export default function WeatherLab() {
             snapshot={snapshot}
             contribution={contribution}
             focus={
-              site !== null
+              earthFocus ??
+              (site !== null
                 ? { ...activeSites[site], zoom: isCase ? 8 : 2 }
-                : focus
+                : focus)
             }
             windVisible={windVisible}
             gridVisible={gridVisible}
@@ -617,6 +840,7 @@ export default function WeatherLab() {
             depthScale={depthScale}
             atmosphereVisible={atmosphereVisible}
             onFps={setFps}
+            onReset={() => chooseView('satellite')}
             networkVisible={
               placesVisible && (isCase || contribution.id === atlantic.id)
             }
@@ -626,6 +850,8 @@ export default function WeatherLab() {
             caseGeography={isCase}
             selectedSite={site}
             onSite={(i) => {
+              setEarthFocus(null);
+              setFabricFocus(false);
               setGuide(-1);
               setSite(i);
               setPanel('infrastructure');
@@ -633,39 +859,94 @@ export default function WeatherLab() {
             }}
           />
           <div className="depth-caption">
-            Tracer height{' '}
-            {depthScale === 1 ? 'at true scale' : '×' + depthScale} ·
-            calculated, not observed
+            {fabricFocus
+              ? 'Buildings 1× · reported / assumed heights'
+              : satellite.heightEnabled
+                ? `Cloud tops ${satellite.heightScale}× · retrieved, not volumetric`
+                : satellite.enabled
+                  ? satellite.lift
+                    ? `Image lifted ${satellite.lift} km × ${depthScale} · assumed`
+                    : 'Image on surface · height not encoded'
+                  : `Relief ${terrainScale}× · tracer height ${depthScale}×`}
           </div>
-          {observation.enabled && (
-            <button
-              className="observation-caption"
-              onClick={() => setPanel('layers')}
-            >
-              <span>
-                {observation.cloudOnly
-                  ? 'Approximate cloud mask'
-                  : 'Observed mosaic'}{' '}
-                / {observation.displayedDate ?? 'Loading'}
-              </span>
-              {observation.cloudOnly && (
-                <span>
-                  Assumed {observation.cloudHeightKm} km ·{' '}
-                  {observation.cloudScale}× height · unmeasured
-                </span>
-              )}
-              {observation.playing && observation.cloudOnly && (
-                <span>
-                  Visual dissolve from{' '}
-                  {observation.previousDate ?? observation.displayedDate} · not
-                  measured motion
-                </span>
-              )}
-              <span>
-                Terra · MODIS · daily mosaic · separate from model time
-              </span>
+          <div className="earth-reading">
+            <span>
+              {fabricFocus
+                ? 'Cartographic / built fabric'
+                : satellite.heightEnabled
+                  ? 'Retrieved / cloud-top height'
+                  : satellite.enabled
+                    ? 'Observed / GOES-19'
+                    : earthView === 'transport'
+                      ? 'Historical evidence / synthetic transport'
+                      : 'Modelled / Earth relief'}
+            </span>
+            <p>
+              {fabricFocus
+                ? '522 footprints · aerial roofs, extruded walls'
+                : satellite.heightEnabled
+                  ? `NOAA ACHA · ${observedTime?.slice(11, 16)} UTC`
+                  : satellite.enabled
+                    ? `${satellite.view.loaded?.product.label ?? satellite.product.label} · ${observedTime?.slice(11, 16) ?? 'Loading'} UTC`
+                    : earthView === 'transport'
+                      ? contribution.title
+                      : `NOAA ETOPO1 · relief ${terrainScale}×`}
+            </p>
+            <button onClick={() => setPanel('sources')}>
+              {fabricFocus
+                ? 'Click a building to inspect its source ↗'
+                : satellite.heightEnabled
+                  ? 'What does a retrieved height mean? ↗'
+                  : satellite.enabled
+                    ? 'What do the colours reveal? ↗'
+                    : earthView === 'transport'
+                      ? 'What is documented, and what is calculated? ↗'
+                      : 'What lies beneath the sea-level surface? ↗'}
             </button>
-          )}
+            {satellite.heightEnabled && (
+              <div
+                className="height-legend"
+                aria-label="Cloud-top height colour legend, 0 to 20 kilometres"
+              >
+                <div />
+                <span>0</span>
+                <span>10</span>
+                <span>20 km</span>
+              </div>
+            )}
+          </div>
+          {observation.enabled &&
+            !satellite.enabled &&
+            !satellite.heightEnabled &&
+            !fabricFocus && (
+              <button
+                className="observation-caption"
+                onClick={() => setPanel('layers')}
+              >
+                <span>
+                  {observation.cloudOnly
+                    ? 'Approximate cloud mask'
+                    : 'Observed mosaic'}{' '}
+                  / {observation.displayedDate ?? 'Loading'}
+                </span>
+                {observation.cloudOnly && (
+                  <span>
+                    Assumed {observation.cloudHeightKm} km ·{' '}
+                    {observation.cloudScale}× height · unmeasured
+                  </span>
+                )}
+                {observation.playing && observation.cloudOnly && (
+                  <span>
+                    Visual dissolve from{' '}
+                    {observation.previousDate ?? observation.displayedDate} ·
+                    not measured motion
+                  </span>
+                )}
+                <span>
+                  Terra · MODIS · daily mosaic · separate from model time
+                </span>
+              </button>
+            )}
           <div className="globe-caption">
             <span>Drag to rotate · Scroll to zoom</span>
             <span className="legend-dot" /> TRACER <span className="wind-key" />{' '}
@@ -764,6 +1045,31 @@ export default function WeatherLab() {
           >
             <X />
           </Button>
+          <div className="earth-controls">
+            <label htmlFor="experiment-study">Active study</label>
+            <select
+              id="experiment-study"
+              value={
+                isCase
+                  ? 'case'
+                  : contribution.id === atlantic.id
+                    ? 'atlantic'
+                    : 'imported'
+              }
+              onChange={(e) => {
+                selectStudy(e.target.value === 'case' ? popeye : atlantic);
+                setPanel('experiment');
+              }}
+            >
+              <option value="case">The ground as a weapon</option>
+              <option value="atlantic">The ocean between us</option>
+              {!isCase && contribution.id !== atlantic.id && (
+                <option value="imported" disabled>
+                  {contribution.title}
+                </option>
+              )}
+            </select>
+          </div>
           <div className="panel-tabs">
             <button
               className={tab === 'experiment' ? 'active' : ''}
@@ -1064,102 +1370,180 @@ export default function WeatherLab() {
           </div>
         </aside>
       </section>
-      <footer className="timeline">
-        <div className="transport">
-          <Button
-            className="play-button"
-            size="icon"
-            aria-label={running ? 'Pause simulation' : 'Play simulation'}
-            onClick={() => {
-              if (snapshot.finished) {
-                run(contribution);
-              } else setRunning((r) => !r);
-            }}
-          >
-            {running ? (
-              <Pause fill="currentColor" />
-            ) : (
-              <Play fill="currentColor" />
-            )}
-          </Button>
+      {earthView === 'transport' ? (
+        <footer className="timeline">
+          <div className="transport">
+            <Button
+              className="play-button"
+              size="icon"
+              aria-label={running ? 'Pause simulation' : 'Play simulation'}
+              onClick={() => {
+                if (snapshot.finished) {
+                  run(contribution);
+                } else setRunning((r) => !r);
+              }}
+            >
+              {running ? (
+                <Pause fill="currentColor" />
+              ) : (
+                <Play fill="currentColor" />
+              )}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Reset simulation"
+              onClick={() => run(contribution)}
+            >
+              <RotateCcw size={15} />
+            </Button>
+            <select
+              aria-label="Playback speed"
+              value={speed}
+              onChange={(e) => setSpeed(Number(e.target.value))}
+            >
+              <option value="1">1 h / s</option>
+              <option value="3">3 h / s</option>
+              <option value="6">6 h / s</option>
+              <option value="12">12 h / s</option>
+            </select>
+          </div>
+          <div className="time-value">
+            <span>ELAPSED MODEL TIME</span>
+            <strong>
+              T + {String(Math.floor(snapshot.hours)).padStart(2, '0')}
+              <small>h</small>{' '}
+              {String(Math.round((snapshot.hours % 1) * 60)).padStart(2, '0')}
+              <small>m</small>
+            </strong>
+          </div>
+          <div className="time-scrubber">
+            <input
+              type="range"
+              aria-label="Elapsed model time"
+              min="0"
+              max="72"
+              step="1"
+              value={snapshot.hours}
+              onChange={(e) => {
+                setRunning(false);
+                worker.current?.postMessage({ type: 'running', value: false });
+                worker.current?.postMessage({
+                  type: 'seek',
+                  hours: Number(e.target.value),
+                });
+              }}
+            />
+            <div>
+              <span>RELEASE</span>
+              <span>24 H</span>
+              <span>48 H</span>
+              <span>72 H</span>
+            </div>
+          </div>
           <Button
             variant="ghost"
-            size="icon"
-            aria-label="Reset simulation"
-            onClick={() => run(contribution)}
-          >
-            <RotateCcw size={15} />
-          </Button>
-          <select
-            aria-label="Playback speed"
-            value={speed}
-            onChange={(e) => setSpeed(Number(e.target.value))}
-          >
-            <option value="1">1 h / s</option>
-            <option value="3">3 h / s</option>
-            <option value="6">6 h / s</option>
-            <option value="12">12 h / s</option>
-          </select>
-        </div>
-        <div className="time-value">
-          <span>ELAPSED MODEL TIME</span>
-          <strong>
-            T + {String(Math.floor(snapshot.hours)).padStart(2, '0')}
-            <small>h</small>{' '}
-            {String(Math.round((snapshot.hours % 1) * 60)).padStart(2, '0')}
-            <small>m</small>
-          </strong>
-        </div>
-        <div className="time-scrubber">
-          <input
-            type="range"
-            aria-label="Elapsed model time"
-            min="0"
-            max="72"
-            step="1"
-            value={snapshot.hours}
-            onChange={(e) => {
-              setRunning(false);
-              worker.current?.postMessage({ type: 'running', value: false });
-              worker.current?.postMessage({
-                type: 'seek',
-                hours: Number(e.target.value),
-              });
-            }}
-          />
-          <div>
-            <span>RELEASE</span>
-            <span>24 H</span>
-            <span>48 H</span>
-            <span>72 H</span>
-          </div>
-        </div>
-        <Button
-          variant="ghost"
-          className="export-button"
-          onClick={() =>
-            saveFile(contribution.id + '-run.json', {
-              ...contribution,
-              parameters: contribution.parameters,
-              run: {
-                elapsedHours: snapshot.hours,
-                metrics: {
-                  mass: snapshot.mass,
-                  distance: snapshot.distance,
-                  spread: snapshot.spread,
+            className="export-button"
+            onClick={() =>
+              saveFile(contribution.id + '-run.json', {
+                ...contribution,
+                parameters: contribution.parameters,
+                run: {
+                  elapsedHours: snapshot.hours,
+                  metrics: {
+                    mass: snapshot.mass,
+                    distance: snapshot.distance,
+                    spread: snapshot.spread,
+                  },
+                  positions: Array.from(snapshot.positions),
+                  heightsMetres: Array.from(snapshot.heights ?? []),
+                  model: 'transport-v2-vertical-diffusion',
+                  heightReference: 'smooth sphere; not terrain',
                 },
-                positions: Array.from(snapshot.positions),
-                heightsMetres: Array.from(snapshot.heights ?? []),
-                model: 'transport-v2-vertical-diffusion',
-                heightReference: 'smooth sphere; not terrain',
-              },
-            })
-          }
-        >
-          <ArrowDownToLine size={15} />
-          Export run
-        </Button>
-      </footer>
+              })
+            }
+          >
+            <ArrowDownToLine size={15} />
+            Export run
+          </Button>
+        </footer>
+      ) : (
+        <footer className="timeline observation-timeline">
+          {earthView === 'satellite' || earthView === 'clouds' ? (
+            <>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label={
+                  satellite.playing
+                    ? 'Pause observation timeline'
+                    : 'Play observation timeline'
+                }
+                disabled={!satellite.ready || satellite.frameCount < 2}
+                onClick={() => {
+                  if (satellite.index >= satellite.frameCount - 1)
+                    satellite.setIndex(0);
+                  satellite.setPlaying(!satellite.playing);
+                }}
+              >
+                {satellite.playing ? <Pause /> : <Play />}
+              </Button>
+              <div className="observation-clock">
+                <span>Observation / 03 Sep 2026</span>
+                <p>{observedTime?.slice(11, 16) ?? 'Loading'} UTC</p>
+              </div>
+              <div className="observation-scrubber">
+                <Slider
+                  aria-label="Observation timeline"
+                  min={0}
+                  max={Math.max(1, satellite.frameCount - 1)}
+                  step={1}
+                  disabled={satellite.frameCount < 2}
+                  value={[satellite.index]}
+                  onValueChange={(v) => {
+                    satellite.setIndex(Array.isArray(v) ? v[0] : v);
+                    satellite.setPlaying(false);
+                  }}
+                />
+                <span>10 min / frame · archived, not live</span>
+              </div>
+              {satellite.heightEnabled && (
+                <select
+                  aria-label="Cloud height exaggeration"
+                  value={satellite.heightScale}
+                  onChange={(e) =>
+                    satellite.setHeightScale(Number(e.target.value))
+                  }
+                >
+                  <option value={1}>Height 1×</option>
+                  <option value={20}>Height 20×</option>
+                  <option value={50}>Height 50×</option>
+                  <option value={100}>Height 100×</option>
+                </select>
+              )}
+              {!satellite.ready && (
+                <output>
+                  {satellite.height.error || satellite.view.error
+                    ? 'Frame unavailable'
+                    : 'Loading frame'}
+                </output>
+              )}
+            </>
+          ) : (
+            <>
+              <span>
+                {fabricFocus
+                  ? 'OSM + USGS NAIP / local sample'
+                  : 'NOAA ETOPO1 / global overview'}
+              </span>
+              <p>Drag to orbit · scroll to zoom · click to inspect</p>
+              <button onClick={() => setPanel('layers')}>
+                Adjust layers ↗
+              </button>
+            </>
+          )}
+        </footer>
+      )}
       <div className="bottomline">
         <span>
           CALCULATED IN YOUR BROWSER ·{' '}
@@ -1175,7 +1559,6 @@ export default function WeatherLab() {
           Earth imagery: NASA · Jan 2004 ↗
         </a>
       </div>
-      {goesOpen && <GoesLab onClose={() => setGoesOpen(false)} />}
       {notice && (
         <output className="toast" aria-live="polite">
           <span>{notice}</span>

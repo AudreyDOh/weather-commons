@@ -1,0 +1,218 @@
+{
+  "width": 543,
+  "height": 543,
+  "nativeSize": [
+    1086,
+    1086
+  ],
+  "decimation": 2,
+  "nominalSpacing": "native 10 km at nadir; displayed every second source sample (~20 km at nadir)",
+  "projection": {
+    "perspective_point_height": 35786023.0,
+    "semi_major_axis": 6378137.0,
+    "semi_minor_axis": 6356752.31414,
+    "longitude_of_projection_origin": -75.0
+  },
+  "qualityFlagMeanings": "good_quality_qf marginal_quality_qf retrieval_attempted_qf bad_quality_qf opaque_retrieval_qf",
+  "title": "GOES-19 ABI ACHA cloud-top geopotential height",
+  "kind": "satellite retrieval",
+  "units": "metres",
+  "missingValue": 65535,
+  "source": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc%3AC01505",
+  "algorithm": "https://www.star.nesdis.noaa.gov/goesr/docs/ATBD/Cloud_Height.pdf",
+  "transform": "Decode packed HT, keep DQF=0 good quality and valid 0\u201320000m heights, take every second row and column, round to integer metres. No gap filling. Geographic footprints use source fixed-grid ellipsoid navigation. Heights are rendered radially above a reference sphere; cloud parallax is not corrected. Triangles are a display interpolation and omitted across missing cells or >2500m jumps.",
+  "navigation": {
+    "file": "/data/archive/cloud-height/navigation.f32",
+    "sha256": "a1c39c5d78e6916c87747beb42901fc14fd79b56aff4577aac46f31655ef8328"
+  },
+  "frames": [
+    {
+      "time": "2026-09-03T04:10:00.000Z",
+      "start": "2026-09-03T04:10:20.4Z",
+      "end": "2026-09-03T04:19:51.3Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/04/OR_ABI-L2-ACHAF-M6_G19_s20262460410204_e20262460419513_c20262460422235.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460410204_e20262460419513_c20262460422235.nc",
+      "retrievedAt": "2026-09-03T13:31:33.204195+00:00",
+      "sha256": "3c8ec1b3187f0889d70712caa5a4628ed190756c38967eb3d21fa3a760af0ef5",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460410204_e20262460419513_c20262460422235.u16",
+      "derivedSha256": "404d513b3aab5be97e670eaa7e216885c4ec93cd7ae9478f0e0e1c5e3ce273ce",
+      "validPixels": 169694,
+      "minMetres": 0.0,
+      "maxMetres": 16895.162109375
+    },
+    {
+      "time": "2026-09-03T04:20:00.000Z",
+      "start": "2026-09-03T04:20:20.4Z",
+      "end": "2026-09-03T04:29:51.3Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/04/OR_ABI-L2-ACHAF-M6_G19_s20262460420204_e20262460429513_c20262460432251.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460420204_e20262460429513_c20262460432251.nc",
+      "retrievedAt": "2026-09-03T13:31:33.310502+00:00",
+      "sha256": "17e2668c4615c74fd966a863565e7ed4e1dbb52f839f37eb07ebba1bfea6d2cb",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460420204_e20262460429513_c20262460432251.u16",
+      "derivedSha256": "e0b1054213bdabb02f446acccba7c0ae5c505edeb46fcbefc91e71def26b3da7",
+      "validPixels": 169682,
+      "minMetres": 0.30520370602607727,
+      "maxMetres": 16866.16796875
+    },
+    {
+      "time": "2026-09-03T04:30:00.000Z",
+      "start": "2026-09-03T04:30:20.6Z",
+      "end": "2026-09-03T04:39:51.3Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/04/OR_ABI-L2-ACHAF-M6_G19_s20262460430206_e20262460439513_c20262460442200.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460430206_e20262460439513_c20262460442200.nc",
+      "retrievedAt": "2026-09-03T13:31:33.197195+00:00",
+      "sha256": "c0a01634e021b72b6cf0233c350b643e9b499fbf22d0bd77b5a3f6860456fee1",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460430206_e20262460439513_c20262460442200.u16",
+      "derivedSha256": "491db2008f4d48afdddb97501a2c63a7f1b28e0aed6483c1e971ef886f573f2c",
+      "validPixels": 165591,
+      "minMetres": 0.0,
+      "maxMetres": 16896.9921875
+    },
+    {
+      "time": "2026-09-03T04:40:00.000Z",
+      "start": "2026-09-03T04:40:22.4Z",
+      "end": "2026-09-03T04:49:51.3Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/04/OR_ABI-L2-ACHAF-M6_G19_s20262460440224_e20262460449513_c20262460452246.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460440224_e20262460449513_c20262460452246.nc",
+      "retrievedAt": "2026-09-03T13:31:33.490030+00:00",
+      "sha256": "7ff94f29b8a6885c5a09c9658f461764fc97e8ca9e18f9a16d0a9ef7821835f4",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460440224_e20262460449513_c20262460452246.u16",
+      "derivedSha256": "fa93e20f815ea9225c107e53756f89d225e3a981809da0291519190683b2e4e8",
+      "validPixels": 161661,
+      "minMetres": 0.0,
+      "maxMetres": 16774.30078125
+    },
+    {
+      "time": "2026-09-03T04:50:00.000Z",
+      "start": "2026-09-03T04:50:24.1Z",
+      "end": "2026-09-03T04:59:51.3Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/04/OR_ABI-L2-ACHAF-M6_G19_s20262460450241_e20262460459513_c20262460502253.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460450241_e20262460459513_c20262460502253.nc",
+      "retrievedAt": "2026-09-03T13:31:33.548012+00:00",
+      "sha256": "9de030b337921dd9ed28681c9ebc27b8ceb644c7433cba5ca3bae4e5e52b1dbb",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460450241_e20262460459513_c20262460502253.u16",
+      "derivedSha256": "ac9365dc0e3761900f0d1587af0bfa66a64f9b0b3d3abfc194fd8c75686d8775",
+      "validPixels": 154790,
+      "minMetres": 0.0,
+      "maxMetres": 16865.556640625
+    },
+    {
+      "time": "2026-09-03T05:00:00.000Z",
+      "start": "2026-09-03T05:00:20.7Z",
+      "end": "2026-09-03T05:09:51.5Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/05/OR_ABI-L2-ACHAF-M6_G19_s20262460500207_e20262460509515_c20262460512279.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460500207_e20262460509515_c20262460512279.nc",
+      "retrievedAt": "2026-09-03T13:31:33.591546+00:00",
+      "sha256": "2489590e7903913d98fac5d16c3b8461f1919e82afd1906cff4571e25d7053b5",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460500207_e20262460509515_c20262460512279.u16",
+      "derivedSha256": "68f80b0c889388bc7bd7b4f270ed6d88d5ed11b238e8cf4b9fde78742477a87f",
+      "validPixels": 144774,
+      "minMetres": 0.30520370602607727,
+      "maxMetres": 16907.064453125
+    },
+    {
+      "time": "2026-09-03T05:10:00.000Z",
+      "start": "2026-09-03T05:10:20.7Z",
+      "end": "2026-09-03T05:19:51.5Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/05/OR_ABI-L2-ACHAF-M6_G19_s20262460510207_e20262460519515_c20262460522296.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460510207_e20262460519515_c20262460522296.nc",
+      "retrievedAt": "2026-09-03T13:31:33.764587+00:00",
+      "sha256": "ad46906b0563867a6f8a57c400ed8f4ca4e18c9a90589797e84c6644ce49f035",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460510207_e20262460519515_c20262460522296.u16",
+      "derivedSha256": "c31c2fe0eeaa2631fcfb27e205089f4d61acc6ade968ec81cbfc3f888af25e98",
+      "validPixels": 150267,
+      "minMetres": 0.0,
+      "maxMetres": 16806.34765625
+    },
+    {
+      "time": "2026-09-03T05:20:00.000Z",
+      "start": "2026-09-03T05:20:20.7Z",
+      "end": "2026-09-03T05:29:51.5Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/05/OR_ABI-L2-ACHAF-M6_G19_s20262460520207_e20262460529515_c20262460532218.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460520207_e20262460529515_c20262460532218.nc",
+      "retrievedAt": "2026-09-03T13:31:33.859890+00:00",
+      "sha256": "2e272fdc63cd88159c4a494169aa64e25e2be24488d105a608f93f0b9fe62d44",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460520207_e20262460529515_c20262460532218.u16",
+      "derivedSha256": "166005eba529d7cfa64de13c4689e83d31b4d86f96a723ed69c16332a1ffadab",
+      "validPixels": 158625,
+      "minMetres": 0.0,
+      "maxMetres": 16868.302734375
+    },
+    {
+      "time": "2026-09-03T05:30:00.000Z",
+      "start": "2026-09-03T05:30:20.7Z",
+      "end": "2026-09-03T05:39:51.5Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/05/OR_ABI-L2-ACHAF-M6_G19_s20262460530207_e20262460539515_c20262460542282.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460530207_e20262460539515_c20262460542282.nc",
+      "retrievedAt": "2026-09-03T13:31:33.906478+00:00",
+      "sha256": "25d25f0c8269a2894346ed7f7370cdd78ecb5f99d96e7aca69d86df7b63958c6",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460530207_e20262460539515_c20262460542282.u16",
+      "derivedSha256": "89e8b34a3d3d5cff462df45a2c598872ebfdd8195c25be99470b4b909da09384",
+      "validPixels": 167290,
+      "minMetres": 0.0,
+      "maxMetres": 16794.138671875
+    },
+    {
+      "time": "2026-09-03T05:40:00.000Z",
+      "start": "2026-09-03T05:40:20.7Z",
+      "end": "2026-09-03T05:49:51.5Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/05/OR_ABI-L2-ACHAF-M6_G19_s20262460540207_e20262460549515_c20262460552298.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460540207_e20262460549515_c20262460552298.nc",
+      "retrievedAt": "2026-09-03T13:31:34.030877+00:00",
+      "sha256": "314d0c510d5885c200abc6b2547a88e298024f66205d8dcb77cb60434622be19",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460540207_e20262460549515_c20262460552298.u16",
+      "derivedSha256": "b18153473333c321a6aeb5f853a30f2d1115af6819b734dfe46769aa776bef4a",
+      "validPixels": 170546,
+      "minMetres": 0.0,
+      "maxMetres": 16910.7265625
+    },
+    {
+      "time": "2026-09-03T05:50:00.000Z",
+      "start": "2026-09-03T05:50:20.7Z",
+      "end": "2026-09-03T05:59:51.5Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/05/OR_ABI-L2-ACHAF-M6_G19_s20262460550207_e20262460559515_c20262460602248.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460550207_e20262460559515_c20262460602248.nc",
+      "retrievedAt": "2026-09-03T13:31:34.154580+00:00",
+      "sha256": "40df3884172599f9751cff55f41f32172c5f7cf2642424179b70fd096f701b2c",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460550207_e20262460559515_c20262460602248.u16",
+      "derivedSha256": "5877c63825e4bf3c15c03ed12868be8f331e567a480f8965ba2f5751f344eb59",
+      "validPixels": 170921,
+      "minMetres": 0.30520370602607727,
+      "maxMetres": 16900.654296875
+    },
+    {
+      "time": "2026-09-03T06:00:00.000Z",
+      "start": "2026-09-03T06:00:20.7Z",
+      "end": "2026-09-03T06:09:51.5Z",
+      "source": "https://noaa-goes19.s3.amazonaws.com/ABI-L2-ACHAF/2026/246/06/OR_ABI-L2-ACHAF-M6_G19_s20262460600207_e20262460609515_c20262460612324.nc",
+      "original": "OR_ABI-L2-ACHAF-M6_G19_s20262460600207_e20262460609515_c20262460612324.nc",
+      "retrievedAt": "2026-09-03T13:31:34.177768+00:00",
+      "sha256": "4ce0e0055f54ca37a8ba486319199e9a23f0c4351ce994a5786d0a651b89c775",
+      "file": "/data/archive/cloud-height/OR_ABI-L2-ACHAF-M6_G19_s20262460600207_e20262460609515_c20262460612324.u16",
+      "derivedSha256": "1acf33e71139cf5bf30e3a6cc9ede7640f71563fb8d0a38714e470183e7d2e68",
+      "validPixels": 170999,
+      "minMetres": 0.30520370602607727,
+      "maxMetres": 16785.59375
+    }
+  ],
+  "listings": [
+    {
+      "file": "listing-04.xml",
+      "url": "https://noaa-goes19.s3.amazonaws.com/?list-type=2&prefix=ABI-L2-ACHAF/2026/246/04/",
+      "retrievedAt": "2026-09-03T13:31:32.688069+00:00",
+      "sha256": "b69942b34370545d5dd91829f0f989c927c4da0b33af032732dc6cf8b6783354"
+    },
+    {
+      "file": "listing-05.xml",
+      "url": "https://noaa-goes19.s3.amazonaws.com/?list-type=2&prefix=ABI-L2-ACHAF/2026/246/05/",
+      "retrievedAt": "2026-09-03T13:31:32.793293+00:00",
+      "sha256": "16a3f843b827662081f58809294b0c3189dce9d611ed3bf43c9815937cb47b2d"
+    },
+    {
+      "file": "listing-06.xml",
+      "url": "https://noaa-goes19.s3.amazonaws.com/?list-type=2&prefix=ABI-L2-ACHAF/2026/246/06/",
+      "retrievedAt": "2026-09-03T13:31:32.885188+00:00",
+      "sha256": "55eb02da292819e69d162a55c4def98495e1dfe04343942aec33c0385b972493"
+    }
+  ]
+}

@@ -2,32 +2,39 @@
 
 ## Working now
 
-- GOES instrument view: GeoColor, Airmass RGB, Sandwich RGB and CO₂ band 16, each with twelve matched acquisition labels at ten-minute intervals (3 September 2026, 04:10–06:00 UTC). Play, scrub, change playback speed, scroll-zoom, pan, and compare two products at the same labelled acquisition time.
-- A separate NOAA derived-motion-wind still at 05:00 UTC preserves the actual supplied wind-barb overlay. Barbs and coastlines in this view are baked into the source image; they are not independent geographic features in the pilot.
-- Native GOES full-disk imagery is displayed intact at its own projection, in colour, with source footers and logos. It is an archived instrument view, not a live feed or a new 3D cloud reconstruction. Return to the 3D lab to inspect the existing globe, vector layers and simulation. No false colour is passed through the old brightness cloud mask.
+- One perspective Three.js Earth scene. GOES imagery, terrain, seafloor, sea-level surface, assumed atmospheric/cloud shells, Natural Earth vectors, institutions and tracers use a shared depth buffer. Drag, wheel zoom, keyboard arrows and reset remain available.
+- GOES GeoColor, Airmass RGB, Sandwich RGB and band 16: twelve source frames at ten-minute intervals, 3 September 2026 04:10–06:00 UTC. DMW is a separate 05:00 still. Product selection, playback, scrubbing, opacity and optional assumed layer separation are in **Earth**. The standalone image viewer has been removed.
+- Source JPEGs are sampled using nominal geostationary forward navigation (source fixed-grid origin 75°W), rather than treated as equirectangular maps. This is presentation registration, not calibrated ABI geolocation. Source cartography and barbs remain baked into the image. Independent vector layers remain togglable.
+- NOAA ETOPO1 ice-surface relief: an archived 2048 × 1024 signed metre grid, represented by a 768 × 384 terrain/seafloor mesh. True scale, 20× and 60× views; water opacity exposes submarine relief. The bathymetric colour ramp and lighting are interpretive aids.
+- A bounded Lower Manhattan sample: 522 OSM footprint extrusions. Heights are tagged, inferred from levels at 3 m/level, or assigned an explicit 9 m fallback. USGS NAIP aerial imagery textures the local ground and roofs; walls are plain. The queried catalogue contains 2019 and 2023 imagery; this is not synchronized with GOES or the historical case.
+- The local city patch uses a sea-level datum. Global relief is flattened to its reference sphere in the city view; the local aerial patch sits above it and surrounding Earth remains in the same scene. This is not surveyed urban terrain or a flood model.
+- White background / black text by default, selectable dark background, bundled Libre Franklin 400, uppercase 12/14/28 px hierarchy. Panels stay closed until requested. Desktop and 390 px mobile controls have been reviewed.
+- Existing deterministic transport worker, two studies, evidence casebook, portable validated JSON imports and exports. Terrain, buildings and satellite observations do not alter the transport equations.
+- Earlier MODIS daily imagery retains the approximate feathered cloud appearance filter and labelled visual dissolves. Hide GOES to inspect it. These presentation images provide no cloud heights. A separate ACHA retrieval layer now supplies variable cloud-top geometry.
 
-- Franklin-style sans-serif typography: local Franklin Gothic Medium with bundled OFL Libre Franklin fallback, uppercase text, and 12/14/28 px scales.
-- Cloud isolation retains grey transparency through a wider feathered threshold and a small five-tap spatial filter. Softness is adjustable. Daily cloud playback uses a labelled 1.4-second visual dissolve, with 2.4-second frame intervals, and stops at the end. Pausing/scrubbing returns to an individual source frame. The dissolve is not measured motion or a temporal reconstruction.
+- Five guided views, a contextual bottom timeline, a source ledger and click inspection of relief, cloud samples and individual building records. Cloud inspection retains its original scan time even if playback advances.
+- NOAA ABI-L2-ACHAF: twelve original NetCDF files matching the GOES scan windows. The selected 1086 × 1086 product is about 10 km at nadir, displayed at every second sample (543 × 543). Only DQF=0 and 0–20,000 m values survive. Missing samples and >2,500 m inter-vertex jumps are not bridged. Colours encode 0–20 km height; 1×, 20×, 50× and 100× scales are available. This is not the separate ACHA2KM product.
 
-- Two switchable studies: a synthetic Atlantic teaching field and an archival Project Popeye study built from a documented 1966 ERA5 reanalysis sample.
-- A browser-worker passive-tracer solver with seeded horizontal and vertical diffusion, decay, regular-grid interpolation, domain loss, deterministic exports, and 3D height projection.
-- A local NASA Blue Marble surface, Natural Earth coastlines and administrative boundaries, selected infrastructure markers, rivers, and geographic anchors.
-- An evidence-led casebook that separates archival claims, observed/reanalyzed input, calculated tracer output, and non-inferences.
-- Portable JSON import/export and schema validation for workshop contributions.
-- Six dated NASA Terra/MODIS daily mosaics (24–29 September 2024), independently playable and scrubbable with opacity blending over the globe. Original PNGs, request URLs and hashes are committed; imagery loads on demand with one-frame lookahead.
+## Scientific and technical limits
 
-## Deliberate limits
+GOES presentation images are not raw ABI channels. Nominal registration does not correct JPEG layout, limb uncertainty or cloud parallax. Do not derive geographic measurements from their pixel alignment. Source colors are unlit; visual opacity blends them with the underlying scene. The optional 6 km separation is assumed, multiplied by the displayed vertical scale, and never a cloud-top retrieval.
 
-Cloud isolation now removes darker and strongly coloured pixels using a GPU display heuristic. It is not NASA MOD35 classification: snow/ice/bright terrain can leak through and thin clouds can disappear. The extracted texture sits on a separate front-facing spherical shell, default assumed height 6 km at 50× exaggeration. Controls allow 0–12 km and 1×/50×/200×. The original mosaic remains a ground-level layer. Cloud geometry is not volumetric; tracers and vector annotations remain foreground overlays rather than a shared depth-tested scene. Missing swath coverage stays missing in both modes.
+The global relief grid is an overview (~0.176° cells), not local surveying. Zoom does not add resolution. Building roofs are flat and use a plan projection of aerial imagery, not a reconstructed facade/roof survey. OSM geometry may differ in date or alignment from NAIP. Extrusions use true height scale even when global relief or tracers are exaggerated.
 
-The pilot is not an operational forecast, a cloud microphysics model, an exposure model, or a reconstruction of Project Popeye. The historical wind field is one 00:00 UTC 100 m reanalysis frame held constant. The Earth is an orthographic sphere with a static 2004 background and an optional 2024 daily satellite archive. Terrain and bathymetry are not yet meshes, and no live feed or shared storage is connected. Satellite images combine surface and clouds without measured cloud heights. The observation date never alters the solver's time or wind.
+ACHA is an algorithmic retrieval, not a direct observation of a complete cloud volume. Its geopotential heights are placed radially on a sphere. Navigation uses the source ellipsoid and scan grid; cloud parallax is not corrected. Triangles are display interpolation, not extra observations. No density, optical thickness, cloud base or microphysics is reconstructed.
 
-## Verification
+The atmosphere is a transparent shell at an assumed 12 km ceiling, not volumetric weather. Transparent layers blend in a declared drawing order; depth testing against opaque geometry does not make them physically accurate optical volumes. Tracer heights still reference the solver's sphere, not terrain; some calculated points may be below the displayed exaggerated terrain. Never reinterpret this as deposition, exposure or injury.
 
-`scripts/check-goes.mjs` verifies 49 original NOAA JPEGs against their hashes, checks the Julian-day filename conversion, enforces ten-minute cadence, and checks that the four sequences share timestamps. The selected frame and its successor are loaded on demand; each view bounds its decoded-image promise cache to four entries. At most two view caches are active. Failed loads stop playback advancement and retain the last correctly labelled image.
+No live feed, tiled terrain, volumetric microphysics, ocean-current model, photogrammetric building mesh, shared storage, accounts or online participant service is connected. The historical ERA5 field remains a single 1966 frame held constant. No weather-modification outcome is inferred.
 
-`pnpm check` tests transport invariants, deterministic output, regular-grid interpolation, vertical behavior, 3D occlusion, the archival data transform, and contribution validation. `pnpm lint` and `pnpm build` verify the application toolchain.
+## Validation and reproducibility
 
-## Repository privacy
+`pnpm check` covers transport invariants and archive transforms, source-image hashes/cadence, signed elevations, metre scaling, GOES orientation and hemisphere exclusion, building provenance, ACHA scan matching and source/derived hashes, valid navigation, and cloud-mesh missing-data/discontinuity handling. `pnpm lint` and `pnpm build` check the app.
 
-Authenticated GitHub API and GitHub CLI checks confirmed `RealtimeUrbanismLab/weather-commons` is private on 3 September 2026 UTC. `main` tracks `origin/main`. The project lead requested incremental milestone commits and pushes after verification. Recheck visibility before pushing if the remote changes. `package.json` being private only prevents npm publication; it does not control GitHub visibility.
+Browser checks cover image playback advancing on the globe, controls, relief and city navigation, regular Libre Franklin, desktop/mobile layout and runtime errors. This is a local feasibility review, not a cross-device performance certification. Decoded GOES image references remain bounded to four cache entries with next-frame prefetch. The renderer caps pixel ratio at 1.5 and pauses when the document is hidden.
+
+Run `scripts/prepare-earth.py` with Python, NumPy and Pillow to reproduce the relief and urban derivatives from the archived originals. Original TIFF, JSON and JPEG responses, retrieval dates, source URLs, transformations and SHA-256 hashes are in `public/data/archive/earth/manifest.json`. GOES originals remain in their separate archive. Run `scripts/prepare-cloud-height.py` with Python, NumPy and netCDF4 for ACHA. The original NetCDF files retain all source quality flags, packing metadata and projection parameters. `public/data/archive/cloud-height/manifest.json` records scan start/end, exact URLs, retrieval dates, hashes and transforms.
+
+## Privacy
+
+The GitHub repository is private. Milestone commits and ordinary pushes to `origin/main` are authorized. Public deployment is not authorized. Participant contributions still exist only in the current browser unless exported.

@@ -1,0 +1,122 @@
+{
+ "currentVersion": 11.5,
+ "serviceDescription": "DEM_mosaics/ETOPO1_ice_surface",
+ "name": "DEM_mosaics/ETOPO1_ice_surface",
+ "description": "",
+ "extent": {
+  "xmin": -180.00833333333333,
+  "ymin": -90.00833333333328,
+  "xmax": 180.00833333333333,
+  "ymax": 90.00833333333334,
+  "spatialReference": {
+   "wkid": 4326,
+   "latestWkid": 4326
+  }
+ },
+ "initialExtent": {
+  "xmin": -180.00833333333333,
+  "ymin": -90.00833333333328,
+  "xmax": 180.00833333333333,
+  "ymax": 90.00833333333334,
+  "spatialReference": {
+   "wkid": 4326,
+   "latestWkid": 4326
+  }
+ },
+ "fullExtent": {
+  "xmin": -180.00833333333333,
+  "ymin": -90.00833333333328,
+  "xmax": 180.00833333333333,
+  "ymax": 90.00833333333334,
+  "spatialReference": {
+   "wkid": 4326,
+   "latestWkid": 4326
+  }
+ },
+ "sortableFields": "",
+ "bandCount": 1,
+ "pixelType": "S16",
+ "minValues": [],
+ "maxValues": [],
+ "meanValues": [],
+ "stdvValues": [],
+ "serviceProperties": "<ImageServer><ImageServiceProperties><MosaicMethod>Center<\/MosaicMethod><MosaicOperator>First<\/MosaicOperator><SortAscending>true<\/SortAscending><LockImageID><\/LockImageID><TileOrderField><\/TileOrderField><TileOrderBase>0<\/TileOrderBase><AvgImageSpacingX>0.000000<\/AvgImageSpacingX><AvgImageSpacingY>0.000000<\/AvgImageSpacingY><ViewPointX>0.0<\/ViewPointX><ViewPointY>0.0<\/ViewPointY><ViewPointDefShiftX>0.0<\/ViewPointDefShiftX><ViewPointDefShiftY>0.0<\/ViewPointDefShiftY><CompressionMethod>None<\/CompressionMethod><CompressionQuality>75<\/CompressionQuality><CompressionTolerance>0.010000<\/CompressionTolerance><SamplingMethod>Bilinear<\/SamplingMethod><\/ImageServiceProperties><\/ImageServer>",
+ "allowedFields": "",
+ "hasMultidimensions": false,
+ "pixelSizeX": 0.016666666666666666,
+ "pixelSizeY": 0.016666666666666663,
+ "meanPixelSize": 1855.324846554559,
+ "datasetFormat": "TIFF",
+ "uncompressedSize": 466624802,
+ "blockWidth": 21601,
+ "blockHeight": 1,
+ "compressionType": "LZW",
+ "bandNames": [
+  "Band_1"
+ ],
+ "allowCopy": true,
+ "allowAnalysis": true,
+ "itemAccess": false,
+ "inspectionCapabilities": "",
+ "noDataValue": -2147483648,
+ "noDataValues": [
+  -2147483648
+ ],
+ "minPixelSize": 0,
+ "maxPixelSize": 0,
+ "copyrightText": "",
+ "serviceDataType": "esriImageServiceDataTypeGeneric",
+ "serviceSourceType": "esriImageServiceSourceTypeDataset",
+ "objectIdField": "",
+ "fields": [],
+ "capabilities": "Image,Metadata,Mensuration",
+ "defaultMosaicMethod": "Center",
+ "allowedMosaicMethods": "",
+ "sortField": "",
+ "sortValue": null,
+ "sortAscending": true,
+ "mosaicOperator": "First",
+ "defaultCompressionQuality": 75,
+ "defaultResamplingMethod": "Bilinear",
+ "maxImageHeight": 4100,
+ "maxImageWidth": 15000,
+ "allowRasterFunction": true,
+ "rasterFunctionInfos": [
+  {
+   "name": "None",
+   "description": "",
+   "help": ""
+  }
+ ],
+ "rasterTypeInfos": [
+  {
+   "name": "Raster Dataset",
+   "description": "Supports all ArcGIS Raster Datasets",
+   "help": ""
+  }
+ ],
+ "mensurationCapabilities": "Basic",
+ "hasHistograms": false,
+ "hasColormap": false,
+ "hasRasterAttributeTable": false,
+ "minScale": 0,
+ "maxScale": 0,
+ "exportTilesAllowed": false,
+ "supportsStatistics": false,
+ "supportsAdvancedQueries": false,
+ "editFieldsInfo": null,
+ "ownershipBasedAccessControlForRasters": null,
+ "allowComputeTiePoints": false,
+ "useStandardizedQueries": true,
+ "advancedQueryCapabilities": {
+  "useStandardizedQueries": true,
+  "supportsStatistics": false,
+  "supportsOrderBy": false,
+  "supportsDistinct": false,
+  "supportsPagination": false
+ },
+ "spatialReference": {
+  "wkid": 4326,
+  "latestWkid": 4326
+ }
+}

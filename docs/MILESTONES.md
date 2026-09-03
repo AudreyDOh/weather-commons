@@ -20,9 +20,15 @@ Milestone 04 softens the approximate cloud mask, adds labelled visual dissolves 
 
 Milestone 05 adds a dedicated GOES instrument view with GeoColor, Airmass RGB, Sandwich RGB and CO₂ band 16 at matched ten-minute acquisition labels, plus a dated derived-motion-wind plate. Full-colour original imagery, product explanations, pan/zoom, playback speeds, scrubbing, and paired comparison are included. The older 3D lab is retained and its renderer is suspended while the instrument view is open. Source originals and acquisition provenance are archived locally; no live NOAA calls are made by participants' browsers.
 
+## 06 — One Earth, shared depth
+
+Replaces the separate GOES viewer and 2D overlay compositor with a shared Three.js scene. Nominal GOES geographic sampling, full-colour observation playback, sourced ETOPO1 terrain/seafloor, transparent water, atmospheric shells, depth-tested vectors/tracers, and an OSM/NAIP urban sample. White/dark interface, regular bundled Libre Franklin, accessible sliders and revised mobile navigation. Archived inputs, transforms, limits and geometric checks accompany the build. Adds NOAA ACHA cloud-top retrieval geometry, quality masking, independent height scales, a source catalogue, source-sample/building inspection and five guided views. Contextual timelines separate source scans from elapsed simulation time. No solver or deployment change.
+
 ## Next bounded milestone
 
-Reproject calibrated satellite products using their geolocation metadata before combining them with the globe's independent vectors and depth layers. Preserve the distinctions between acquisition time, model time, cloud appearance, and measured height. Introduce dynamic-resolution tiles when deeper zoom is addressed.
+Validation for milestone 06 is recorded in [VALIDATION.md](VALIDATION.md). The repository remains private and no website deployment is included.
+
+Replace approximate JPEG colour registration with calibrated ABI channel/RGB reprojection and assess parallax against the ACHA layer. Add tiled regional terrain and extend participant packages beyond wind fields. Preserve scan time, solver time, retrieved height and display exaggeration as separate quantities.
 
 ## Recording policy
 

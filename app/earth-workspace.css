@@ -1,0 +1,723 @@
+/* One quiet reading surface around a colour-rich scientific scene. */
+.earth-workspace {
+  --background: #fafaf7;
+  --foreground: #171b1d;
+  --primary: #171b1d;
+  --primary-foreground: #fff;
+  --muted: #e7e9e5;
+  --muted-foreground: #525957;
+  --border: #20282030;
+  --ring: #202820;
+  --panel: rgba(250, 250, 247, 0.94);
+  color: var(--foreground);
+  background: var(--background);
+  color-scheme: light;
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+.earth-workspace.night-theme {
+  --background: #090b0c;
+  --foreground: #e3e7e5;
+  --primary: #e3e7e5;
+  --primary-foreground: #111;
+  --muted: #222827;
+  --muted-foreground: #a5b0ac;
+  --border: #e0ebe036;
+  --ring: #fff;
+  --panel: rgba(9, 11, 12, 0.94);
+  color-scheme: dark;
+}
+.earth-workspace
+  :where(
+    button,
+    input,
+    select,
+    textarea,
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    span,
+    small,
+    strong,
+    em,
+    dt,
+    dd,
+    summary,
+    a,
+    label,
+    div
+  ) {
+  font-family: inherit;
+  font-family: 'Libre Franklin', Arial, sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+.earth-workspace
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    span,
+    small,
+    strong,
+    em,
+    dt,
+    dd,
+    summary,
+    a,
+    label,
+    button,
+    select,
+    div
+  ) {
+  color: inherit !important;
+}
+.earth-workspace .brand {
+  font-size: 28px !important;
+  line-height: 1;
+  letter-spacing: -0.065em;
+  white-space: nowrap;
+}
+.earth-workspace .topbar {
+  height: 80px;
+  padding: 0 28px;
+  gap: 20px;
+  align-items: center;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  pointer-events: auto;
+}
+.earth-workspace .topbar nav {
+  gap: 16px;
+  margin-left: auto;
+  flex-wrap: nowrap;
+}
+.earth-workspace .topbar nav button,
+.earth-workspace .theme-switch {
+  font-size: 12px !important;
+  min-height: 40px;
+  padding: 4px 0;
+  border-radius: 0;
+  white-space: nowrap;
+}
+.earth-workspace .topbar nav .nav-active {
+  border: 0;
+  border-bottom: 1px solid var(--foreground);
+}
+.earth-workspace .topbar nav button:last-child {
+  margin-left: 0;
+}
+.earth-workspace .theme-switch {
+  padding-left: 16px;
+  border-left: 1px solid var(--border);
+}
+.earth-workspace .study-select {
+  display: none;
+  max-width: 185px;
+  font-size: 12px;
+  border-color: var(--border);
+  padding-left: 16px;
+}
+.earth-workspace option {
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
+.earth-workspace .workspace {
+  position: absolute;
+  inset: 80px 0 0;
+  height: auto;
+}
+.earth-workspace .globe-stage {
+  inset: 0 0 90px;
+}
+.earth-workspace .scene-intro {
+  display: none;
+}
+.earth-workspace .earth-reading {
+  position: absolute;
+  top: 26px;
+  left: 28px;
+  z-index: 2;
+  pointer-events: none;
+  max-width: 340px;
+}
+.earth-reading span {
+  font-size: 12px;
+}
+.earth-workspace .earth-reading {
+  background: var(--panel);
+  padding: 10px 12px;
+  max-width: 340px;
+}
+.earth-reading p {
+  font-size: 14px;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+.earth-reading button {
+  pointer-events: auto;
+  font-size: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  line-height: 1.6;
+}
+.earth-workspace .intro,
+.earth-workspace .control-panel,
+.earth-workspace .network-panel,
+.earth-workspace .evidence-panel,
+.earth-workspace .reading-guide,
+.earth-workspace .casebook,
+.earth-workspace .story-card {
+  top: 20px;
+  bottom: 105px;
+  width: 330px;
+  padding: 22px;
+  max-height: none;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  backdrop-filter: blur(18px);
+  border-radius: 0;
+  box-shadow: none;
+  mask-image: none;
+  z-index: 6;
+  overflow: auto;
+  scrollbar-color: var(--border) transparent;
+}
+.earth-workspace .intro,
+.earth-workspace .casebook,
+.earth-workspace .reading-guide,
+.earth-workspace .story-card {
+  left: 20px;
+}
+.earth-workspace .control-panel,
+.earth-workspace .network-panel,
+.earth-workspace .evidence-panel {
+  right: 20px;
+}
+.earth-workspace
+  :is(
+    aside,
+    .casebook,
+    .reading-guide,
+    .story-card,
+    .depth-caption,
+    .timeline,
+    .contribution-dialog
+  ) {
+  color: var(--foreground) !important;
+}
+.earth-workspace .workspace:has(.intro:not([hidden])) .earth-reading {
+  display: none;
+}
+.earth-workspace
+  :is(
+    .intro,
+    .control-panel,
+    .network-panel,
+    .evidence-panel,
+    .casebook,
+    .reading-guide,
+    .story-card
+  )
+  :is(p, li, dt, dd) {
+  font-size: 14px !important;
+  line-height: 1.65;
+}
+.earth-workspace
+  :is(
+    .intro,
+    .control-panel,
+    .network-panel,
+    .evidence-panel,
+    .casebook,
+    .reading-guide,
+    .story-card
+  )
+  :is(h1, h2, h3) {
+  font-size: 14px !important;
+  line-height: 1.5;
+}
+.earth-workspace .panel-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  z-index: 2;
+  background: var(--panel);
+}
+.earth-workspace .earth-controls {
+  clear: both;
+  padding: 18px 0 24px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  gap: 12px;
+}
+.earth-controls .control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+.earth-controls .control-row button {
+  padding: 0 4px;
+  min-height: 36px;
+  font-size: 12px;
+}
+.earth-controls select,
+.earth-workspace .depth-control select {
+  width: 100%;
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 9px;
+  min-height: 40px;
+}
+.earth-controls p {
+  margin: 0;
+}
+.earth-controls label {
+  font-size: 12px;
+  display: grid;
+  gap: 14px;
+}
+.earth-workspace .earth-controls .micro-note {
+  font-size: 12px !important;
+  line-height: 1.6;
+  color: var(--muted-foreground) !important;
+}
+.earth-controls details,
+.legacy-observation {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.earth-controls details p {
+  margin: 12px 0;
+}
+.earth-controls summary,
+.legacy-observation summary {
+  cursor: pointer;
+  padding: 10px 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.earth-controls a {
+  display: block;
+  margin-top: 12px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.earth-controls > button {
+  white-space: normal;
+  text-align: left;
+  justify-content: space-between;
+  min-height: 42px;
+  border-radius: 0;
+  font-size: 12px;
+}
+.earth-workspace .legacy-observation {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.earth-workspace .layer-list {
+  margin-top: 24px;
+}
+.earth-workspace .layer {
+  min-height: 58px;
+  border-color: var(--border);
+}
+.earth-workspace .layer small {
+  font-size: 12px !important;
+  line-height: 1.5;
+  color: var(--muted-foreground) !important;
+}
+.earth-workspace .toggle {
+  border: 1px solid var(--foreground);
+  background: transparent;
+}
+.earth-workspace .toggle.on {
+  background: var(--foreground);
+}
+.earth-workspace .timeline {
+  left: 28px;
+  right: 28px;
+  bottom: 25px;
+  height: 62px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  background: var(--panel);
+  gap: 16px;
+  z-index: 8;
+}
+.earth-workspace .bottomline {
+  display: none;
+}
+.earth-workspace .depth-caption {
+  bottom: 104px;
+  left: auto;
+  right: 28px;
+  max-width: 300px;
+  text-align: right;
+  font-size: 12px;
+  background: var(--panel);
+  padding: 6px 9px;
+}
+.earth-workspace .globe-tools {
+  bottom: 12px;
+  right: 28px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.earth-workspace .globe-tools svg {
+  color: var(--foreground);
+  width: 16px;
+}
+.earth-workspace .observation-caption {
+  top: 26px;
+  right: 28px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  max-width: 290px;
+}
+.earth-workspace .contribution-dialog {
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+}
+.earth-workspace :is(button, a, input, select, summary, canvas):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+.earth-workspace input[type='range'] {
+  accent-color: var(--foreground);
+}
+.earth-workspace [data-slot='slider-track'] {
+  background: var(--muted);
+}
+.earth-workspace [data-slot='slider-range'],
+.earth-workspace [data-slot='slider-thumb'] {
+  background: var(--foreground);
+  border-color: var(--foreground);
+}
+.earth-workspace
+  :is(.site, .case-event, .stat, .control, .case-stat, .evidence-row) {
+  border-color: var(--border);
+  background: transparent;
+}
+.earth-workspace .map-error {
+  background: var(--panel);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+.earth-workspace .view-picker {
+  position: absolute;
+  top: 16px;
+  left: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 5;
+  background: var(--panel);
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+}
+.earth-workspace .view-picker select {
+  font-size: 12px;
+  background: transparent;
+  min-height: 32px;
+  max-width: 220px;
+  border: 0;
+}
+.earth-workspace .view-picker button {
+  font-size: 12px;
+  min-height: 32px;
+  background: none;
+  border: 0;
+  border-left: 1px solid var(--border);
+  padding-left: 12px;
+}
+.earth-workspace .earth-reading {
+  top: 80px;
+}
+.earth-workspace .intro,
+.earth-workspace .control-panel,
+.earth-workspace .network-panel,
+.earth-workspace .evidence-panel,
+.earth-workspace .reading-guide,
+.earth-workspace .casebook,
+.earth-workspace .story-card {
+  top: 76px;
+}
+.earth-workspace .sources-panel details {
+  border-top: 1px solid var(--border);
+  padding: 18px 0;
+}
+.earth-workspace .sources-panel summary {
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.earth-workspace .sources-panel a {
+  display: block;
+  margin-top: 14px;
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.earth-workspace .source-kind {
+  display: block;
+  font-size: 12px;
+  margin-top: 18px;
+}
+.earth-workspace .height-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 18px;
+}
+.earth-workspace .height-legend div {
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(
+    to right,
+    #233c76,
+    #267fb7,
+    #44c7bd,
+    #d6eaa0,
+    #ffe078
+  );
+}
+.earth-workspace .observation-timeline {
+  display: flex !important;
+}
+.earth-workspace .observation-clock p {
+  white-space: nowrap;
+}
+.earth-workspace :is(input, textarea, output) {
+  color: var(--foreground) !important;
+  font-family: 'Libre Franklin', Arial, sans-serif;
+  font-weight: 400;
+}
+.earth-workspace .observation-clock {
+  min-width: 185px;
+}
+.earth-workspace .observation-clock span,
+.earth-workspace .observation-scrubber span {
+  font-size: 12px;
+}
+.earth-workspace .observation-clock p {
+  font-size: 14px;
+  margin: 6px 0 0;
+}
+.earth-workspace .observation-scrubber {
+  flex: 1;
+  display: grid;
+  gap: 8px;
+}
+.earth-workspace .observation-timeline select {
+  font-size: 12px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+}
+.earth-workspace .observation-timeline > p {
+  margin-left: auto;
+  font-size: 12px;
+}
+.earth-workspace .observation-timeline > button {
+  font-size: 12px;
+}
+.earth-workspace .earth-inspector {
+  position: absolute;
+  right: 28px;
+  top: 80px;
+  width: 300px;
+  max-height: calc(100% - 200px);
+  overflow: auto;
+  background: var(--panel);
+  padding: 18px;
+  border: 1px solid var(--border);
+  z-index: 7;
+  backdrop-filter: blur(16px);
+}
+.earth-workspace .earth-inspector h2,
+.earth-workspace .earth-inspector p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 14px 0;
+}
+.earth-workspace .earth-inspector span,
+.earth-workspace .earth-inspector a {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.earth-workspace .earth-inspector a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (max-width: 1200px) {
+  .earth-workspace .study-select {
+    display: none;
+  }
+  .earth-workspace .topbar {
+    gap: 14px;
+  }
+  .earth-workspace .topbar nav {
+    gap: 12px;
+  }
+}
+@media (max-width: 760px) {
+  .earth-workspace .topbar {
+    height: 156px;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-rows: 28px 24px 64px;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .earth-workspace .brand {
+    font-size: 28px !important;
+    grid-row: 1;
+  }
+  .earth-workspace .theme-switch {
+    grid-row: 2;
+    justify-self: end;
+    font-size: 12px;
+    padding: 0;
+    border: 0;
+    min-height: 24px;
+  }
+  .earth-workspace .topbar nav {
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    margin: 0;
+    gap: 0 12px;
+    overflow: visible;
+  }
+  .earth-workspace .topbar nav button {
+    min-height: 32px;
+    height: 32px;
+    font-size: 12px !important;
+    justify-content: flex-start;
+  }
+  .earth-workspace .workspace {
+    inset: 156px 0 0;
+  }
+  .earth-workspace .earth-reading {
+    left: 16px;
+    top: 80px;
+    max-width: calc(100% - 32px);
+  }
+  .earth-workspace .earth-reading p {
+    max-width: 280px;
+  }
+  .earth-workspace .intro,
+  .earth-workspace .control-panel,
+  .earth-workspace .network-panel,
+  .earth-workspace .evidence-panel,
+  .earth-workspace .casebook,
+  .earth-workspace .reading-guide,
+  .earth-workspace .story-card {
+    left: 12px;
+    right: 12px;
+    top: 76px;
+    bottom: 108px;
+    width: auto;
+    padding: 18px;
+  }
+  .earth-workspace .timeline {
+    left: 16px;
+    right: 16px;
+    bottom: 14px;
+    height: 72px;
+    gap: 10px;
+  }
+  .earth-workspace .time-scrubber > div,
+  .earth-workspace .export-button {
+    display: none;
+  }
+  .earth-workspace .depth-caption {
+    bottom: 91px;
+    left: 16px;
+    right: auto;
+    max-width: 230px;
+    text-align: left;
+  }
+  .earth-workspace .globe-tools {
+    right: 16px;
+  }
+  .earth-workspace .observation-caption {
+    top: 100px;
+    right: 16px;
+  }
+  .earth-workspace .view-picker {
+    left: 12px;
+    right: 12px;
+    gap: 6px;
+    padding: 4px 8px;
+  }
+  .earth-workspace .view-picker > label {
+    display: none;
+  }
+  .earth-workspace .earth-inspector {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    top: 80px;
+  }
+  .earth-workspace .view-picker select {
+    flex: 1;
+    max-width: none;
+    min-width: 0;
+  }
+  .earth-workspace .observation-clock {
+    min-width: 88px;
+    max-width: 100px;
+  }
+  .earth-workspace .observation-clock span {
+    display: none;
+  }
+  .earth-workspace .observation-timeline {
+    flex-wrap: wrap;
+    height: 78px;
+    gap: 8px;
+  }
+  .earth-workspace .observation-timeline {
+    flex-wrap: nowrap;
+  }
+  .earth-workspace .observation-clock {
+    min-width: 70px;
+    max-width: 70px;
+  }
+  .earth-workspace .observation-scrubber {
+    min-width: 60px;
+  }
+  .earth-workspace .observation-timeline select {
+    max-width: 100px;
+    padding: 4px;
+    font-size: 12px;
+  }
+  .earth-workspace .observation-scrubber span {
+    display: none;
+  }
+  .earth-workspace .observation-timeline > p {
+    display: none;
+  }
+}

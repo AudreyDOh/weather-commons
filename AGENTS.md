@@ -17,11 +17,13 @@ This repository is a browser-based research pilot for the Realtime Weather worki
 - A visual layer must declare whether it is observed, reanalyzed, modelled, synthetic, cartographic, or interpretive.
 - Never infer exposure, injury, rainfall change, or political causality from tracer proximity alone.
 - Student imports are data only. Validate their schema and do not execute imported content.
+- ACHA cloud-top heights are retrieved quantities, not volumetric clouds. Preserve quality flags, scan intervals, source navigation and the distinction between source height and display exaggeration. Keep imagery time separate from model time.
 
 ## Interface direction
 
 - The globe and evidence are the primary experience; controls remain secondary and are disclosed as needed.
-- Use Franklin Gothic Medium when installed, with bundled Libre Franklin as the portable fallback. All interface text is uppercase. Use only the 12 px metadata, 14 px body, and 28 px title tokens; no italic styling.
+- The project lead requested lighter type after the Franklin Gothic Medium pass. Use bundled Libre Franklin at weight 400 consistently; do not let installed medium-weight faces override it. All interface text is uppercase. Use only the 12 px metadata, 14 px body, and 28 px title tokens; no italic styling.
+- The default interface is warm white with black text; a dark background remains selectable. Keep controls within the same globe workspace.
 - Keep interface chrome monochrome. The project lead requested vivid scientific imagery: preserve source colours in GOES RGB and infrared products, including their supplied cartography. Do not invent vectors, lighting, or physical meaning for those colours.
 - Prefer a few durable controls and clear source labels over feature density.
 

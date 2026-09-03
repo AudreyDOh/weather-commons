@@ -1,0 +1,7 @@
+# Provenance hashes describe exact downloaded bytes, including line endings.
+public/data/archive/** -text
+*.i16 binary
+*.u16 binary
+*.f32 binary
+*.nc binary
+*.tif binary

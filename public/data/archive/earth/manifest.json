@@ -1,0 +1,80 @@
+{
+  "retrievedAt": "2026-09-03T12:46:33.497594+00:00",
+  "relief": {
+    "name": "NOAA ETOPO1 ice-surface global relief",
+    "kind": "modelled relief compilation",
+    "width": 2048,
+    "height": 1024,
+    "units": "metres relative to sea level",
+    "min": -9786.3837890625,
+    "max": 6160.99072265625,
+    "source": "https://gis.ngdc.noaa.gov/arcgis/rest/services/DEM_mosaics/ETOPO1_ice_surface/ImageServer",
+    "resolution": "0.17578125 degrees; overview only"
+  },
+  "buildings": {
+    "kind": "cartographic footprints / mixed reported and assumed heights",
+    "count": 522,
+    "extent": [
+      -74.018,
+      40.703,
+      -74.006,
+      40.713
+    ],
+    "attribution": "\u00a9 OpenStreetMap contributors, ODbL",
+    "source": "https://www.openstreetmap.org/copyright"
+  },
+  "files": [
+    {
+      "file": "etopo-service.json",
+      "url": "https://gis.ngdc.noaa.gov/arcgis/rest/services/DEM_mosaics/ETOPO1_ice_surface/ImageServer?f=pjson",
+      "retrievedAt": "2026-09-03T12:24:53.402235+00:00",
+      "transform": "Original response bytes retained",
+      "sha256": "d3fb3bd64ece0e6381ce43da34cdbdfdc0d2f47ab388828dedcb69a30bf70a70"
+    },
+    {
+      "file": "etopo1.tif",
+      "url": "https://gis.ngdc.noaa.gov/arcgis/rest/services/DEM_mosaics/ETOPO1_ice_surface/ImageServer/exportImage?bbox=-180%2C-90%2C180%2C90&bboxSR=4326&imageSR=4326&size=2048%2C1024&format=tiff&pixelType=F32&noData=-32768&interpolation=RSP_BilinearInterpolation&renderingRule=%7B%22rasterFunction%22%3A+%22None%22%7D&f=image",
+      "retrievedAt": "2026-09-03T12:24:56.537885+00:00",
+      "transform": "Original response bytes retained",
+      "sha256": "c285534e788edfd5452c2c8e8d3d71ca2905fe332efc72fde682357db4580ffb"
+    },
+    {
+      "file": "elevation.i16",
+      "sha256": "c9bf9f9906a60c9f7b80723f4bcd6032dfe694b41f527d55fe4da7bdd31022f5",
+      "transform": "Round NOAA bilinearly resampled elevation to signed little-endian int16 metres; row 0 north, cell-centred 2048 x 1024 global grid."
+    },
+    {
+      "file": "buildings-osm.json",
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A60%5D%3Bway%5B%22building%22%5D%2840.703%2C-74.018%2C40.713%2C-74.006%29%3Bout+tags+geom%3B",
+      "retrievedAt": "2026-09-03T12:24:58.586512+00:00",
+      "transform": "Original response bytes retained",
+      "sha256": "670cf8a910196afb627a675a153c88bdd8b64fe33a88f54a60c44ab7bb81936e"
+    },
+    {
+      "file": "buildings.json",
+      "sha256": "8ebb0870b9494c3f7e3ce5858c5ce16a64691080c592eee4d933e2ac294769ba",
+      "transform": "Closed OSM ways only. Heights from tags, 3m/level or explicit 9m fallback. Flat roofs, no facade textures. Not a historical reconstruction."
+    },
+    {
+      "file": "naip-service.json",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer?f=pjson",
+      "retrievedAt": "2026-09-03T12:41:55.443696+00:00",
+      "transform": "Original response bytes retained",
+      "sha256": "b366ed805aa7d4fadee33def15c3e952a763134c4c9c2d07f4ad1bfabd033172"
+    },
+    {
+      "file": "manhattan-naip.jpg",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/exportImage?bbox=-74.024%2C40.699%2C-74.0%2C40.717&bboxSR=4326&imageSR=4326&size=2048%2C1536&format=jpg&f=image&adjustAspectRatio=false",
+      "retrievedAt": "2026-09-03T12:42:10.063630+00:00",
+      "transform": "Original response bytes retained",
+      "sha256": "1ec9396c86ec0293d8bfa4f0c11b02bb673b183d6e8b3792e7bd633924b4e322"
+    },
+    {
+      "file": "naip-catalogue.json",
+      "url": "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/query?geometry=-74.024%2C40.699%2C-74.0%2C40.717&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=%2A&returnGeometry=false&f=json",
+      "retrievedAt": "2026-09-03T12:42:10.644633+00:00",
+      "transform": "Original response bytes retained",
+      "sha256": "8614fc732c070acb0ae01dadd27d0c32320376e62c8d99372640613703da0afd"
+    }
+  ]
+}

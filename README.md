@@ -18,17 +18,21 @@ The local pilot opens at the URL printed by `pnpm dev`. It has no accounts, serv
 
 ## What is included
 
-The opening **GOES** view offers five ways of seeing the atmosphere. Choose a product, play its ten-minute archive, or compare GeoColor and another product side by side. Scroll to inspect image detail. **Return to the 3D lab** restores the globe and tracer experiments. GOES colours, cartography and wind barbs remain as supplied by NOAA; the images are not reprojected onto the globe.
+The opening view is one rotatable **3D Earth**. **Explore** switches between imagery, cloud-top height, land/seafloor, built fabric and transport/history. Click **Sources** for the dataset ledger, or click the Earth to inspect a source sample. **Earth** opens layer controls: choose a GOES product, play its ten-minute archive, change opacity, inspect Atlantic relief, or enter a bounded Lower Manhattan building sample. **Paper / White** switches to a dark background. Satellite colours retain NOAA's processing; navigation of the published JPEGs uses an explicitly approximate GOES fixed-grid registration.
+
+Land and seafloor are a displaced NOAA ETOPO1 mesh, with a separate transparent sea-level surface. The city sample combines 522 OpenStreetMap building extrusions with USGS NAIP ground/roof imagery. These layers share a Three.js depth buffer with vectors, sites and calculated tracers. Twelve matched NOAA ACHA cloud-top-height grids are now triangulated as a separate, quality-masked surface. A 0–20 km colour legend and 1×/20×/50×/100× height scales distinguish retrieval values from display exaggeration. Terrain tiles and photogrammetric facades remain future work.
 
 - A fast, browser-worker passive-tracer simulation with documented assumptions, reproducible seeded runs, 3D height, diffusion, decay, and grid boundaries.
 - Two studies: a synthetic Atlantic teaching field and an archival Project Popeye study based on a deliberately limited 1966 ERA5 reanalysis snapshot.
 - A local NASA Blue Marble surface, Natural Earth cartography, selected institutional infrastructure, and case-specific geographic context.
 - An evidence casebook that marks observed/reanalyzed input, synthetic assumptions, calculation, archival claims, and non-inference.
 - Validated portable JSON contributions for workshop research and narration.
-- A dated satellite observation sequence: open **Layers → Show sequence**, then play, scrub, or blend six NASA Terra/MODIS daily mosaics. Its 2024 observation clock is independent of the simulation clock.
+- A dated satellite observation sequence: open **Earth → Earlier MODIS archive**, hide GOES, then play, scrub, or blend six NASA Terra/MODIS daily mosaics. Its 2024 observation clock is independent of the simulation clock.
 - **Cloud isolation** removes dark and strongly coloured pixels approximately. Under **Cloud mask & height**, set an assumed shell height and choose 1×, 50× or 200× exaggeration. This is a thin image shell, not measured or volumetric clouds. **Original satellite mosaic** restores the ground-level image.
 
 It is not a forecast, an atmospheric-dynamics solver, an exposure assessment, a weather-modification reconstruction, or a decision tool. Refer to [SOURCES.md](SOURCES.md) for evidentiary scope.
+
+The bottom timeline follows the current view: dated observation frames for satellite/cloud layers, elapsed model time for transport. **Conditions → Active study** switches between the two teaching studies. These clocks are independent.
 
 ## Repository map
 

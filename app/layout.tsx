@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './earth-workspace.css';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_ORIGIN || 'http://localhost:3000'),
   title: 'Realtime Weather — Weather Commons',
@@ -21,7 +22,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

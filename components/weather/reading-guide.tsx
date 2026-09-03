@@ -45,13 +45,13 @@ export function ReadingGuide({
       label: 'Read the calculation',
       title: 'A path through an atmospheric volume.',
       body: `At ${snapshot.hours.toFixed(1)} model hours, mean displacement is ${Math.round(snapshot.distance).toLocaleString()} km; ${snapshot.mass.toFixed(1)}% of the initial weight remains. Mean height is ${((snapshot.meanHeight ?? 0) / 1000).toFixed(2)} km above the reference sphere.`,
-      note: 'Height is calculated, but exaggerated on the globe so you can see it. Surface tethers are location guides, not falling material. Switch to true scale in Layers.',
+      note: 'Height is calculated, but exaggerated on the globe so you can see it. Switch to true scale in Earth. The height reference is the solver’s sphere, not the exaggerated terrain.',
     },
     {
       label: 'Ask what is absent',
       title: 'Geography is visible. Its physics is mostly absent.',
-      body: 'Real mountains redirect and lift air. Surface heating drives mixing; clouds and rain can remove particles. Here, the landscape is a reference image: it does not change the prescribed wind.',
-      note: 'There is no terrain, rain, ocean exchange, buoyancy, chemistry or height-dependent wind. The reflecting 12 km ceiling is an assumed model boundary, not a measured tropopause.',
+      body: 'Real mountains redirect and lift air. Surface heating drives mixing; clouds and rain can remove particles. Here, the landscape supplies visual context: its geometry does not change the prescribed wind.',
+      note: 'The solver has no terrain interaction, rain, ocean exchange, buoyancy, chemistry or height-dependent wind. The reflecting 12 km ceiling is an assumed model boundary, not a measured tropopause.',
     },
     {
       label: 'Interpret carefully',

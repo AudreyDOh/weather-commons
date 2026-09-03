@@ -36,6 +36,24 @@ Begin each session by comparing a real observation, a model product, and a synth
 
 ## Pilot exercise: two clocks
 
-The GOES view adds an exercise in comparative observation: pause a single acquisition label and compare GeoColor with Airmass RGB. Name three features that change appearance and explain which measurement/processing choice produced that change. Then compare the original derived-wind plate and identify the extra inference needed to turn tracked cloud features into a wind retrieval. The wind still has its own source time and cannot be treated as a matched-time image pair.
+Explore → Satellite imagery adds an exercise in comparative observation: pause a single acquisition label and compare GeoColor with Airmass RGB. Name three features that change appearance and explain which measurement/processing choice produced that change. Then compare the original derived-wind plate and identify the extra inference needed to turn tracked cloud features into a wind retrieval. The wind still has its own source time and cannot be treated as a matched-time image pair.
 
-Open Layers → Show sequence. Play the six Terra/MODIS daily mosaics while the tracer model is paused, then pause the imagery and run the simulation. Ask participants what changed in each case and what evidence would justify linking them. Lower imagery opacity to identify where the 2004 background is being shown underneath missing 2024 coverage. Locate a cloud system, record its observation date, and explain why its image alone does not supply wind vectors or cloud height. The mismatch with the 1966 case is deliberate and labelled: a source date must be part of every spatial claim.
+Open Earth → Earlier MODIS archive, hide GOES and choose Show. Play the six Terra/MODIS daily mosaics while the tracer model is paused, then pause the imagery and run the simulation. Ask participants what changed in each case and what evidence would justify linking them. Lower imagery opacity to identify where the 2004 background is being shown underneath missing 2024 coverage. Locate a cloud system, record its observation date, and explain why its image alone does not supply wind vectors or cloud height. The mismatch with the 1966 case is deliberate and labelled: a source date must be part of every spatial claim.
+
+## Pilot exercise: one Earth, five kinds of evidence
+
+Use **Explore** as a 20-minute opening exercise. Change one variable at a time and keep a small claim ledger.
+
+1. **Satellite imagery:** pause 04:10 UTC. Switch Air Mass / GeoColor without changing the date. What becomes legible because of a channel combination? The colours are processed observations, not natural vision of an atmosphere.
+2. **Cloud-top heights:** select the same scan. Compare 1× with 50× height. Click a patch and record its retrieval, scan interval and DQF rule. Explain why an attractive continuous mesh would conceal missingness. Cloud tops do not define a cloud's full volume.
+3. **Land + seafloor:** lower water opacity and compare 1×/60× relief. Click a deep-ocean point. Distinguish metres in the source from apparent depth on screen. Ask whose observations and interpolation assembled that global surface.
+4. **Built fabric:** inspect three buildings. Find a tagged height and, if present in the selected sample, an assumed height. Explain how a cadastral-style outline, an aerial photograph and a height convention become a model of architecture. Record the mismatch in source dates and the flat datum.
+5. **Transport + history:** open Read, then Conditions. Change one transport parameter and rerun with the same seed. Pair a calculated difference with an archival claim; write the missing evidence needed to connect them. Never turn simulated proximity into weather-modification effectiveness or harm attribution.
+
+For the final presentation, require one inspected record, one transformation diagram, one counterfactual rerun, and one explicit non-inference. Scientific precision here means making the source/algorithm/display distinction readable, including when the display is beautiful.
+
+## AI-assisted work protocol
+
+Give Codex a bounded source pack, a declared question and a maximum client data size. Ask it first to identify units, axes, time coverage, missing-data codes and licensing from the original metadata. Have it produce a small derived field plus reproducible transform and manifest. Ask a second human participant to inspect a few source values and trace a narrative claim back to its document before accepting the output. Never let plausible generated numbers stand in for observations. Imported JSON remains data only; executable student modules are not supported by this pilot.
+
+The current adapter examples are `prepare-earth.py` and `prepare-cloud-height.py`. A future participant layer schema should include source kind, archive/version, geographic and vertical reference, acquisition interval, display transform, missingness, narrative waypoints and rights. These broader layer packages are a roadmap item; current participant imports still accept the validated wind-field contribution schema.

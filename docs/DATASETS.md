@@ -42,8 +42,14 @@ Bathymetry is mostly static physical geography. Ocean currents are a different o
 | [WMO OSCAR/Space](https://space.oscar.wmo.int/) | Satellite mission metadata | Orbital observing infrastructure and instrument histories |
 | National meteorological archives and institutional reports | Station histories, model centres, procurement, and governance | Case-specific evidence; cite the original record |
 
-## Recommended technical sequence
+## Implemented depth sources
 
-GOES is now available as a native instrument view with four matched ten-minute sequences and a separate derived-wind still. The archived full-disk JPEGs retain NOAA's processing and cartography. This is a comparison surface, not a calibrated field source for the simulation. Native ABI arrays, geolocation and separately queryable wind retrievals are the next integration step.
+The **Sources** drawer exposes the currently loaded archives; **Explore** provides five guided views. GOES colour JPEGs are approximately registered on the 3D globe. They are not calibrated pixel sources for geographic measurement.
 
-The first NASA GIBS daily archive is now implemented: six global WMS mosaics, 24–29 September 2024, at 2048 × 1024 pixels. These are committed locally with original responses and hashes; no live retrieval is performed in the interface. Next add a single regional geostationary cloud adapter, driven by an explicit frame catalogue and a bounded cache. Introduce terrain and bathymetry after the imagery-time architecture is stable. For a public version, put cataloguing, reprojection, and heavy GRIB/NetCDF work behind a server job and distribute bounded web tiles or sampled fields.
+- **ACHA cloud-top height:** twelve GOES-19 ABI-L2-ACHAF scan windows, 3 September 2026 04:10–06:00 UTC. Native 10 km product, decimated to about 20 km at nadir, retaining only DQF=0. Raw NetCDF, quality flags, navigation and derived arrays are archived. This is the 10 km stream, not the separate ACHA2KM product. Use for comparing visual cloud appearance with a retrieved quantity, missingness and display exaggeration.
+- **ETOPO1:** signed land/seafloor elevations resampled to a 2048 × 1024 overview. The sea-level surface is separate geometry. Use to interrogate a datum, vertical scale and the difference between an overview model and a local survey.
+- **OSM + USGS NAIP:** 522 Lower Manhattan footprints, tagged or explicitly assumed heights, local aerial roof/ground textures. Click a building to inspect the original way and height rule. Use to ask how records become architecture and where absence is replaced by a convention.
+
+## Next technical sequence
+
+Calibrated ABI colour reprojection and cloud-parallax assessment should precede precise image/height overlays. Regional terrain tiles and surveyed city geometry should replace coarse relief and the flat local datum where a case demands street-scale analysis. Himawari or Meteosat would extend the currently Americas-centred observation archive. A public version needs server-side cataloguing/conversion and bounded, versioned web tiles; participants should not download global NetCDF volumes.
