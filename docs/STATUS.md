@@ -2,6 +2,9 @@
 
 ## Working now
 
+- Franklin-style sans-serif typography: local Franklin Gothic Medium with bundled OFL Libre Franklin fallback, uppercase text, and 12/14/28 px scales.
+- Cloud isolation retains grey transparency through a wider feathered threshold and a small five-tap spatial filter. Softness is adjustable. Daily cloud playback uses a labelled 1.4-second visual dissolve, with 2.4-second frame intervals, and stops at the end. Pausing/scrubbing returns to an individual source frame. The dissolve is not measured motion or a temporal reconstruction.
+
 - Two switchable studies: a synthetic Atlantic teaching field and an archival Project Popeye study built from a documented 1966 ERA5 reanalysis sample.
 - A browser-worker passive-tracer solver with seeded horizontal and vertical diffusion, decay, regular-grid interpolation, domain loss, deterministic exports, and 3D height projection.
 - A local NASA Blue Marble surface, Natural Earth coastlines and administrative boundaries, selected infrastructure markers, rivers, and geographic anchors.

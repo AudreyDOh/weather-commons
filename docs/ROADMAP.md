@@ -16,6 +16,9 @@
 
 ## Next: dynamic Earth imagery
 
+- [x] Soften cloud isolation and add explicitly labelled visual dissolves; preserve individual-frame inspection on pause.
+- [ ] Prioritize geostationary 10-minute imagery for actual cloud evolution. GOES covers the Americas; use Himawari for the Asia-Pacific study rather than forcing global MODIS daily imagery into a motion sequence.
+
 - [x] Add a time controller that keeps observation time separate from simulation time.
 - [x] Implement a low-resolution daily imagery adapter using NASA GIBS: six archived 2048 × 1024 WMS frames, local playback, scrubbing, opacity and provenance.
 - [ ] Add resolution-dependent imagery tiles for closer inspection; this first archive has a fixed global overview resolution.

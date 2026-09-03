@@ -13,10 +13,12 @@ export function useObservation() {
   const [cloudOnly, setCloudOnly] = useState(true);
   const [cloudHeightKm, setCloudHeightKm] = useState(6);
   const [cloudScale, setCloudScale] = useState(50);
-  const [cloudThreshold, setCloudThreshold] = useState(0.5);
+  const [cloudThreshold, setCloudThreshold] = useState(0.45);
+  const [cloudSoftness, setCloudSoftness] = useState(0.7);
   const [displayed, setDisplayed] = useState<{
     image: HTMLImageElement;
     date: string;
+    previousDate: string | null;
   } | null>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>(
     'idle',
@@ -53,7 +55,11 @@ export function useObservation() {
     load(frame.path)
       .then((image) => {
         if (cancelled) return;
-        setDisplayed({ image, date: frame.date });
+        setDisplayed((previous) => ({
+          image,
+          date: frame.date,
+          previousDate: previous?.date ?? null,
+        }));
         setStatus('ready');
         // Only the next frame is prefetched. The fixed archive bounds the cache to six images.
         void load(
@@ -74,10 +80,14 @@ export function useObservation() {
     if (!enabled || !playing || status !== 'ready') return;
     const interval = window.setInterval(() => {
       if (!document.hidden) {
+        if (index === manifest.frames.length - 1) {
+          setPlaying(false);
+          return;
+        }
         setStatus('loading');
         setIndex((value) => (value + 1) % manifest.frames.length);
       }
-    }, 1400);
+    }, 2400);
     return () => clearInterval(interval);
   }, [enabled, playing, status, index]);
 
@@ -107,6 +117,9 @@ export function useObservation() {
     setCloudScale,
     cloudThreshold,
     setCloudThreshold,
+    cloudSoftness,
+    setCloudSoftness,
+    previousDate: displayed?.previousDate ?? null,
     status,
     displayedDate: displayed?.date ?? null,
     image: enabled ? (displayed?.image ?? null) : null,

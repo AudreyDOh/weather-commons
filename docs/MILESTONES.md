@@ -16,4 +16,6 @@ Add a regional geostationary cloud sequence with a precise acquisition-time cata
 
 ## Recording policy
 
+Milestone 04 softens the approximate cloud mask, adds labelled visual dissolves between daily cloud frames, stops automatic playback at the archive end, and standardizes the interface on uppercase Franklin-style sans serif with three type sizes. The observation source and physical assumptions are unchanged.
+
 The project lead requested incremental commits and pushes for coherent, verified milestones. Keep task lists and source notes in the same commit as the implementation. Push normally to the verified private remote; never force-push or publish a website as part of this workflow without separate authorization.

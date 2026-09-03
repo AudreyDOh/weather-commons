@@ -15,6 +15,8 @@ type Props = {
   cloudHeightKm: number;
   cloudScale: number;
   cloudThreshold: number;
+  cloudSoftness: number;
+  observationPlaying: boolean;
   snapshot: Snapshot | null;
   contribution: Contribution;
   focus: { longitude: number; latitude: number; zoom?: number };
@@ -177,6 +179,7 @@ export default function Globe(props: Props) {
           state.cloudHeightKm,
           state.cloudScale,
           state.cloudThreshold,
+          state.cloudSoftness,
         )
       )
         baseDirty = true;
@@ -184,10 +187,12 @@ export default function Globe(props: Props) {
         surface?.setObservation(
           state.observationImage,
           state.observationOpacity,
+          state.observationPlaying,
         )
       )
         baseDirty = true;
       view.current.lon += (target.current.lon - view.current.lon) * 0.08;
+      if (surface?.isTransitioning()) baseDirty = true;
       view.current.lat += (target.current.lat - view.current.lat) * 0.08;
       view.current.zoom += (zoom.current - view.current.zoom) * 0.1;
       const { lon, lat } = view.current,
@@ -549,7 +554,8 @@ export default function Globe(props: Props) {
       }
       if (state.placesVisible && !state.networkVisible) {
         const labels: { x: number; y: number; w: number }[] = [];
-        ctx.font = '9px ui-monospace, monospace';
+        ctx.font =
+          '12px "Franklin Gothic Medium", "Libre Franklin", Arial, sans-serif';
         ctx.letterSpacing = '1px';
         for (const s of state.contribution.chapters) {
           const p = project(s.longitude, s.latitude);
@@ -623,7 +629,8 @@ export default function Globe(props: Props) {
           ctx.fillStyle = '#fff';
           ctx.fillRect(p.x - 2, p.y - 2, 4, 4);
           ctx.strokeRect(p.x - 4, p.y - lift - 4, 8, 8);
-          ctx.font = '12px "STIX Two Text", Georgia, serif';
+          ctx.font =
+            '12px "Franklin Gothic Medium", "Libre Franklin", Arial, sans-serif';
           ctx.letterSpacing = '0px';
           const label = n.label;
           const w = ctx.measureText(label).width;
@@ -634,7 +641,8 @@ export default function Globe(props: Props) {
           hits.current.push({ x: p.x, y: p.y - lift, index });
         });
       }
-      ctx.font = '9px ui-monospace, monospace';
+      ctx.font =
+        '12px "Franklin Gothic Medium", "Libre Franklin", Arial, sans-serif';
       ctx.fillStyle = '#64777c';
       ctx.textAlign = 'center';
       ctx.fillText('N', cx, cy - r - 15);

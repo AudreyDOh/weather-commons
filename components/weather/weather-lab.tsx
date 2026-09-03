@@ -582,6 +582,8 @@ export default function WeatherLab() {
             cloudHeightKm={observation.cloudHeightKm}
             cloudScale={observation.cloudScale}
             cloudThreshold={observation.cloudThreshold}
+            cloudSoftness={observation.cloudSoftness}
+            observationPlaying={observation.playing && observation.cloudOnly}
             snapshot={snapshot}
             contribution={contribution}
             focus={
@@ -633,6 +635,13 @@ export default function WeatherLab() {
                 <span>
                   Assumed {observation.cloudHeightKm} km ·{' '}
                   {observation.cloudScale}× height · unmeasured
+                </span>
+              )}
+              {observation.playing && observation.cloudOnly && (
+                <span>
+                  Visual dissolve from{' '}
+                  {observation.previousDate ?? observation.displayedDate} · not
+                  measured motion
                 </span>
               )}
               <span>

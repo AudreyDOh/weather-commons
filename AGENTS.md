@@ -21,7 +21,7 @@ This repository is a browser-based research pilot for the Realtime Weather worki
 ## Interface direction
 
 - The globe and evidence are the primary experience; controls remain secondary and are disclosed as needed.
-- Use the local STIX Two Text face. Interface chrome and headings are uppercase; longer historical and methodological prose remains sentence case for legibility.
+- Use Franklin Gothic Medium when installed, with bundled Libre Franklin as the portable fallback. All interface text is uppercase. Use only the 12 px metadata, 14 px body, and 28 px title tokens; no italic styling.
 - Maintain a restrained monochrome palette. Do not add decorative gauges, dashboards, or invented realism.
 - Prefer a few durable controls and clear source labels over feature density.
 

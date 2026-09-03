@@ -28,11 +28,30 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
     `#version 300 es
     precision highp float;
     uniform vec2 resolution; uniform vec3 camera; uniform float radius;
-    uniform sampler2D earth; uniform sampler2D observation;
+    uniform sampler2D earth; uniform sampler2D observation; uniform sampler2D previousObservation;
+    uniform float frameBlend, cloudSoftness;
     uniform float observationOpacity;
     uniform bool cloudOnly;
     uniform float cloudRadius, cloudThreshold;
     out vec4 color;
+    vec2 cloudAt(sampler2D image, vec2 uv){
+      vec4 pixel=texture(image,uv);
+      float bright=dot(pixel.rgb,vec3(.2126,.7152,.0722));
+      float chroma=max(max(pixel.r,pixel.g),pixel.b)-min(min(pixel.r,pixel.g),pixel.b);
+      float width=mix(.06,.42,cloudSoftness);
+      float alpha=smoothstep(max(0.,cloudThreshold-width),min(1.,cloudThreshold+width),bright);
+      alpha=pow(alpha,.8)*(1.-smoothstep(.10,.38,chroma))*pixel.a;
+      return vec2(bright*alpha,alpha);
+    }
+    vec2 cloudSample(sampler2D image, vec2 uv){
+      vec2 stepUV=vec2(1.)/vec2(textureSize(image,0))*cloudSoftness*1.6;
+      vec2 value=cloudAt(image,uv)*.4;
+      value+=cloudAt(image,uv+vec2(stepUV.x,0.))*.15;
+      value+=cloudAt(image,uv-vec2(stepUV.x,0.))*.15;
+      value+=cloudAt(image,uv+vec2(0.,stepUV.y))*.15;
+      value+=cloudAt(image,uv-vec2(0.,stepUV.y))*.15;
+      return value*texture(image,uv).a;
+    }
     vec2 sphereUV(vec2 q){
       float z=sqrt(max(0.,1.-dot(q,q))), c=cos(camera.y), s=sin(camera.y);
       float latitude=asin(clamp(q.y*c+z*s,-1.,1.));
@@ -60,14 +79,12 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
       }
       if(cloudOnly && observationOpacity>0. && d<=cloudRadius*cloudRadius){
         vec2 cq=q/cloudRadius;
-        vec4 sampleColor=texture(observation,sphereUV(cq));
-        float bright=dot(sampleColor.rgb,vec3(.2126,.7152,.0722));
-        float chroma=max(max(sampleColor.r,sampleColor.g),sampleColor.b)-min(min(sampleColor.r,sampleColor.g),sampleColor.b);
-        // A display heuristic, not MOD35 cloud classification or measured height.
-        float mask=smoothstep(cloudThreshold,cloudThreshold+.22,bright)*(1.-smoothstep(.10,.32,chroma))*sampleColor.a;
+        vec2 uv=sphereUV(cq);
+        vec2 cloud=cloudSample(observation,uv);
+        if(frameBlend<1.) cloud=mix(cloudSample(previousObservation,uv),cloud,frameBlend);
         float cz=sqrt(max(0.,1.-dot(cq,cq)));
         float light=.55+.45*max(0.,dot(vec3(cq,cz),normalize(vec3(-.35,.45,1.))));
-        result=mix(result,vec3(bright*light),mask*observationOpacity);
+        result=result*(1.-cloud.y*observationOpacity)+vec3(cloud.x*light)*observationOpacity;
       }
       color=vec4(result,1.);
     }`,
@@ -99,7 +116,7 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
     gl.LINEAR_MIPMAP_LINEAR,
   );
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-  const observationTexture = gl.createTexture();
+  let observationTexture = gl.createTexture();
   gl.activeTexture(gl.TEXTURE1);
   gl.bindTexture(gl.TEXTURE_2D, observationTexture);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
@@ -123,6 +140,34 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
   );
   gl.generateMipmap(gl.TEXTURE_2D);
   gl.uniform1i(gl.getUniformLocation(program, 'earth'), 0);
+  let previousTexture = gl.createTexture();
+  gl.activeTexture(gl.TEXTURE2);
+  gl.bindTexture(gl.TEXTURE_2D, previousTexture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(
+    gl.TEXTURE_2D,
+    gl.TEXTURE_MIN_FILTER,
+    gl.LINEAR_MIPMAP_LINEAR,
+  );
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texImage2D(
+    gl.TEXTURE_2D,
+    0,
+    gl.RGBA,
+    1,
+    1,
+    0,
+    gl.RGBA,
+    gl.UNSIGNED_BYTE,
+    new Uint8Array(4),
+  );
+  gl.generateMipmap(gl.TEXTURE_2D);
+  gl.uniform1i(gl.getUniformLocation(program, 'previousObservation'), 2);
+  const blendUniform = gl.getUniformLocation(program, 'frameBlend');
+  const softnessUniform = gl.getUniformLocation(program, 'cloudSoftness');
+  let transitionStart = 0,
+    softness = 0.7;
   gl.uniform1i(gl.getUniformLocation(program, 'observation'), 1);
   const observationUniform = gl.getUniformLocation(
     program,
@@ -175,24 +220,45 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
       heightKm: number,
       scale: number,
       cutoff: number,
+      feather: number,
     ) {
       const nextRadius = 1 + (heightKm * scale) / 6371;
       if (
         enabled === cloudMode &&
         nextRadius === cloudRadius &&
-        cutoff === threshold
+        cutoff === threshold &&
+        feather === softness
       )
         return false;
       cloudMode = enabled;
       cloudRadius = nextRadius;
       threshold = cutoff;
+      softness = feather;
       return true;
     },
-    setObservation(input: HTMLImageElement | null, opacity: number) {
+    isTransitioning() {
+      return transitionStart > 0;
+    },
+    setObservation(
+      input: HTMLImageElement | null,
+      opacity: number,
+      animate: boolean,
+    ) {
       const nextOpacity = input ? opacity : 0;
+      const stopped = !animate && transitionStart > 0;
+      if (!animate) transitionStart = 0;
       if (input === observationImage && nextOpacity === observationOpacity)
-        return false;
+        return stopped;
       if (input && input !== observationImage) {
+        transitionStart =
+          animate && observationImage && input.src > observationImage.src
+            ? performance.now()
+            : 0;
+        const swap = previousTexture;
+        previousTexture = observationTexture;
+        observationTexture = swap;
+        gl.activeTexture(gl.TEXTURE2);
+        gl.bindTexture(gl.TEXTURE_2D, previousTexture);
         gl.activeTexture(gl.TEXTURE1);
         gl.bindTexture(gl.TEXTURE_2D, observationTexture);
         gl.texImage2D(
@@ -233,6 +299,12 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
       );
       gl.uniform1f(uniforms[2], radius);
       gl.uniform1f(observationUniform, observationOpacity);
+      const progress = transitionStart
+        ? Math.min(1, (performance.now() - transitionStart) / 1400)
+        : 1;
+      gl.uniform1f(blendUniform, progress * progress * (3 - 2 * progress));
+      if (progress === 1) transitionStart = 0;
+      gl.uniform1f(softnessUniform, softness);
       gl.uniform1i(cloudUniforms[0], cloudMode ? 1 : 0);
       gl.uniform1f(cloudUniforms[1], cloudRadius);
       gl.uniform1f(cloudUniforms[2], threshold);
@@ -245,6 +317,7 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
       image.onerror = null;
       gl.deleteTexture(texture);
       gl.deleteTexture(observationTexture);
+      gl.deleteTexture(previousTexture);
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
       gl.deleteShader(vertex);

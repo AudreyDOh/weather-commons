@@ -54,6 +54,23 @@ export function ObservationControls({
               </p>
               <details>
                 <summary>Cloud mask & height</summary>
+                <label className="observation-heading">
+                  Softness <span>{Math.round(o.cloudSoftness * 100)}%</span>
+                </label>
+                <Slider
+                  aria-label="Cloud mask softness"
+                  min={0}
+                  max={1}
+                  step={0.05}
+                  value={[o.cloudSoftness]}
+                  onValueChange={(value) =>
+                    o.setCloudSoftness(Array.isArray(value) ? value[0] : value)
+                  }
+                />
+                <p>
+                  Softness retains translucent greys and gently feathers edges.
+                  It is display smoothing, not additional measured detail.
+                </p>
                 <label htmlFor="cloud-scale" className="observation-heading">
                   Height exaggeration
                 </label>
@@ -119,7 +136,11 @@ export function ObservationControls({
                   ? 'Pause satellite sequence'
                   : 'Play satellite sequence'
               }
-              onClick={() => o.setPlaying(!o.playing)}
+              onClick={() => {
+                if (!o.playing && o.index === imageryManifest.frames.length - 1)
+                  o.setIndex(0);
+                o.setPlaying(!o.playing);
+              }}
             >
               {o.playing ? 'Pause' : 'Play'}
             </Button>
@@ -157,7 +178,9 @@ export function ObservationControls({
               ? 'Frame unavailable. The last loaded date remains displayed. Hide and show to retry.'
               : o.status === 'loading'
                 ? `Loading ${imageryManifest.frames[o.index].date}…`
-                : 'Daily satellite mosaics. Playback advances one day per frame.'}
+                : o.playing && o.cloudOnly
+                  ? `Visual dissolve ${o.previousDate ?? o.displayedDate} → ${o.displayedDate}. No observations between these dates.`
+                  : 'Daily satellite mosaics. Pausing shows an individual source date.'}
           </output>
           <details>
             <summary>What am I seeing?</summary>
