@@ -23,6 +23,7 @@ The local pilot opens at the URL printed by `pnpm dev`. It has no accounts, serv
 - A local NASA Blue Marble surface, Natural Earth cartography, selected institutional infrastructure, and case-specific geographic context.
 - An evidence casebook that marks observed/reanalyzed input, synthetic assumptions, calculation, archival claims, and non-inference.
 - Validated portable JSON contributions for workshop research and narration.
+- A dated satellite observation sequence: open **Layers → Show sequence**, then play, scrub, or blend six NASA Terra/MODIS daily mosaics. Its 2024 observation clock is independent of the simulation clock.
 
 It is not a forecast, an atmospheric-dynamics solver, an exposure assessment, a weather-modification reconstruction, or a decision tool. Refer to [SOURCES.md](SOURCES.md) for evidentiary scope.
 
@@ -34,6 +35,7 @@ It is not a forecast, an atmospheric-dynamics solver, an exposure assessment, a 
 - [docs/DATASETS.md](docs/DATASETS.md) — practical sources for imagery, models, ocean, and sensing infrastructure.
 - [docs/ROADMAP.md](docs/ROADMAP.md) — next implementation phases.
 - [AGENTS.md](AGENTS.md) — development norms for contributors and coding agents.
+- [docs/MILESTONES.md](docs/MILESTONES.md) — recorded milestones and the next bounded build.
 
 ## Data and provenance
 

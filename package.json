@@ -11,8 +11,9 @@
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
     "format": "oxfmt",
-    "check": "tsc --noEmit && node scripts/check-simulation.mjs && node scripts/check-case.mjs",
-    "data:popeye": "node scripts/fetch-case.mjs && node scripts/prepare-geography.mjs && node scripts/check-case.mjs"
+    "check": "tsc --noEmit && node scripts/check-simulation.mjs && node scripts/check-case.mjs && node scripts/check-imagery.mjs",
+    "data:popeye": "node scripts/fetch-case.mjs && node scripts/prepare-geography.mjs && node scripts/check-case.mjs",
+    "data:imagery": "node scripts/fetch-imagery.mjs"
   },
   "dependencies": {
     "react": "19.2.6",

@@ -44,4 +44,4 @@ Bathymetry is mostly static physical geography. Ocean currents are a different o
 
 ## Recommended technical sequence
 
-Start with NASA GIBS daily imagery on the existing globe: it is tiled, global, and manageable. Then add a single regional geostationary cloud adapter, driven by an explicit frame catalogue and a cache of roughly 6–12 frames. Introduce terrain and bathymetry only after the imagery-time architecture is stable. For a public version, put cataloguing, reprojection, and heavy GRIB/NetCDF work behind a server job and distribute bounded web tiles or sampled fields.
+The first NASA GIBS daily archive is now implemented: six global WMS mosaics, 24–29 September 2024, at 2048 × 1024 pixels. These are committed locally with original responses and hashes; no live retrieval is performed in the interface. Next add a single regional geostationary cloud adapter, driven by an explicit frame catalogue and a bounded cache. Introduce terrain and bathymetry after the imagery-time architecture is stable. For a public version, put cataloguing, reprojection, and heavy GRIB/NetCDF work behind a server job and distribute bounded web tiles or sampled fields.

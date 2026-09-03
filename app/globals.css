@@ -2425,3 +2425,59 @@ body {
     display: none;
   }
 }
+
+/* Observation archive: a quiet, independent clock above the model. */
+.observation-controls {
+  border-top: 1px solid #ffffff26;
+  border-bottom: 1px solid #ffffff26;
+  padding: 16px 0;
+  margin: 20px 0;
+}
+.observation-controls p,
+.observation-controls output {
+  display: block;
+  font-size: var(--type-body) !important;
+  line-height: 1.45;
+  margin: 12px 0;
+  color: #c6c3bc;
+}
+.observation-heading,
+.observation-endpoints {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: var(--type-meta);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin: 12px 0;
+}
+.observation-controls button,
+.observation-controls summary,
+.observation-controls a {
+  font-family: 'STIX Two Text', Georgia, serif;
+  font-size: var(--type-meta) !important;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+.observation-controls summary { cursor: pointer; padding: 10px 0; }
+.observation-controls a { display: block; padding: 8px 0; text-decoration: underline; }
+.observation-caption {
+  position: absolute;
+  top: 72px;
+  right: 24px;
+  z-index: 3;
+  max-width: min(310px, 70%);
+  padding: 10px 14px;
+  color: #eeece6;
+  background: #0a0a0ab8;
+  backdrop-filter: blur(18px);
+  border: 1px solid #ffffff20;
+  text-align: left;
+  line-height: 1.5;
+}
+.observation-caption span { display: block; font-size: var(--type-meta); }
+.observation-caption span + span { color: #b7b4ad; }
+@media (max-width: 760px) {
+  .observation-caption { top: 42px; right: 14px; max-width: 245px; }
+}

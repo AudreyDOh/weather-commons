@@ -28,7 +28,8 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
     `#version 300 es
     precision highp float;
     uniform vec2 resolution; uniform vec3 camera; uniform float radius;
-    uniform sampler2D earth; out vec4 color;
+    uniform sampler2D earth; uniform sampler2D observation;
+    uniform float observationOpacity; out vec4 color;
     void main(){
       vec2 q=(gl_FragCoord.xy-resolution*.5)/radius;
       float d=dot(q,q);
@@ -39,6 +40,8 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
       float longitude=camera.x+atan(q.x,z*c-q.y*s);
       vec2 uv=vec2(fract(longitude/6.2831853+.5),.5-latitude/3.14159265);
       vec3 tex=texture(earth,uv).rgb;
+      vec4 observed=texture(observation,uv);
+      tex=mix(tex,observed.rgb,observed.a*observationOpacity);
       float gray=dot(tex,vec3(.2126,.7152,.0722));
       tex=mix(vec3(gray),tex,.025);
       float light=.38+.62*max(0.,dot(vec3(q,z),normalize(vec3(-.35,.45,1.))));
@@ -72,6 +75,39 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
     gl.LINEAR_MIPMAP_LINEAR,
   );
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  const observationTexture = gl.createTexture();
+  gl.activeTexture(gl.TEXTURE1);
+  gl.bindTexture(gl.TEXTURE_2D, observationTexture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(
+    gl.TEXTURE_2D,
+    gl.TEXTURE_MIN_FILTER,
+    gl.LINEAR_MIPMAP_LINEAR,
+  );
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texImage2D(
+    gl.TEXTURE_2D,
+    0,
+    gl.RGBA,
+    1,
+    1,
+    0,
+    gl.RGBA,
+    gl.UNSIGNED_BYTE,
+    new Uint8Array(4),
+  );
+  gl.generateMipmap(gl.TEXTURE_2D);
+  gl.uniform1i(gl.getUniformLocation(program, 'earth'), 0);
+  gl.uniform1i(gl.getUniformLocation(program, 'observation'), 1);
+  const observationUniform = gl.getUniformLocation(
+    program,
+    'observationOpacity',
+  );
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  let observationImage: HTMLImageElement | null = null;
+  let observationOpacity = 0;
   const uniforms = ['resolution', 'camera', 'radius'].map((name) =>
     gl.getUniformLocation(program, name),
   );
@@ -92,6 +128,7 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
         .drawImage(image, 0, 0, reduced.width, reduced.height);
       input = reduced;
     }
+    gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, input);
     gl.generateMipmap(gl.TEXTURE_2D);
@@ -103,6 +140,28 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
   };
   image.src = '/data/earth-january-2004.jpg';
   return {
+    setObservation(input: HTMLImageElement | null, opacity: number) {
+      const nextOpacity = input ? opacity : 0;
+      if (input === observationImage && nextOpacity === observationOpacity)
+        return false;
+      if (input && input !== observationImage) {
+        gl.activeTexture(gl.TEXTURE1);
+        gl.bindTexture(gl.TEXTURE_2D, observationTexture);
+        gl.texImage2D(
+          gl.TEXTURE_2D,
+          0,
+          gl.RGBA,
+          gl.RGBA,
+          gl.UNSIGNED_BYTE,
+          input,
+        );
+        gl.generateMipmap(gl.TEXTURE_2D);
+        gl.activeTexture(gl.TEXTURE0);
+      }
+      observationImage = input;
+      observationOpacity = nextOpacity;
+      return true;
+    },
     draw(
       width: number,
       height: number,
@@ -125,6 +184,7 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
         0,
       );
       gl.uniform1f(uniforms[2], radius);
+      gl.uniform1f(observationUniform, observationOpacity);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       return canvas;
     },
@@ -133,6 +193,7 @@ export function createEarthSurface(onReady: () => void, onError: () => void) {
       image.onload = null;
       image.onerror = null;
       gl.deleteTexture(texture);
+      gl.deleteTexture(observationTexture);
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
       gl.deleteShader(vertex);

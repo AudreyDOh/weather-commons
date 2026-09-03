@@ -1,0 +1,61 @@
+{
+  "title": "Terra / MODIS — daily corrected reflectance",
+  "provider": "NASA Global Imagery Browse Services (GIBS)",
+  "source": "https://nasa-gibs.github.io/gibs-api-docs/python-usage/",
+  "layer": "MODIS_Terra_CorrectedReflectance_TrueColor",
+  "retrievedAt": "2026-09-03T03:27:29.785Z",
+  "width": 2048,
+  "height": 1024,
+  "bounds": [
+    -180,
+    -90,
+    180,
+    90
+  ],
+  "crs": "EPSG:4326",
+  "note": "Daily mosaics of satellite passes, not simultaneous global snapshots. Ground and clouds are combined. Transparent areas are missing coverage, not clear sky. The browser applies monochrome display shading; no cloud heights are inferred.",
+  "frames": [
+    {
+      "date": "2024-09-24",
+      "path": "/data/imagery/2024-09-24.png",
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=-180%2C-90%2C180%2C90&WIDTH=2048&HEIGHT=1024&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2024-09-24",
+      "bytes": 4779146,
+      "sha256": "bc4d52cb010c128d87a9501aa6f760448571f5978317f70367204a0b6dbf8547"
+    },
+    {
+      "date": "2024-09-25",
+      "path": "/data/imagery/2024-09-25.png",
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=-180%2C-90%2C180%2C90&WIDTH=2048&HEIGHT=1024&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2024-09-25",
+      "bytes": 4765549,
+      "sha256": "b0a7fe70c79808cb7a895f2564bc5172ecdeab5c01c809b6f52dbc3e3fcc2f02"
+    },
+    {
+      "date": "2024-09-26",
+      "path": "/data/imagery/2024-09-26.png",
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=-180%2C-90%2C180%2C90&WIDTH=2048&HEIGHT=1024&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2024-09-26",
+      "bytes": 4742869,
+      "sha256": "12490ea8c641008bc0ffd554933707f696cc7498f88d3ca9e25c2daf4f4ef04b"
+    },
+    {
+      "date": "2024-09-27",
+      "path": "/data/imagery/2024-09-27.png",
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=-180%2C-90%2C180%2C90&WIDTH=2048&HEIGHT=1024&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2024-09-27",
+      "bytes": 4674861,
+      "sha256": "4a37a7e6dc76856a9ad699806e954c0ddde3b8bdad783e26aacc93fdac9922a3"
+    },
+    {
+      "date": "2024-09-28",
+      "path": "/data/imagery/2024-09-28.png",
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=-180%2C-90%2C180%2C90&WIDTH=2048&HEIGHT=1024&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2024-09-28",
+      "bytes": 4551400,
+      "sha256": "ace826e6c3a3d69dc9d950eb7dfca79b23bee12ff02bff78dc86d5bd26875b19"
+    },
+    {
+      "date": "2024-09-29",
+      "path": "/data/imagery/2024-09-29.png",
+      "url": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&STYLES=&SRS=EPSG%3A4326&BBOX=-180%2C-90%2C180%2C90&WIDTH=2048&HEIGHT=1024&FORMAT=image%2Fpng&TRANSPARENT=TRUE&TIME=2024-09-29",
+      "bytes": 4718859,
+      "sha256": "aeafb554981bea746be54b58658c5522e78bfa3a2ff652a47b3921848fff0f6b"
+    }
+  ]
+}

@@ -33,3 +33,7 @@ Groups of two to four work well: a data steward documents sources and transforms
 ## Facilitation
 
 Begin each session by comparing a real observation, a model product, and a synthetic teaching field. Keep a shared vocabulary for `observation`, `reanalysis`, `forecast`, `simulation`, `visualization`, and `interpretation`. Ask groups to make their uncertainty visible as part of the form, rather than smoothing it away.
+
+## Pilot exercise: two clocks
+
+Open Layers → Show sequence. Play the six Terra/MODIS daily mosaics while the tracer model is paused, then pause the imagery and run the simulation. Ask participants what changed in each case and what evidence would justify linking them. Lower imagery opacity to identify where the 2004 background is being shown underneath missing 2024 coverage. Locate a cloud system, record its observation date, and explain why its image alone does not supply wind vectors or cloud height. The mismatch with the 1966 case is deliberate and labelled: a source date must be part of every spatial claim.

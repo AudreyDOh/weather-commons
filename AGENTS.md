@@ -9,6 +9,7 @@ This repository is a browser-based research pilot for the Realtime Weather worki
 - Install with `pnpm install` and start with `pnpm dev`.
 - Run `pnpm check`, `pnpm lint`, and `pnpm build` before committing code changes.
 - Do not deploy, push, or change repository visibility unless the project lead explicitly requests it.
+- The project lead has requested incremental milestone commits and pushes for this pilot. After the checks above, update the roadmap and milestone log and push normally to the verified private `origin/main`. This does not authorize public website deployment or force-pushing.
 
 ## Data and claims
 

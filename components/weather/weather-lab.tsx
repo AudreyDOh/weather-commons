@@ -25,6 +25,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import Globe from './globe';
+import { ObservationControls } from './observation-controls';
+import { useObservation } from '@/lib/weather/use-observation';
 import Casebook, { GeographicAnalysis } from './casebook';
 import { popeye, caseSites } from '@/lib/weather/case-study';
 import { ReadingGuide, Evidence, HeightSection } from './reading-guide';
@@ -57,6 +59,7 @@ function saveFile(filename: string, value: unknown) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 export default function WeatherLab() {
+  const observation = useObservation();
   const [contribution, setContribution] = useState<Contribution>(popeye),
     [draft, setDraft] = useState<Parameters>(popeye.parameters),
     [snapshot, setSnapshot] = useState<Snapshot>(empty),
@@ -284,6 +287,7 @@ export default function WeatherLab() {
             <X />
           </Button>
           <div className="eyebrow">A COLLECTIVE ATMOSPHERIC INQUIRY</div>
+          <ObservationControls observation={observation} />
           <h1>
             Realtime
             <br />
@@ -572,6 +576,8 @@ export default function WeatherLab() {
             <span>NORTH ATLANTIC / GLOBAL VIEW</span>
           </div>
           <Globe
+            observationImage={observation.image}
+            observationOpacity={observation.opacity}
             snapshot={snapshot}
             contribution={contribution}
             focus={
@@ -607,6 +613,17 @@ export default function WeatherLab() {
             Height {depthScale === 1 ? 'at true scale' : '×' + depthScale} ·
             calculated, not observed
           </div>
+          {observation.enabled && (
+            <button
+              className="observation-caption"
+              onClick={() => setPanel('layers')}
+            >
+              <span>Observed / {observation.displayedDate ?? 'Loading'}</span>
+              <span>
+                Terra · MODIS · daily mosaic · separate from model time
+              </span>
+            </button>
+          )}
           <div className="globe-caption">
             <span>Drag to rotate · Scroll to zoom</span>
             <span className="legend-dot" /> TRACER <span className="wind-key" />{' '}

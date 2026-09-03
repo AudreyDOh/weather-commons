@@ -9,6 +9,8 @@ import { geography } from '@/lib/weather/case-study';
 import type { infrastructure } from '@/lib/weather/infrastructure';
 import type { Contribution, Snapshot } from '@/lib/weather/types';
 type Props = {
+  observationImage: HTMLImageElement | null;
+  observationOpacity: number;
   snapshot: Snapshot | null;
   contribution: Contribution;
   focus: { longitude: number; latitude: number; zoom?: number };
@@ -165,6 +167,13 @@ export default function Globe(props: Props) {
       const delta = Math.min(0.05, (now - lastFrame) / 1000 || 0.016);
       lastFrame = now;
       const state = current.current;
+      if (
+        surface?.setObservation(
+          state.observationImage,
+          state.observationOpacity,
+        )
+      )
+        baseDirty = true;
       view.current.lon += (target.current.lon - view.current.lon) * 0.08;
       view.current.lat += (target.current.lat - view.current.lat) * 0.08;
       view.current.zoom += (zoom.current - view.current.zoom) * 0.1;

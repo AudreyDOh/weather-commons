@@ -7,10 +7,11 @@
 - A local NASA Blue Marble surface, Natural Earth coastlines and administrative boundaries, selected infrastructure markers, rivers, and geographic anchors.
 - An evidence-led casebook that separates archival claims, observed/reanalyzed input, calculated tracer output, and non-inferences.
 - Portable JSON import/export and schema validation for workshop contributions.
+- Six dated NASA Terra/MODIS daily mosaics (24–29 September 2024), independently playable and scrubbable with opacity blending over the globe. Original PNGs, request URLs and hashes are committed; imagery loads on demand with one-frame lookahead.
 
 ## Deliberate limits
 
-The pilot is not an operational forecast, a cloud microphysics model, an exposure model, or a reconstruction of Project Popeye. The historical wind field is one 00:00 UTC 100 m reanalysis frame held constant. The Earth is an orthographic sphere; imagery is a static 2004 NASA composite, terrain and bathymetry are not yet meshes, and no live feed or shared storage is connected.
+The pilot is not an operational forecast, a cloud microphysics model, an exposure model, or a reconstruction of Project Popeye. The historical wind field is one 00:00 UTC 100 m reanalysis frame held constant. The Earth is an orthographic sphere with a static 2004 background and an optional 2024 daily satellite archive. Terrain and bathymetry are not yet meshes, and no live feed or shared storage is connected. Satellite images combine surface and clouds without measured cloud heights. The observation date never alters the solver's time or wind.
 
 ## Verification
 
@@ -18,4 +19,4 @@ The pilot is not an operational forecast, a cloud microphysics model, an exposur
 
 ## Repository privacy
 
-`package.json` marks the package private. The configured remote is GitHub at `RealtimeUrbanismLab/weather-commons`; confirm its visibility in the GitHub repository Settings or with `gh repo view RealtimeUrbanismLab/weather-commons --json visibility,isPrivate` on a machine with GitHub CLI. No credentials, participant data, or private workshop material should enter this repository.
+Authenticated GitHub API and GitHub CLI checks confirmed `RealtimeUrbanismLab/weather-commons` is private on 3 September 2026 UTC. `main` tracks `origin/main`. The project lead requested incremental milestone commits and pushes after verification. Recheck visibility before pushing if the remote changes. `package.json` being private only prevents npm publication; it does not control GitHub visibility.

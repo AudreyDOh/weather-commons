@@ -16,10 +16,12 @@
 
 ## Next: dynamic Earth imagery
 
-- [ ] Add a time controller that keeps observation time separate from simulation time.
-- [ ] Implement a low-resolution daily imagery adapter using NASA GIBS or equivalent licensed imagery.
+- [x] Add a time controller that keeps observation time separate from simulation time.
+- [x] Implement a low-resolution daily imagery adapter using NASA GIBS: six archived 2048 × 1024 WMS frames, local playback, scrubbing, opacity and provenance.
+- [ ] Add resolution-dependent imagery tiles for closer inspection; this first archive has a fixed global overview resolution.
 - [ ] Add a regional 5–10-minute cloud loop adapter for GOES, Himawari, or Meteosat, with an explicit source label and frame timestamp.
-- [ ] Cache a small rolling frame window; never request full-resolution global imagery directly in every participant browser.
+- [x] Bound the pilot cache to six overview frames, fetched on demand with next-frame preloading; no live NASA calls are made in participant browsers.
+- [ ] Replace the fixed cache with an evicting tile/frame cache when the catalogue grows.
 
 ## Next: true depth
 
