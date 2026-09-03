@@ -44,4 +44,6 @@ Bathymetry is mostly static physical geography. Ocean currents are a different o
 
 ## Recommended technical sequence
 
+GOES is now available as a native instrument view with four matched ten-minute sequences and a separate derived-wind still. The archived full-disk JPEGs retain NOAA's processing and cartography. This is a comparison surface, not a calibrated field source for the simulation. Native ABI arrays, geolocation and separately queryable wind retrievals are the next integration step.
+
 The first NASA GIBS daily archive is now implemented: six global WMS mosaics, 24–29 September 2024, at 2048 × 1024 pixels. These are committed locally with original responses and hashes; no live retrieval is performed in the interface. Next add a single regional geostationary cloud adapter, driven by an explicit frame catalogue and a bounded cache. Introduce terrain and bathymetry after the imagery-time architecture is stable. For a public version, put cataloguing, reprojection, and heavy GRIB/NetCDF work behind a server job and distribute bounded web tiles or sampled fields.

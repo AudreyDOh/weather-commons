@@ -17,7 +17,8 @@
 ## Next: dynamic Earth imagery
 
 - [x] Soften cloud isolation and add explicitly labelled visual dissolves; preserve individual-frame inspection on pause.
-- [ ] Prioritize geostationary 10-minute imagery for actual cloud evolution. GOES covers the Americas; use Himawari for the Asia-Pacific study rather than forcing global MODIS daily imagery into a motion sequence.
+- [x] Integrate four GOES products with ten-minute source frames and matched-time comparison, plus a dated derived-wind plate, preserving source colours and cartography in a native instrument view.
+- [ ] Integrate Himawari for Asia-Pacific studies and reproject calibrated, georeferenced products into the globe. The current GOES view preserves its native projection; it does not drape a circular JPEG onto the sphere.
 
 - [x] Add a time controller that keeps observation time separate from simulation time.
 - [x] Implement a low-resolution daily imagery adapter using NASA GIBS: six archived 2048 × 1024 WMS frames, local playback, scrubbing, opacity and provenance.

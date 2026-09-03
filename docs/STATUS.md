@@ -2,6 +2,10 @@
 
 ## Working now
 
+- GOES instrument view: GeoColor, Airmass RGB, Sandwich RGB and CO₂ band 16, each with twelve matched acquisition labels at ten-minute intervals (3 September 2026, 04:10–06:00 UTC). Play, scrub, change playback speed, scroll-zoom, pan, and compare two products at the same labelled acquisition time.
+- A separate NOAA derived-motion-wind still at 05:00 UTC preserves the actual supplied wind-barb overlay. Barbs and coastlines in this view are baked into the source image; they are not independent geographic features in the pilot.
+- Native GOES full-disk imagery is displayed intact at its own projection, in colour, with source footers and logos. It is an archived instrument view, not a live feed or a new 3D cloud reconstruction. Return to the 3D lab to inspect the existing globe, vector layers and simulation. No false colour is passed through the old brightness cloud mask.
+
 - Franklin-style sans-serif typography: local Franklin Gothic Medium with bundled OFL Libre Franklin fallback, uppercase text, and 12/14/28 px scales.
 - Cloud isolation retains grey transparency through a wider feathered threshold and a small five-tap spatial filter. Softness is adjustable. Daily cloud playback uses a labelled 1.4-second visual dissolve, with 2.4-second frame intervals, and stops at the end. Pausing/scrubbing returns to an individual source frame. The dissolve is not measured motion or a temporal reconstruction.
 
@@ -19,6 +23,8 @@ Cloud isolation now removes darker and strongly coloured pixels using a GPU disp
 The pilot is not an operational forecast, a cloud microphysics model, an exposure model, or a reconstruction of Project Popeye. The historical wind field is one 00:00 UTC 100 m reanalysis frame held constant. The Earth is an orthographic sphere with a static 2004 background and an optional 2024 daily satellite archive. Terrain and bathymetry are not yet meshes, and no live feed or shared storage is connected. Satellite images combine surface and clouds without measured cloud heights. The observation date never alters the solver's time or wind.
 
 ## Verification
+
+`scripts/check-goes.mjs` verifies 49 original NOAA JPEGs against their hashes, checks the Julian-day filename conversion, enforces ten-minute cadence, and checks that the four sequences share timestamps. The selected frame and its successor are loaded on demand; each view bounds its decoded-image promise cache to four entries. At most two view caches are active. Failed loads stop playback advancement and retain the last correctly labelled image.
 
 `pnpm check` tests transport invariants, deterministic output, regular-grid interpolation, vertical behavior, 3D occlusion, the archival data transform, and contribution validation. `pnpm lint` and `pnpm build` verify the application toolchain.
 

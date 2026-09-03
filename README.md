@@ -18,6 +18,8 @@ The local pilot opens at the URL printed by `pnpm dev`. It has no accounts, serv
 
 ## What is included
 
+The opening **GOES** view offers five ways of seeing the atmosphere. Choose a product, play its ten-minute archive, or compare GeoColor and another product side by side. Scroll to inspect image detail. **Return to the 3D lab** restores the globe and tracer experiments. GOES colours, cartography and wind barbs remain as supplied by NOAA; the images are not reprojected onto the globe.
+
 - A fast, browser-worker passive-tracer simulation with documented assumptions, reproducible seeded runs, 3D height, diffusion, decay, and grid boundaries.
 - Two studies: a synthetic Atlantic teaching field and an archival Project Popeye study based on a deliberately limited 1966 ERA5 reanalysis snapshot.
 - A local NASA Blue Marble surface, Natural Earth cartography, selected institutional infrastructure, and case-specific geographic context.

@@ -9,6 +9,7 @@ import { geography } from '@/lib/weather/case-study';
 import type { infrastructure } from '@/lib/weather/infrastructure';
 import type { Contribution, Snapshot } from '@/lib/weather/types';
 type Props = {
+  suspended: boolean;
   observationImage: HTMLImageElement | null;
   observationOpacity: number;
   cloudOnly: boolean;
@@ -169,7 +170,7 @@ export default function Globe(props: Props) {
     function render(now: number) {
       if (!alive) return;
       frame = requestAnimationFrame(render);
-      if (document.hidden) return;
+      if (document.hidden || current.current.suspended) return;
       const delta = Math.min(0.05, (now - lastFrame) / 1000 || 0.016);
       lastFrame = now;
       const state = current.current;

@@ -25,6 +25,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import Globe from './globe';
+import GoesLab from './goes-lab';
 import { ObservationControls } from './observation-controls';
 import { useObservation } from '@/lib/weather/use-observation';
 import Casebook, { GeographicAnalysis } from './casebook';
@@ -59,6 +60,7 @@ function saveFile(filename: string, value: unknown) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 export default function WeatherLab() {
+  const [goesOpen, setGoesOpen] = useState(true);
   const observation = useObservation();
   const [contribution, setContribution] = useState<Contribution>(popeye),
     [draft, setDraft] = useState<Parameters>(popeye.parameters),
@@ -92,6 +94,7 @@ export default function WeatherLab() {
   useEffect(() => {
     const escape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
+        setGoesOpen(false);
         setPanel('');
         setGuide(-1);
         setChapter(-1);
@@ -210,7 +213,7 @@ export default function WeatherLab() {
     setSectionVisible(false);
   };
   return (
-    <main className="weather-app">
+    <main className={'weather-app' + (goesOpen ? ' is-goes' : '')}>
       <header className="topbar">
         <Link className="brand" href="/" aria-label="Weather Commons home">
           <span className="brand-symbol">
@@ -230,6 +233,18 @@ export default function WeatherLab() {
           <option value="case">02 — The ground as a weapon</option>
         </select>
         <nav aria-label="Workspace">
+          <Button
+            variant="ghost"
+            aria-expanded={goesOpen}
+            className={goesOpen ? 'nav-active' : ''}
+            onClick={() => {
+              setGoesOpen((value) => !value);
+              setRunning(false);
+              observation.setPlaying(false);
+            }}
+          >
+            GOES
+          </Button>
           {[
             'casebook',
             'experiment',
@@ -243,6 +258,7 @@ export default function WeatherLab() {
               aria-expanded={panel === p}
               className={panel === p ? 'nav-active' : ''}
               onClick={() => {
+                setGoesOpen(false);
                 if (p === 'casebook' && !isCase) {
                   setGuide(guide >= 0 ? -1 : 0);
                   setPanel('');
@@ -275,7 +291,7 @@ export default function WeatherLab() {
           <span className="version">PILOT / 0.1</span>
         </div>
       </header>
-      <section className="workspace">
+      <section className="workspace" inert={goesOpen}>
         <aside className="intro" hidden={panel !== 'layers'}>
           <Button
             className="panel-close"
@@ -576,6 +592,7 @@ export default function WeatherLab() {
             <span>NORTH ATLANTIC / GLOBAL VIEW</span>
           </div>
           <Globe
+            suspended={goesOpen}
             observationImage={observation.image}
             observationOpacity={observation.opacity}
             cloudOnly={observation.cloudOnly}
@@ -1158,6 +1175,7 @@ export default function WeatherLab() {
           Earth imagery: NASA · Jan 2004 ↗
         </a>
       </div>
+      {goesOpen && <GoesLab onClose={() => setGoesOpen(false)} />}
       {notice && (
         <output className="toast" aria-live="polite">
           <span>{notice}</span>

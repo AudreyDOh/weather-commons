@@ -8,14 +8,22 @@ Commit `b339030`: passive-tracer engine, spherical globe, provenance-led histori
 
 Six genuine NASA GIBS Terra/MODIS daily mosaics, 24–29 September 2024, rendered over the globe. Independent observation date, playback, scrubbing, opacity, source notes and downloadable SHA-256 manifest. One-frame prefetch and a fixed six-image cache; no solver changes or new runtime dependencies. Verify with `pnpm check`, `pnpm lint`, and `pnpm build` before pushing.
 
-## Next bounded milestone
+## 03 — Cloud appearance and height
 
 Milestone 03 adds approximate GPU cloud isolation, explicit missing-swath explanation, an independent spherical cloud shell, assumed-height and exaggeration controls, and an unambiguous tracer-height caption. Ground-level source imagery remains selectable. Real cloud mask/height retrievals and fully shared depth testing remain open tasks.
 
-Add a regional geostationary cloud sequence with a precise acquisition-time catalogue, before attempting cloud-height products or terrain/bathymetry meshes. Preserve the distinctions between displayed acquisition time, model time, cloud appearance, and measured height. Introduce dynamic-resolution tiles when deeper zoom is addressed.
-
-## Recording policy
+## 04 — Softer clouds and scientific typography
 
 Milestone 04 softens the approximate cloud mask, adds labelled visual dissolves between daily cloud frames, stops automatic playback at the archive end, and standardizes the interface on uppercase Franklin-style sans serif with three type sizes. The observation source and physical assumptions are unchanged.
+
+## 05 — GOES instrument view
+
+Milestone 05 adds a dedicated GOES instrument view with GeoColor, Airmass RGB, Sandwich RGB and CO₂ band 16 at matched ten-minute acquisition labels, plus a dated derived-motion-wind plate. Full-colour original imagery, product explanations, pan/zoom, playback speeds, scrubbing, and paired comparison are included. The older 3D lab is retained and its renderer is suspended while the instrument view is open. Source originals and acquisition provenance are archived locally; no live NOAA calls are made by participants' browsers.
+
+## Next bounded milestone
+
+Reproject calibrated satellite products using their geolocation metadata before combining them with the globe's independent vectors and depth layers. Preserve the distinctions between acquisition time, model time, cloud appearance, and measured height. Introduce dynamic-resolution tiles when deeper zoom is addressed.
+
+## Recording policy
 
 The project lead requested incremental commits and pushes for coherent, verified milestones. Keep task lists and source notes in the same commit as the implementation. Push normally to the verified private remote; never force-push or publish a website as part of this workflow without separate authorization.

@@ -1,0 +1,508 @@
+{
+  "schemaVersion": 1,
+  "title": "GOES-19 / ways of seeing the atmosphere",
+  "provider": "NOAA / NESDIS / STAR",
+  "retrievedAt": "2026-09-03T06:19:50.251Z",
+  "start": "2026-09-03T04:10:00.000Z",
+  "end": "2026-09-03T06:00:00.000Z",
+  "projection": "Native geostationary full-disk image; not an equirectangular texture.",
+  "processing": "Original NOAA JPEG bytes retained with image captions, coastlines, legends and logos. No recolouring, keying, reprojection, added illumination or synthetic vectors.",
+  "products": [
+    {
+      "id": "geocolor",
+      "label": "GeoColor",
+      "folder": "GEOCOLOR",
+      "kind": "Day / night composite",
+      "summary": "Daylight colour transitions to infrared cloud imagery at night. A processed composite, not a single camera photograph.",
+      "source": "https://www.star.nesdis.noaa.gov/GOES/fulldisk_band.php?sat=G19&band=GEOCOLOR&length=12",
+      "cadenceMinutes": 10,
+      "frames": [
+        {
+          "time": "2026-09-03T04:10:00.000Z",
+          "file": "/data/archive/goes/20262460410_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460410_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1659324,
+          "sha256": "7755b9e0eb5b882bdb323a84ee40eac18bb42361f64133202a36791cef8518b5"
+        },
+        {
+          "time": "2026-09-03T04:20:00.000Z",
+          "file": "/data/archive/goes/20262460420_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460420_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1625244,
+          "sha256": "a88b2e343e54bffe01197ae897a4ec72cdd7fa040100500d64839eb093ac61d3"
+        },
+        {
+          "time": "2026-09-03T04:30:00.000Z",
+          "file": "/data/archive/goes/20262460430_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460430_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1567845,
+          "sha256": "76622ce40842fee173369f95bd620a8d2a3344e1bfa51ed1df202c31fec486e4"
+        },
+        {
+          "time": "2026-09-03T04:40:00.000Z",
+          "file": "/data/archive/goes/20262460440_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460440_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1574347,
+          "sha256": "f90bdf232f8b864d9cf25030fc530c2d7fcbfea7981208c57bf8eee920761897"
+        },
+        {
+          "time": "2026-09-03T04:50:00.000Z",
+          "file": "/data/archive/goes/20262460450_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460450_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1592730,
+          "sha256": "84771041a894b9ab4ffd12dd276676ebf6a690f63c04f168461e3524c0d077bf"
+        },
+        {
+          "time": "2026-09-03T05:00:00.000Z",
+          "file": "/data/archive/goes/20262460500_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460500_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1545408,
+          "sha256": "25aaef682801363515184f6e34a0b17e50015a8f69b05e7da5dac4a3ab2c0d3d"
+        },
+        {
+          "time": "2026-09-03T05:10:00.000Z",
+          "file": "/data/archive/goes/20262460510_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460510_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1560644,
+          "sha256": "6c7606f03c8136d250dfdca594dc4d58391f8187507322da73777b5a1b42f5b4"
+        },
+        {
+          "time": "2026-09-03T05:20:00.000Z",
+          "file": "/data/archive/goes/20262460520_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460520_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1563238,
+          "sha256": "fd76b6b7fc68a349f840dd92dd215cd9b1951f9b52a3063500516954f6b2ca9f"
+        },
+        {
+          "time": "2026-09-03T05:30:00.000Z",
+          "file": "/data/archive/goes/20262460530_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460530_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1621246,
+          "sha256": "beab8ff901ca82a472060e86d8048ac970ebbc5a49e985544ebd22eed8eec449"
+        },
+        {
+          "time": "2026-09-03T05:40:00.000Z",
+          "file": "/data/archive/goes/20262460540_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460540_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1672040,
+          "sha256": "8628983934643903303408780bd535c3b3b4056ace131523318ff2e159f3a4bd"
+        },
+        {
+          "time": "2026-09-03T05:50:00.000Z",
+          "file": "/data/archive/goes/20262460550_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460550_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1698551,
+          "sha256": "11720443deff61c7f38586c66d4727a9898c8c6ecc32a0edc5ab81b76815aa9c"
+        },
+        {
+          "time": "2026-09-03T06:00:00.000Z",
+          "file": "/data/archive/goes/20262460600_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/GEOCOLOR/20262460600_GOES19-ABI-FD-GEOCOLOR-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1708815,
+          "sha256": "00b01c021611c03208bd15b14273fa11c2a1afa8852d20bf107f39344de32101"
+        }
+      ]
+    },
+    {
+      "id": "airmass",
+      "label": "Airmass RGB",
+      "folder": "AirMass",
+      "kind": "Multispectral RGB",
+      "summary": "Infrared band combinations reveal upper-atmosphere moisture and air-mass contrasts. Colour encodes atmospheric differences, not surface appearance.",
+      "source": "https://www.star.nesdis.noaa.gov/GOES/fulldisk_band.php?sat=G19&band=AirMass&length=12",
+      "cadenceMinutes": 10,
+      "frames": [
+        {
+          "time": "2026-09-03T04:10:00.000Z",
+          "file": "/data/archive/goes/20262460410_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460410_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1619475,
+          "sha256": "932eb423056d6be31d624d1b93068895649e39521db099ad2b6f5c4c7281f265"
+        },
+        {
+          "time": "2026-09-03T04:20:00.000Z",
+          "file": "/data/archive/goes/20262460420_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460420_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1619262,
+          "sha256": "00dbf9697dff243a6e67a76b15a2a916745fc82cad9a9aabb116769336934e58"
+        },
+        {
+          "time": "2026-09-03T04:30:00.000Z",
+          "file": "/data/archive/goes/20262460430_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460430_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1602105,
+          "sha256": "0e4fcd3ff39b3fef7a1ca4ec8002f680cb151b8b3f29ef2bd666afb353bc67a8"
+        },
+        {
+          "time": "2026-09-03T04:40:00.000Z",
+          "file": "/data/archive/goes/20262460440_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460440_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1591894,
+          "sha256": "6338c3408745f94dd1a444e71a11dd14b78f0eae6569ddca2f247d4434977b81"
+        },
+        {
+          "time": "2026-09-03T04:50:00.000Z",
+          "file": "/data/archive/goes/20262460450_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460450_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1586690,
+          "sha256": "40217dbeac893f14b430dc4ac52a8f2a1368421b7e416126985d08d037187e6e"
+        },
+        {
+          "time": "2026-09-03T05:00:00.000Z",
+          "file": "/data/archive/goes/20262460500_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460500_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1515449,
+          "sha256": "979df3865e07b51fcea55d05ad395587dfe129577a437f6a7f10eb6cab387d02"
+        },
+        {
+          "time": "2026-09-03T05:10:00.000Z",
+          "file": "/data/archive/goes/20262460510_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460510_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1529762,
+          "sha256": "6993ef751cc466f5b037a8013f2b94ecfcae771c4f435748dea01f289cbd3d50"
+        },
+        {
+          "time": "2026-09-03T05:20:00.000Z",
+          "file": "/data/archive/goes/20262460520_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460520_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1555971,
+          "sha256": "d2f5655890896fdb4f0cbd6749a8d811b1560c2f09392363f57a7de4bff91044"
+        },
+        {
+          "time": "2026-09-03T05:30:00.000Z",
+          "file": "/data/archive/goes/20262460530_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460530_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1609550,
+          "sha256": "fb09a3a54ee6a491b03367c18ede911f3bce843a81a95568f66266972559503d"
+        },
+        {
+          "time": "2026-09-03T05:40:00.000Z",
+          "file": "/data/archive/goes/20262460540_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460540_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1619579,
+          "sha256": "d110b69f6eddddee36e62065c04e25c445a330c013878ccc3df101fcc13814ad"
+        },
+        {
+          "time": "2026-09-03T05:50:00.000Z",
+          "file": "/data/archive/goes/20262460550_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460550_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1620547,
+          "sha256": "40712746742d455c3c4d39f104a471918b1fb6496fa6df5b2ff66fbd5861fcbf"
+        },
+        {
+          "time": "2026-09-03T06:00:00.000Z",
+          "file": "/data/archive/goes/20262460600_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/AirMass/20262460600_GOES19-ABI-FD-AirMass-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1620483,
+          "sha256": "315321bc94760044fdea205e8e951b9773e3e5664a33bf1a20bc33ce9dd4ae62"
+        }
+      ]
+    },
+    {
+      "id": "sandwich",
+      "label": "Sandwich RGB",
+      "folder": "Sandwich",
+      "kind": "Visible + infrared composite",
+      "summary": "Infrared band 13 combined with band 3 texture brings cloud-top temperature structure and detail into one image.",
+      "source": "https://www.star.nesdis.noaa.gov/GOES/fulldisk_band.php?sat=G19&band=Sandwich&length=12",
+      "cadenceMinutes": 10,
+      "frames": [
+        {
+          "time": "2026-09-03T04:10:00.000Z",
+          "file": "/data/archive/goes/20262460410_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460410_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2019680,
+          "sha256": "496943874eb961cda35351989230eaffdb592d7781fdd0f3bbcecd6869ae2dfe"
+        },
+        {
+          "time": "2026-09-03T04:20:00.000Z",
+          "file": "/data/archive/goes/20262460420_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460420_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2019982,
+          "sha256": "9903ee68e6ed1d49efd45d1e3dd34fb7f5f81d09b7b8b8264a2e82cbefdbe86d"
+        },
+        {
+          "time": "2026-09-03T04:30:00.000Z",
+          "file": "/data/archive/goes/20262460430_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460430_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1987199,
+          "sha256": "c4209820da41db84ff5c39dff5d1b19fc98571e47386ed18be0d66f89197d423"
+        },
+        {
+          "time": "2026-09-03T04:40:00.000Z",
+          "file": "/data/archive/goes/20262460440_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460440_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1961018,
+          "sha256": "b84ef3bcba6d449fa7181f878a9fec08374220eb7a20309254dce36dbabcc0b1"
+        },
+        {
+          "time": "2026-09-03T04:50:00.000Z",
+          "file": "/data/archive/goes/20262460450_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460450_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1921552,
+          "sha256": "b49768304f4678100d6ac0f76729fb3ac92a80780346c9d2bd8f50b95fff57d7"
+        },
+        {
+          "time": "2026-09-03T05:00:00.000Z",
+          "file": "/data/archive/goes/20262460500_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460500_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1849450,
+          "sha256": "f0de9e4588a4c3aa8ec9b3f5cc3443d8ad1803d39d43d16ece08337a22e658c7"
+        },
+        {
+          "time": "2026-09-03T05:10:00.000Z",
+          "file": "/data/archive/goes/20262460510_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460510_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1875004,
+          "sha256": "dc5143fc6b8548164a96ae9a8ff94682359bf01c2ed8c79a98426d66c9b2881d"
+        },
+        {
+          "time": "2026-09-03T05:20:00.000Z",
+          "file": "/data/archive/goes/20262460520_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460520_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1953380,
+          "sha256": "751972f635a1aa13b728f551416f43392f45aa6bcb124fa115bea8eed372bedb"
+        },
+        {
+          "time": "2026-09-03T05:30:00.000Z",
+          "file": "/data/archive/goes/20262460530_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460530_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2021934,
+          "sha256": "dbc8657cfb980b3f174f5640d752e2741cedc4d735d8437c3d535d952981805f"
+        },
+        {
+          "time": "2026-09-03T05:40:00.000Z",
+          "file": "/data/archive/goes/20262460540_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460540_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2022188,
+          "sha256": "50784f3a35f1e44a84195dc99c87edc61f66badfc5f833d748f91b17a49199d5"
+        },
+        {
+          "time": "2026-09-03T05:50:00.000Z",
+          "file": "/data/archive/goes/20262460550_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460550_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2024079,
+          "sha256": "c69eb411f5bbb3d8d8a25ec2d2461ad9c8b288de547f5793a3520b05b07fda5f"
+        },
+        {
+          "time": "2026-09-03T06:00:00.000Z",
+          "file": "/data/archive/goes/20262460600_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/Sandwich/20262460600_GOES19-ABI-FD-Sandwich-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2026466,
+          "sha256": "2c9219801026a28259290b22a0f70e7d0803b7fb37dbddb5137de9d679343acf"
+        }
+      ]
+    },
+    {
+      "id": "co2",
+      "label": "CO₂ / band 16",
+      "folder": "16",
+      "kind": "13.3 µm infrared",
+      "summary": "A CO₂ absorption band sensitive to the atmosphere. This enhanced infrared display is not a map of CO₂ emissions or concentration.",
+      "source": "https://www.star.nesdis.noaa.gov/GOES/fulldisk_band.php?sat=G19&band=16&length=12",
+      "cadenceMinutes": 10,
+      "frames": [
+        {
+          "time": "2026-09-03T04:10:00.000Z",
+          "file": "/data/archive/goes/20262460410_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460410_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2060736,
+          "sha256": "9c8ebd3422a643bd5c15fbae468f27d93948b20f1db9268918f584fd08a9e40a"
+        },
+        {
+          "time": "2026-09-03T04:20:00.000Z",
+          "file": "/data/archive/goes/20262460420_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460420_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2060654,
+          "sha256": "6dc8768f29185c67a4d0b7a6f86a2f54a09633b75b0dce6b94cdb111cebca122"
+        },
+        {
+          "time": "2026-09-03T04:30:00.000Z",
+          "file": "/data/archive/goes/20262460430_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460430_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2038365,
+          "sha256": "4868177b01897b7a7c37e572aea05353a76ce690f8d72c87851ffc559e342fc7"
+        },
+        {
+          "time": "2026-09-03T04:40:00.000Z",
+          "file": "/data/archive/goes/20262460440_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460440_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1983657,
+          "sha256": "5c58c4fbe45e193945df5b26c813bb959fd44aaabb5c1953e8708d0a37868ce9"
+        },
+        {
+          "time": "2026-09-03T04:50:00.000Z",
+          "file": "/data/archive/goes/20262460450_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460450_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1934401,
+          "sha256": "4dee6afa8e1fcee1d2bcb81f0cbb736dc24b8a11cfc1247f69f02eb7c5e42cb7"
+        },
+        {
+          "time": "2026-09-03T05:00:00.000Z",
+          "file": "/data/archive/goes/20262460500_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460500_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1854850,
+          "sha256": "2d4f7169b6dbbfdf679ca9bd5e2218fa4e8dd81069332921dd2ae11945170384"
+        },
+        {
+          "time": "2026-09-03T05:10:00.000Z",
+          "file": "/data/archive/goes/20262460510_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460510_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1908852,
+          "sha256": "c4c09abb4f0d6469423ea00a18eb8123ed2a33f2d2f6a4feff614ed16c9ffeba"
+        },
+        {
+          "time": "2026-09-03T05:20:00.000Z",
+          "file": "/data/archive/goes/20262460520_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460520_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 1979910,
+          "sha256": "5df125d7c95f8a35cbe76054bfd782d8a00399239e87250a6dcffee8e0c9d6fa"
+        },
+        {
+          "time": "2026-09-03T05:30:00.000Z",
+          "file": "/data/archive/goes/20262460530_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460530_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2049004,
+          "sha256": "a2c6654a3c6e8b6a333ad584acafe351b6b84105951085b58a242c01b5da6b18"
+        },
+        {
+          "time": "2026-09-03T05:40:00.000Z",
+          "file": "/data/archive/goes/20262460540_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460540_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2061060,
+          "sha256": "c759ecd1a095a4290bf80d0a146057313f292e6c73a5aec2b142473d01ac2c9a"
+        },
+        {
+          "time": "2026-09-03T05:50:00.000Z",
+          "file": "/data/archive/goes/20262460550_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460550_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2060500,
+          "sha256": "8ab02d95ad58dc87e8c390199db4873e72ec19e27a9618a25a0c7c45cdbc2bc1"
+        },
+        {
+          "time": "2026-09-03T06:00:00.000Z",
+          "file": "/data/archive/goes/20262460600_GOES19-ABI-FD-16-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/16/20262460600_GOES19-ABI-FD-16-1808x1808.jpg",
+          "width": 1808,
+          "height": 1808,
+          "bytes": 2060622,
+          "sha256": "71619444f62a5dbd9846040b05fd6ad85632383c9bee25ee8984adf9e90517a3"
+        }
+      ]
+    },
+    {
+      "id": "winds",
+      "label": "Derived motion winds",
+      "folder": "DMW",
+      "kind": "Retrieved winds over GeoColor",
+      "summary": "NOAA tracks features between satellite images to retrieve winds. The barbs are part of the supplied image, not independent vectors or this pilot’s tracer simulation.",
+      "source": "https://www.star.nesdis.noaa.gov/GOES/fulldisk_band.php?sat=G19&band=DMW&length=12",
+      "cadenceMinutes": null,
+      "frames": [
+        {
+          "time": "2026-09-03T05:00:00.000Z",
+          "file": "/data/archive/goes/20262460500_GOES19-ABI-FD-DMW-1808x1808.jpg",
+          "url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/DMW/20262460500_GOES19-ABI-FD-DMW-1808x1808.jpg",
+          "width": 1807,
+          "height": 1807,
+          "bytes": 861654,
+          "sha256": "0b1fc0e42daa2d33a126ad41a613d5dee00246ecc8d3bbc9130af3beb6b81439"
+        }
+      ]
+    }
+  ]
+}
