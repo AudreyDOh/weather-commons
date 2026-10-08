@@ -48,6 +48,31 @@ Large files: \`node scripts/assets.mjs add ${nn} <path> --about "…"\` moves th
 Every dataset with its producer, date, licence and what it cannot show. Say which layers are observed, reanalysed, modelled, synthetic or interpretive.
 `);
 
+fs.writeFileSync(path.join(dir, 'NOTES.md'), `# Notes for the next version
+
+Working notes for sketch ${nn}. Read this first. Dated entries; move items to Done when they ship.
+
+## Observed
+
+-
+
+## Next
+
+-
+
+## Decisions
+
+-
+
+## Questions
+
+-
+
+## Done
+
+-
+`);
+
 fs.writeFileSync(path.join(dir, 'assets.json'), JSON.stringify({
   sketch: name,
   note: 'Large, raw and licensed files live on Box (2026 Realtime Weather). Add them with: node scripts/assets.mjs add NN <path>. src is relative to the Box folder; dest is where pull copies them in this sketch.',

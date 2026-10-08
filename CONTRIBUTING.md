@@ -88,7 +88,11 @@ One paragraph: what it shows and the question it asks. The first sentence become
 
 Then: how to run it, what is on screen, the files, and **Sources and limits** (producer, date, licence, and whether each layer is observed, reanalysed, modelled, synthetic or interpretive). After editing a header run `node scripts/index-sketches.mjs`; CI fails if the index is out of date. Status values: `sketch`, `pilot`, `v0.2` …, `retired`.
 
-## 7. Commits, branches, checks
+## 7. Notes between sessions
+
+Each sketch may keep a `NOTES.md` beside its README: observations, what the next version should do, decisions, open questions, done. It is the first thing to read before working on a sketch and the place to leave thoughts for whoever (or whatever) works on it next. Dated entries age well. When a version ships, move its items to Done and fold them into the README. Use GitHub Issues instead once several people work on the same sketch at once and need threads that can be assigned and closed.
+
+## 8. Commits, branches, checks
 
 - Work on `main` for your own sketch with small commits whose message starts with the sketch number: `02: refine cells where the water is active`.
 - Changes outside your sketch (root files, `scripts/`, someone else's sketch) go through a short branch and a pull request.
@@ -96,6 +100,6 @@ Then: how to run it, what is on screen, the files, and **Sources and limits** (p
 - GitHub Actions run the size and index checks on every push and pull request.
 - Windows: Git may convert line endings on checkout. For data whose hashes are recorded, add a `.gitattributes` in the sketch marking it `-text` (see `sketches/01-realtime-weather-pilot/.gitattributes`).
 
-## 8. Retiring a sketch
+## 9. Retiring a sketch
 
 Leave it in place, set `Status: retired` in its README header, run the index script and say in the README what replaced it. Its Box folder stays.

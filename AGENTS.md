@@ -4,6 +4,7 @@ This repository is a collection of independent, numbered sketches for the Weathe
 
 ## Scope
 
+- If the sketch has a `NOTES.md`, read it before anything else: it holds what the people want next, decisions already made and open questions. Work from it, and when you finish, move what you did to its Done section with the date; add questions you could not settle under Questions.
 - Work inside one `sketches/NN-name/` folder per task. Edit root files, `scripts/`, `.github/` or another sketch only when the person asks.
 - A new idea, site or method gets a new sketch: `node scripts/new-sketch.mjs "Name" --author "Name" --stack "…"`. Never create a sketch folder by hand, never renumber, never reuse a number.
 - A sketch is self-contained: no imports or file references across sketch folders, its own package.json and lock file if it has dependencies.
