@@ -41,6 +41,8 @@ cd sketches/${name}
 python -m http.server 8000
 \`\`\`
 
+Large files: \`node scripts/assets.mjs add ${nn} <path> --about "…"\` moves them to Box and records them in assets.json; \`node scripts/assets.mjs pull ${nn} --all\` copies them into \`assets/\` (ignored by git). See CONTRIBUTING.md.
+
 ## Sources and limits
 
 Every dataset with its producer, date, licence and what it cannot show. Say which layers are observed, reanalysed, modelled, synthetic or interpretive.
@@ -48,7 +50,7 @@ Every dataset with its producer, date, licence and what it cannot show. Say whic
 
 fs.writeFileSync(path.join(dir, 'assets.json'), JSON.stringify({
   sketch: name,
-  note: 'Files over 10 MB, licensed files and raw downloads go on the shared drive. Paths are relative to WC_ASSETS (default ~/Box/2026 Realtime Weather).',
+  note: 'Large, raw and licensed files live on Box (2026 Realtime Weather). Add them with: node scripts/assets.mjs add NN <path>. src is relative to the Box folder; dest is where pull copies them in this sketch.',
   items: [],
 }, null, 2) + '\n');
 

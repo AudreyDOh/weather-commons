@@ -2,8 +2,6 @@
 
 Sketches, models and pilots for the Weather Commons working group (Realtime Urbanism Lab, Cornell AAP): weather modification, atmospheric data and the governance of the sky, explored as small browser-based instruments.
 
-Each sketch is self-contained in `sketches/NN-name/`, with its own README, dependencies and data. Sketches can share ideas, never files: copy what you need into your sketch so each one keeps running on its own.
-
 ## Sketches
 
 <!-- sketches:start -->
@@ -15,52 +13,59 @@ Each sketch is self-contained in `sketches/NN-name/`, with its own README, depen
 
 The table is generated from each sketch's README header by `node scripts/index-sketches.mjs`.
 
+## Where things live
+
+| What | Where | How |
+| --- | --- | --- |
+| Code, configs, small data and small images a sketch needs to run (every file under 10 MB) | this repository, inside the sketch's folder `sketches/NN-name/` | git |
+| Raw downloads, research dossiers, renders, video, working files, licensed fonts, anything over 10 MB | Box folder **2026 Realtime Weather** | listed in the sketch's `assets.json`, moved and copied with `scripts/assets.mjs` |
+| A new idea, site or method | a new numbered folder `sketches/NN-name/` | `node scripts/new-sketch.mjs` |
+
+Each sketch runs from its own folder and its own files. A sketch never reads from Box while it runs: if it needs a large file, `node scripts/assets.mjs pull NN` copies it into `sketches/NN-name/assets/` (ignored by git) and the sketch reads it there.
+
+## Getting started
+
+1. Clone this repository. Install Node 22 or newer (and pnpm for sketch 01).
+2. Install [Box Drive](https://www.box.com/drive) and make sure the folder **2026 Realtime Weather** is shared with you. Check that the scripts find it: `node scripts/assets.mjs where`. If it syncs somewhere unusual, set the environment variable `WC_ASSETS` to that folder.
+3. Open a sketch's README and follow its Run section. To get its large files: `node scripts/assets.mjs pull NN --all`.
+
+## Common tasks
+
+```bash
+node scripts/new-sketch.mjs "Cloud seeding over the Sierra" --author "Your Name" --stack "Vite + three.js"
+                                              # start sketch NN+1 with a README and assets.json
+node scripts/assets.mjs add 03 ~/Downloads/nexrad --about "NEXRAD level II, 12–15 Jan 2026"
+                                              # MOVE a big file or folder onto Box and record it
+node scripts/assets.mjs pull 03 --all         # copy a sketch's Box files into sketches/03-…/assets/
+node scripts/assets.mjs check                 # what every sketch expects from Box, and what you have
+node scripts/check-sizes.mjs                  # no tracked file over 10 MB (also runs on GitHub)
+node scripts/index-sketches.mjs               # refresh the table above after editing a README header
+```
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before adding work. Coding agents read [AGENTS.md](AGENTS.md) (Claude Code loads it through [CLAUDE.md](CLAUDE.md)).
+
 ## Layout
 
 ```
 sketches/
-  01-realtime-weather-pilot/    each sketch: README.md, assets.json, its own package.json if it has one
+  01-realtime-weather-pilot/     one folder per sketch: README.md, assets.json, its own package.json if any
   02-haida-witness-composite/
   …
-scripts/
-  new-sketch.mjs                start the next numbered sketch
-  index-sketches.mjs            rebuild the table above
-  assets.mjs                    list / check / pull large files from the shared drive
-  check-sizes.mjs               no tracked file over 10 MB (also runs on GitHub)
-.github/workflows/              the two checks above on every push and pull request
+scripts/                         new-sketch, index-sketches, assets, check-sizes (Node, no dependencies)
+.github/workflows/               size and index checks on every push and pull request
 ```
 
-## Start a sketch
-
-```bash
-node scripts/new-sketch.mjs "Cloud seeding over the Sierra" --author "Your Name" --stack "Vite + three.js"
-```
-
-That creates the next number (`03-cloud-seeding-over-the-sierra/`), a README to fill in and an empty `assets.json`, and adds the row above. Numbers only go up and are never reused. See [CONTRIBUTING.md](CONTRIBUTING.md) for naming, what goes in git and what goes on the shared drive.
-
-## Large files and the shared drive
-
-Git holds code, small data and small derived images that a sketch needs to run. Raw downloads, research dossiers, renders, video, working files (Photoshop, Affinity, Blender, Rhino) and licensed fonts live in the Box folder **2026 Realtime Weather**:
+Box, **2026 Realtime Weather**:
 
 ```
-2026 Realtime Weather/
-  00 Presentations/
-  01 Geoengineering Events, Technologies, Sites/   research dossiers (01 Geoengineering, 02 Rituals)
-  02 Sketch Assets/
-    _shared/fonts/                                 licensed fonts, never in git
-    02-haida-witness-composite/                    one folder per sketch, same name as in git
+00 Presentations/
+01 Geoengineering Events, Technologies, Sites/   research dossiers: 01 Geoengineering (12 sites), 02 Rituals (12 rituals)
+02 Sketch Assets/                                one folder per sketch, named exactly as in git
+  _shared/fonts/                                 licensed fonts (ABC Diatype), never in git
+  02-haida-witness-composite/
+03 Renders/                                      finished renders, prints and video
 ```
-
-Each sketch's `assets.json` lists what it uses from there. With Box Drive installed:
-
-```bash
-node scripts/assets.mjs list
-node scripts/assets.mjs check 02
-node scripts/assets.mjs pull 02 --all      # copies into sketches/02-…/assets/ (ignored by git)
-```
-
-If Box is synced somewhere other than `~/Box/2026 Realtime Weather`, set `WC_ASSETS` to that folder.
 
 ## Hosting note
 
-`01-realtime-weather-pilot` moved from the repository root into its folder on 2026-10-08, unchanged. Any hosting or build service connected to this repository must now use `sketches/01-realtime-weather-pilot` as its root directory.
+`01-realtime-weather-pilot` moved from the repository root into its folder on 2026-10-08, unchanged. Any hosting or build service connected to this repository must use `sketches/01-realtime-weather-pilot` as its root directory.

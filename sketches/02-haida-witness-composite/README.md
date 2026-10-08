@@ -13,7 +13,7 @@ python -m http.server 8000      # or: npx serve .
 
 Open http://localhost:8000. Opening `index.html` as a `file://` page will not work, because the page fetches `cal/index.json`.
 
-Optional: `node ../../scripts/assets.mjs pull 02` copies the raw downloads and fonts from the shared drive into `assets/` (see [assets.json](assets.json)).
+Optional: from the repository root, `node scripts/assets.mjs pull 02 --all` copies the raw downloads and fonts from Box into `assets/` (see [assets.json](assets.json)). The page runs without them.
 
 ## What is on screen
 
