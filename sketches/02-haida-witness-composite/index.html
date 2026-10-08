@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haida Gwaii Iron Dump</title>
+<style>
+/* One site, one frame, many days. The picture is a composite of 19 MODIS Aqua passes over the NE Pacific
+   (49–58° N, 145–127° W), June–October 2012. Each cell of the frame shows the day that best witnesses the
+   simulated state of the water under it (plankton, sky, the ship's wake, the clock). Five planes sit at
+   different heights: composite, map, sea, cloud deck, instruments. The camera is orthographic and tilts
+   between a top view and an isometric view. Black on white only; ABC Diatype. */
+@font-face{font-family:"ABC Diatype";src:local("ABC Diatype"),local("ABCDiatype-Regular"),url("assets/fonts/ABCDiatype-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"ABC Diatype";src:local("ABC Diatype Medium"),local("ABCDiatype-Medium"),url("assets/fonts/ABCDiatype-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+:root{--bg:#fff;--fg:#000;--sans:"ABC Diatype","Helvetica Neue",Helvetica,Arial,sans-serif;--fs:13px;--gutter:20px;color-scheme:light}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:var(--fs)/1.3 var(--sans);letter-spacing:0;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;overflow:hidden}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+:focus-visible{outline:1px solid var(--fg);outline-offset:2px}
+#bar{display:flex;align-items:baseline;gap:18px;padding:10px var(--gutter);border-bottom:1px solid var(--fg);flex-wrap:wrap}
+#bar .brand{font-weight:500;font-size:26px;line-height:1;white-space:nowrap}
+#bar .sub{max-width:60ch}
+#bar .links{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.pill{border:1px solid var(--fg);border-radius:999px;padding:1px 10px;font-size:11px;line-height:1.5;white-space:nowrap}
+.pill[aria-pressed="true"],.pill:hover{background:var(--fg);color:var(--bg)}
+#tools{display:flex;align-items:center;gap:6px;padding:6px var(--gutter);border-bottom:1px solid var(--fg);flex-wrap:wrap;font-size:11px}
+#tools .sep{width:1px;height:14px;background:var(--fg);margin:0 6px}
+#tools .hint{margin-left:auto;max-width:70ch}
+#stage{flex:1;min-height:0;position:relative;background:#fff;cursor:grab}
+#stage.paint,#stage.erase,#stage.hide{cursor:crosshair}#stage.pick{cursor:cell}
+canvas#c{position:absolute;inset:0;width:100%;height:100%}
+.box{position:absolute;width:250px;background:#fff;border:1px solid var(--fg);padding:10px 12px;font-size:12px}
+#left{left:var(--gutter);top:var(--gutter)}
+#witness{left:var(--gutter);bottom:var(--gutter)}
+#out{right:var(--gutter);top:var(--gutter);font-variant-numeric:tabular-nums}
+#layers{right:var(--gutter);bottom:var(--gutter)}
+.box h3{margin:0 0 6px;font-weight:500;font-size:12px;cursor:pointer}
+.box.folded>:not(h3){display:none}.box.folded h3{margin:0}
+.ctl{margin:0 0 8px}
+.ctl label{display:flex;justify-content:space-between;gap:8px;margin-bottom:1px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:14px;background:none;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:1px;background:var(--fg)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:var(--fg);margin-top:-5px}
+input[type=range]::-moz-range-track{height:1px;background:var(--fg)}
+input[type=range]::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:var(--fg)}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chk{display:flex;align-items:center;gap:6px;margin:2px 0}
+.chk input{margin:0;accent-color:#000;width:12px;height:12px}
+#out dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:2px 10px}
+#out dt{font-weight:400}#out dd{margin:0;text-align:right}
+#out .bar{grid-column:1/-1;height:5px;border:1px solid var(--fg);margin:1px 0 5px}
+#out .bar i{display:block;height:100%;background:var(--fg)}
+#out p{margin:6px 0 0;font-size:11px}
+#out a{text-decoration:underline;text-underline-offset:2px}
+#credit{position:absolute;left:50%;transform:translateX(-50%);bottom:6px;font-size:11px;background:rgba(255,255,255,.85);padding:2px 6px;white-space:nowrap}
+#strip{height:118px;border-top:1px solid var(--fg);display:flex;align-items:stretch;overflow-x:auto;overflow-y:hidden;background:#fff}
+#strip .d{flex:0 0 auto;width:132px;padding:6px 6px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;border-right:1px solid #ddd;position:relative}
+#strip .d .u{height:22px;width:100%;display:flex;align-items:flex-end;justify-content:center}
+#strip .d .u i{display:block;width:60%;background:var(--fg);min-height:0}
+#strip .d img{width:120px;height:60px;display:block;filter:grayscale(1)}
+#strip .d .t{font-size:11px;line-height:1.2;white-space:nowrap}
+#strip .d[aria-pressed="true"] img{outline:2px solid var(--fg);outline-offset:1px}
+#strip .d.now .t{text-decoration:underline;text-underline-offset:2px}
+#strip .d .s{position:absolute;right:6px;top:30px;font-size:10px}
+@media (max-width:760px){.box{position:static;width:auto;border:0;border-top:1px solid var(--fg)}#stage{display:flex;flex-direction:column;overflow:auto}canvas#c{position:relative;height:60vw}#credit{position:static;transform:none}}
+</style>
+</head>
+<body>
+<div id="bar">
+  <span class="brand">Haida Gwaii Iron Dump</span>
+  <span class="sub">July–August 2012. The Haida Salmon Restoration Corporation released about 120 t of iron into an eddy 300 km west of Haida Gwaii. Each cell shows the satellite day that best witnesses the simulated water under it.</span>
+  <span class="links"><button class="pill" id="v-top" aria-pressed="true">Top</button><button class="pill" id="v-iso" aria-pressed="false">Isometric</button><button class="pill" id="v-par" aria-pressed="true">Parallax</button><a class="pill" href="https://claude.ai/artifact/LvBx1zj9JR3qQJnSYdqLFL#s5329" target="_blank" rel="noopener">Catalog record</a><a class="pill" href="https://claude.ai/artifact/XAnQrNmp8KGmhmHCP2Jbq6" target="_blank" rel="noopener">Model</a></span>
+</div>
+<div id="tools">
+  <button class="pill tool" data-tool="move" aria-pressed="true">Move <u>M</u></button>
+  <button class="pill tool" data-tool="paint" aria-pressed="false">Paint a day <u>B</u></button>
+  <button class="pill tool" data-tool="erase" aria-pressed="false">Erase <u>E</u></button>
+  <button class="pill tool" data-tool="hide" aria-pressed="false">Hide <u>H</u></button>
+  <button class="pill tool" data-tool="pick" aria-pressed="false">Pick a day <u>I</u></button>
+  <span class="sep"></span>
+  <span>Brush <span id="v-brush">5</span> cells</span><input type="range" id="brush" min="1" max="24" value="5" style="width:90px">
+  <span class="sep"></span>
+  <button class="pill" id="play" aria-pressed="false">Pause</button>
+  <button class="pill" id="reset">Restart</button>
+  <span>Day <span id="v-day">0</span></span><input type="range" id="clock" min="0" max="110" step="0.5" value="0" style="width:140px">
+  <span class="sep"></span>
+  <button class="pill" id="clear">Clear strokes</button>
+  <button class="pill" id="undo">Undo</button>
+  <span class="sep"></span>
+  <button class="pill" id="png">Save the view</button>
+  <button class="pill" id="svg">Cell map</button>
+  <button class="pill" id="save">Save setup</button>
+  <button class="pill" id="open">Open setup</button><input type="file" id="file" accept="application/json" hidden>
+  <span class="hint" id="hint"></span>
+</div>
+<div id="stage">
+  <canvas id="c"></canvas>
+  <div class="box" id="left">
+    <h3>Simulation</h3>
+    <div class="ctl"><label for="iron"><span>Iron released</span><span id="v-iron">120 t</span></label><input type="range" id="iron" min="0" max="300" step="5" value="120"></div>
+    <div class="ctl"><label for="eddy"><span>Eddy strength</span><span id="v-eddy">0.60</span></label><input type="range" id="eddy" min="0" max="1" step="0.01" value="0.6"></div>
+    <div class="ctl"><label for="graze"><span>Grazing</span><span id="v-graze">0.50</span></label><input type="range" id="graze" min="0" max="1" step="0.01" value="0.5"></div>
+    <div class="ctl"><label for="wind"><span>Wind</span><span id="v-wind">0.50</span></label><input type="range" id="wind" min="0" max="1" step="0.01" value="0.5"></div>
+  </div>
+  <div class="box" id="witness">
+    <h3>Witness</h3>
+    <div class="ctl"><label for="w-bloom"><span>The bloom</span><span id="v-w-bloom">1.00</span></label><input type="range" id="w-bloom" min="0" max="1" step="0.01" value="1"></div>
+    <div class="ctl"><label for="w-sky"><span>The sky</span><span id="v-w-sky">0.20</span></label><input type="range" id="w-sky" min="0" max="1" step="0.01" value="0.2"></div>
+    <div class="ctl"><label for="w-wake"><span>The ship's wake</span><span id="v-w-wake">0.00</span></label><input type="range" id="w-wake" min="0" max="1" step="0.01" value="0"></div>
+    <div class="ctl"><label for="w-clock"><span>The clock</span><span id="v-w-clock">0.30</span></label><input type="range" id="w-clock" min="0" max="1" step="0.01" value="0.3"></div>
+    <div class="ctl"><label for="level"><span>Cell size</span><span id="v-level">64 × 32</span></label><input type="range" id="level" min="0" max="3" step="1" value="1"></div>
+    <label class="chk"><input type="checkbox" id="refine" checked>Finer cells where the water is active</label>
+    <div class="row"><button class="pill preset" data-w="1,.2,0,.3">Witness the bloom</button><button class="pill preset" data-w=".2,1,0,.3">Witness the sky</button><button class="pill preset" data-w=".2,0,1,.2">Ship's wake</button><button class="pill preset" data-w="0,0,0,1">Seasonal sweep</button></div>
+  </div>
+  <div class="box" id="out"><h3>This day</h3><div id="outbody"></div></div>
+  <div class="box" id="layers">
+    <h3>Planes</h3>
+    <label class="chk"><input type="checkbox" data-plane="composite" checked>Composite of days</label>
+    <label class="chk"><input type="checkbox" data-plane="grid">Cell grid</label>
+    <label class="chk"><input type="checkbox" data-plane="map" checked>Map</label>
+    <label class="chk"><input type="checkbox" data-plane="sea" checked>Sea surface</label>
+    <label class="chk"><input type="checkbox" data-plane="cloud" checked>Cloud deck</label>
+    <label class="chk"><input type="checkbox" data-plane="inst" checked>Instruments</label>
+    <h3 style="margin-top:8px">Image</h3>
+    <div class="row" style="margin-top:0"><button class="pill prod" data-prod="grey" aria-pressed="true">Grey</button><button class="pill prod" data-prod="colour" aria-pressed="false">Colour</button><button class="pill prod" data-prod="chl" aria-pressed="false">Chlorophyll</button></div>
+  </div>
+  <div id="credit">NASA MODIS Aqua via Worldview, public domain · 19 passes, 14 June – 28 October 2012 · 49–58° N, 145–127° W</div>
+</div>
+<div id="strip"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

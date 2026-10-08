@@ -1,0 +1,29 @@
+{
+  "sketch": "02-haida-witness-composite",
+  "note": "Everything needed to run this sketch is in git (cal/, 8 MB). The items below are optional: raw downloads, licensed fonts and the research dossier. Paths are relative to the shared assets root (WC_ASSETS, default ~/Box/2026 Realtime Weather).",
+  "items": [
+    {
+      "id": "raw",
+      "src": "02 Sketch Assets/02-haida-witness-composite/raw",
+      "dest": "assets/raw",
+      "required": false,
+      "files": 56,
+      "bytes": 11641108,
+      "about": "NASA Worldview snapshots as downloaded (MODIS Aqua true colour 1800×900 JPEG and L2 chlorophyll PNG for 36 candidate days, June–October 2012) plus index.json. tools/prep.py turns these into cal/. Reproducible with tools/fetch_cal.py."
+    },
+    {
+      "id": "fonts",
+      "src": "02 Sketch Assets/_shared/fonts",
+      "dest": "assets/fonts",
+      "required": false,
+      "about": "ABC Diatype Regular and Medium as .woff2. Licensed, never committed. Without them the page uses an installed Diatype, then Helvetica/Arial."
+    },
+    {
+      "id": "dossier",
+      "src": "01 Geoengineering Events, Technologies, Sites/01 Geoengineering/04_HAIDA_GWAII",
+      "dest": null,
+      "required": false,
+      "about": "Research dossier for the site: readings, news PDFs, imagery, geodata, LINKS.csv, README. Reference only; the sketch does not read it."
+    }
+  ]
+}

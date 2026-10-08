@@ -1,0 +1,17 @@
+name: repo checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: No file over 10 MB
+        run: node scripts/check-sizes.mjs --report
+      - name: Sketch index in README is current
+        run: node scripts/index-sketches.mjs --check

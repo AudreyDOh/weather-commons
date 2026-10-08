@@ -1,0 +1,67 @@
+# Applies to every sketch. A sketch can add its own .gitignore for anything specific to it.
+
+# Dependencies, builds and caches
+node_modules/
+dist/
+build/
+out/
+.next/
+.vinext/
+.vite/
+.wrangler/
+.turbo/
+.cache/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Local copies of shared-drive assets (see each sketch's assets.json and scripts/assets.mjs)
+sketches/*/assets/
+
+# Secrets and local settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Working files that are large or licensed: keep them on the shared drive,
+# commit a small derivative (jpg/png/webp, glb, json) if the sketch needs one.
+*.psd
+*.psb
+*.afphoto
+*.afdesign
+*.afpub
+*.indd
+*.blend
+*.blend1
+*.3dmbak
+*.rhl
+*.mov
+*.mp4
+*.mkv
+*.avi
+*.wav
+*.aif
+*.aiff
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.*
+*.otf
+*.woff
+*.woff2
+
+# OS, editors, logs
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+*.log

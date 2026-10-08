@@ -1,0 +1,5 @@
+{
+  "sketch": "01-realtime-weather-pilot",
+  "note": "All data this pilot reads is committed under public/data with SHA-256 provenance in public/data/archive/manifest.json (about 184 MB, no file over 10 MB). Nothing is required from the shared drive.",
+  "items": []
+}

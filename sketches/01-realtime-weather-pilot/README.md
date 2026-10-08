@@ -1,12 +1,15 @@
-# Realtime Weather
+# 01 · Realtime Weather
+
+Author: Farzin Lotfi-Jam · Started: 2026-09-02 · Status: pilot · Stack: vinext (Next on Vite) + React + three.js, Cloudflare
 
 An evidence-led technical pilot for the Weather Commons working group. It lets participants place a small, documented atmospheric field inside a spatial narrative and inspect the difference between source material, model rules, calculated tracer movement, and interpretation.
 
 ## Run locally
 
-Requires Node 22.13+ and pnpm.
+Requires Node 22.13+ and pnpm. Run everything from this folder.
 
 ```bash
+cd sketches/01-realtime-weather-pilot
 pnpm install
 pnpm dev
 pnpm check
