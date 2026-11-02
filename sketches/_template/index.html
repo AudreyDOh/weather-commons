@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{NN}} · {{TITLE}}</title>
+<style>
+  /* Black and white. Change freely, but keep it simple. */
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: #000; font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  main { max-width: 64rem; margin: 0 auto; padding: 2rem 1rem 3rem; }
+  header { border-bottom: 1px solid #000; padding-bottom: 1rem; }
+  .nn { font-size: .8125rem; color: #666; }
+  h1 { font-size: 2rem; line-height: 1.1; margin: .25rem 0 .5rem; letter-spacing: -.02em; }
+  .by { margin: 0; font-size: .875rem; }
+  .question { font-size: 1.25rem; max-width: 40rem; margin: 1.5rem 0; }
+  canvas { display: block; width: 100%; aspect-ratio: 2 / 1; border: 1px solid #000; }
+  .label { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; margin: .5rem 0 0; }
+  section { border-top: 1px solid #000; margin-top: 2rem; padding-top: 1rem; max-width: 40rem; }
+  h2 { font-size: .8125rem; text-transform: uppercase; letter-spacing: .05em; margin: 0 0 .5rem; }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="nn">{{NN}}</div>
+    <h1>{{TITLE}}</h1>
+    <p class="by">{{AUTHOR}} · started {{DATE}} · <a href="../">all sketches</a></p>
+  </header>
+
+  <!-- 1. Event: what are you looking at, and what do you want to find out? -->
+  <p class="question">Write your question here. Which weather event, practice or intervention is this about, and what do you want to understand?</p>
+
+  <!-- 2. Simulate: a first model. This one is a placeholder: particles drift in one steady wind. -->
+  <canvas id="view" width="1200" height="600"></canvas>
+  <p class="label">Synthetic: a steady wind blowing east, made up for this template. Not observed data.</p>
+
+  <!-- 3. Situate: where, when, who. Add a map, places, institutions, dates. -->
+  <section>
+    <h2>Situate</h2>
+    <p>Where and when does this happen? Who runs it, who is affected, and who decides?</p>
+  </section>
+
+  <!-- 4. Narrate: the story in a few sentences, and what the model cannot show. -->
+  <section>
+    <h2>Sources and limits</h2>
+    <ul>
+      <li>Wind field: synthetic, made up for this template.</li>
+      <li>List each dataset here: who made it, when, its licence, and whether it is observed, modelled, synthetic or interpretive.</li>
+    </ul>
+    <p>What this sketch cannot show: write it here.</p>
+  </section>
+</main>
+<script>
+  // A tiny simulation: dots carried by a steady wind, with a little random spread.
+  // Replace it with your own model. Load your own files with relative paths, e.g. fetch('data/my-file.json').
+  const canvas = document.getElementById('view');
+  const ctx = canvas.getContext('2d');
+  const wind = { east: 1.2, north: 0.2 }; // pixels per frame (synthetic)
+  const spread = 0.6;                      // random wobble per frame
+  const dots = Array.from({ length: 1500 }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height }));
+
+  function step() {
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)'; // fade old positions into trails
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#000';
+    for (const d of dots) {
+      d.x = (d.x + wind.east + (Math.random() - 0.5) * spread + canvas.width) % canvas.width;
+      d.y = (d.y - wind.north + (Math.random() - 0.5) * spread + canvas.height) % canvas.height;
+      ctx.fillRect(d.x, d.y, 2, 2);
+    }
+    requestAnimationFrame(step);
+  }
+  step();
+</script>
+</body>
+</html>

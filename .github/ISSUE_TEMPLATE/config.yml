@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions, ideas and setup help
+    url: https://community.ocean-archive.org/spaces/25478985
+    about: Ask the group in the Weather Commons community space. It's the fastest way to get help.
+  - name: Setup guide
+    url: https://realtimeurbanismlab.github.io/weather-commons/guide/
+    about: Step-by-step setup for GitHub and Claude, with fixes for common problems.

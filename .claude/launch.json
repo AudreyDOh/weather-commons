@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "01-realtime-weather-pilot",
+      "runtimeExecutable": "corepack",
+      "runtimeArgs": ["pnpm", "--dir", "sketches/01-realtime-weather-pilot", "dev", "--port", "3000"],
+      "port": 3000
+    },
+    {
+      "name": "02-haida-witness-composite",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8000", "--directory", "sketches/02-haida-witness-composite"],
+      "port": 8000
+    },
+    {
+      "name": "site-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8090", "--directory", "_preview"],
+      "port": 8090
+    }
+  ]
+}

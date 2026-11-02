@@ -1,116 +1,96 @@
-# Working in this repository
+# Contributing
 
-Three systems, three jobs:
+Each sketch is one idea in its own folder, `sketches/NN-name/`, with a web page, a README and a NOTES file. This page explains how to add one and keep it in good shape. To get set up first, follow the [setup guide](https://realtimeurbanismlab.github.io/weather-commons/guide/).
 
-- **GitHub (this repository)** holds code and the small data each sketch needs to run.
-- **Box, "2026 Realtime Weather"** holds everything large, raw, licensed or finished: downloads, dossiers, renders, video, working files, fonts.
-- **A sketch folder** `sketches/NN-name/` is the unit of work: one idea, self-contained, with a README and an `assets.json` that connects it to Box.
+The repository is public: anyone can read everything in it, including its history. Box is private to the lab.
 
-## 1. Set up once
+## 1. How work gets in
 
-1. Clone the repository and install Node 22 or newer. Sketch 01 also needs pnpm (`corepack enable`).
-2. Lab members: install Box Drive and accept the share of **2026 Realtime Weather**. Without Box you can still run and change every sketch. You cannot pull raw downloads or licensed fonts, or add large files.
-3. Run `node scripts/assets.mjs where`. It looks for the Box folder in `WC_ASSETS`, then `~/Box/2026 Realtime Weather` (Windows), then `~/Library/CloudStorage/Box-Box/2026 Realtime Weather` (macOS). If yours is elsewhere, for example inside `~/Box/Realtime Urbanism Lab/Projects/`, set `WC_ASSETS` to it.
+1. **Fork** the repository on GitHub. That's your own copy, published at `https://<your-username>.github.io/weather-commons/`. Turn it on once in your fork: **Actions** → enable workflows, then **Settings → Pages → Source: GitHub Actions**.
+2. **Make your sketch** in your fork. Ask Claude to "start a sketch" with the number the facilitators gave you. Or run:
+   ```bash
+   node scripts/new-sketch.mjs "Hail cannons in Mendoza" --number 12 --author "Your Name"
+   ```
+3. **Publish it to your own copy.** Ask Claude to "publish", or commit, push and merge into your fork's `main`. It goes live about a minute later.
+4. **Share it with the group.** Open a pull request from your fork to `RealtimeUrbanismLab/weather-commons` and fill in the checklist. A facilitator reviews it. Once merged, it appears on the shared site.
 
-The repository is public: everything committed, including history, can be read by anyone. Box is private to the lab.
+A pull request should change only your own sketch folder. For changes to shared files (`scripts/`, the root READMEs, `.github/`), talk to a facilitator first.
 
-## 2. New sketch or new version?
+## 2. Numbers and names
 
-- **Same idea, better** (tuning, a new control, a fix, more data for the same question): keep working in the same folder. Git history holds the versions; update the README's Status line (`v0.3`).
-- **Different idea, site, method or audience**: start a new sketch. If it grows out of an existing one, write `Forked from 02 on 2026-10-20` in its README.
+- **Numbers.** Workshop participants use the number the facilitators gave them (see `docs/workshop/roster.md`). That way sketches made in different forks never clash. Lab members can leave out `--number` to take the next free one.
+- **Names.** Folders are named `NN-words-that-name-the-place-or-idea`, like `02-haida-witness-composite`, never `test2`.
+- **Never renumber or reuse a number,** even for a retired sketch. Notes, links and Box folders point at these names.
+- **Same idea, better** (a fix, a new control, more data for the same question): keep working in the same folder and update the Status in the README (`v0.3`).
+- **New idea, place or method:** start a new sketch. If it grows out of another, say so in its README: `Forked from 02 on 2026-10-20`.
+- **Stand-alone:** everything a sketch needs is inside its folder, including its data and its own `package.json` if it uses packages. Copy from other sketches, but never link to their files.
 
-```bash
-node scripts/new-sketch.mjs "Cloud seeding over the Sierra" --author "Your Name" --stack "Vite + three.js"
+## 3. The README
+
+The first lines feed the site's front page:
+
+```
+# 12 · Hail cannons in Mendoza
+
+Author: Your Name · Started: 2026-11-02 · Status: sketch · Stack: static HTML + JS
+
+One or two sentences: what it shows and the question it asks. The first sentence is the summary on the site.
 ```
 
-This takes the next number, creates `sketches/03-cloud-seeding-over-the-sierra/` with `README.md` and `assets.json`, and adds a row to the root README.
+Then follow the four parts: **Event, Simulate, Situate, Narrate**. Finish with **Sources and limits**: for each dataset, who made it, its date, its licence, what you changed, and whether it is observed, reanalysed, modelled, synthetic or interpretive. Say what the sketch cannot show. The template already has these headings.
 
-Naming: two-digit number, then lowercase words joined by hyphens that name the site or idea (`02-haida-witness-composite`, never `test2` or `new-model`). Numbers only go up. Never renumber or reuse one, even for a retired sketch; notes, links and Box folders point at these names.
+Status is one of `sketch`, `pilot`, `v0.2` and so on, or `retired`. Add `Publish: no` to the header line to keep a sketch off the website.
 
-Everything a sketch needs to run is inside its folder: its own `package.json` and lock file, its own data, its own fonts list. Sketches may copy from one another but never import across folders, so any sketch keeps working when another one changes.
+## 4. Notes between sessions
 
-## 3. Where does this file go?
+`NOTES.md` sits next to the README. It holds what to do next, decisions, open questions and what's done, with dates. Read it before working on a sketch, and leave notes there for whoever (or whichever Claude) comes next. When a version is finished, move its items to Done.
 
-| The file is… | Put it in | Notes |
+## 5. Where does a file go?
+
+| The file is… | Put it | Notes |
 | --- | --- | --- |
-| code, configs, lock files, scripts | git, in the sketch | |
-| small data the sketch reads at run time (JSON, GeoJSON, CSV, small rasters) | git, in the sketch | under 10 MB per file, about 50 MB per sketch |
-| a derived image, tile set or mesh the sketch displays | git, in the sketch, if each file is under 10 MB | keep the script that made it in `tools/` |
-| raw downloads you can re-fetch | Box, `02 Sketch Assets/NN-name/` | keep the fetch script in git |
-| anything over 10 MB the sketch must have to run | Box, `02 Sketch Assets/NN-name/`, `"required": true` | collaborators run `pull NN` |
-| research: readings, news, PDFs, dossiers | Box, `01 Geoengineering Events, Technologies, Sites/` | reference from `assets.json` with `"dest": null` if a sketch relies on it |
+| code, settings, lock files, scripts | in the sketch, in git | |
+| small data the page reads (JSON, GeoJSON, CSV, small images) | in the sketch, in git | under 10 MB per file, about 50 MB per sketch |
+| an image, tile set or mesh you made from data | in the sketch, in git, if each file is under 10 MB | keep the script that made it in `tools/` |
+| raw downloads you can fetch again | Box, `02 Sketch Assets/NN-name/` | keep the download script in git |
+| anything over 10 MB the sketch needs | Box, `02 Sketch Assets/NN-name/`, marked `"required": true` | others run `pull NN` |
+| readings, PDFs, research dossiers | Box, `01 Geoengineering Events, Technologies, Sites/` | |
 | renders, prints, video, audio | Box, `03 Renders/` | |
-| Photoshop, Affinity, Blender, Rhino, InDesign working files | Box | the root `.gitignore` blocks these types |
-| licensed fonts (ABC Diatype …) | Box, `02 Sketch Assets/_shared/fonts/` | never in git; pages load them from `assets/fonts/` with a system fallback |
-| passwords, API keys, `.env` | nowhere shared | use `.env.example` with blank values |
+| Photoshop, Affinity, Blender, Rhino, InDesign files | Box | git blocks these types |
+| licensed fonts (ABC Diatype …) | Box, `02 Sketch Assets/_shared/fonts/` | never in git; pages fall back to system fonts |
+| passwords, API keys, `.env` | nowhere shared | commit a `.env.example` with blank values |
 
-`scripts/check-sizes.mjs` fails any push that tracks a file over 10 MB, and warns when a sketch passes 50 MB. The root `.gitignore` blocks common heavy or licensed types (psd, afdesign, blend, mov, mp4, zip, otf, woff, woff2 …). If a small file of such a type truly belongs in a sketch, for example an open-licence web font, add it with `git add -f` and say why in the commit message.
+`node scripts/check-sizes.mjs` stops any file over 10 MB and warns when a sketch passes 50 MB. If a small file of a blocked type really belongs in a sketch, such as an open-licence font, add it with `git add -f` and say why in the commit message.
 
-## 4. Putting a large file on Box
+Not in the lab? Keep big files out of the repository and link to where they live, with their source and licence.
 
-From the repository root:
+## 6. Box (lab members)
 
-```bash
-node scripts/assets.mjs add 03 ~/Downloads/nexrad --required --about "NEXRAD level II, KRGX, 12–15 Jan 2026; fetched with tools/fetch_radar.py"
-git add sketches/03-cloud-seeding-over-the-sierra/assets.json && git commit -m "03: radar archive on Box"
-```
+- **Set up.** Install Box Drive and accept the share of **2026 Realtime Weather**. Then run `node scripts/assets.mjs where`. It looks in `WC_ASSETS`, `~/Box/2026 Realtime Weather` (Windows) and `~/Library/CloudStorage/Box-Box/2026 Realtime Weather` (Mac). If yours is elsewhere, such as `~/Box/Realtime Urbanism Lab/Projects/2026 Realtime Weather`, set `WC_ASSETS` to it.
+- **Add a large file:**
+  ```bash
+  node scripts/assets.mjs add 12 ~/Downloads/radar --required --about "NEXRAD level II, KRGX, 12–15 Jan 2026; fetched with tools/fetch_radar.py"
+  git add sketches/12-…/assets.json && git commit -m "12: radar archive on Box"
+  ```
+  `add` moves the file or folder to `02 Sketch Assets/12-…/` on Box, leaving no copy behind. It records it in the sketch's `assets.json`: `src` is the path on Box, and `dest` is where `pull` puts it in the sketch (`null` for reading material the sketch never loads).
+- **Get a sketch's files.** `node scripts/assets.mjs pull 12 --all` copies them into `sketches/12-…/assets/`, which git ignores. The sketch reads them from there, never from Box directly. `check 12` shows what's expected and what you have.
+- **Keep Box folders stable.** One folder per sketch, named like the git folder. Don't rename or move what an `assets.json` points to without updating it in the same commit.
 
-`add` **moves** the file or folder (no duplicate is left behind) to `02 Sketch Assets/03-cloud-seeding-over-the-sierra/nexrad` on Box and appends an entry to the sketch's `assets.json`:
+## 7. Commits and checks
 
-```json
-{ "id": "nexrad", "src": "02 Sketch Assets/03-cloud-seeding-over-the-sierra/nexrad", "dest": "assets/nexrad",
-  "required": true, "files": 412, "bytes": 4400000000, "about": "NEXRAD level II, KRGX, 12–15 Jan 2026; …" }
-```
+- Commit messages start with the sketch number: `12: add rainfall layer`. Changes to shared files start with `repo:` and go through a pull request.
+- Before pushing, run `node scripts/check-sketches.mjs` and `node scripts/check-sizes.mjs`, plus the sketch's own checks (for 01: `pnpm check`, `pnpm lint`, `pnpm build`). GitHub runs the same checks on every pull request, and builds the website to check it still works.
+- On Windows, Git may change line endings. For data with recorded checksums, mark it `-text` in a `.gitattributes` in the sketch (see sketch 01's).
 
-`src` is relative to the Box folder; `dest` is where `pull` copies it inside the sketch (`null` for reference material the sketch never reads). You can also drag files into Box by hand and write the entry yourself.
+## 8. The website
 
-On Box: keep one folder per sketch named exactly like the sketch folder in git; do not rename or reorganise folders that an `assets.json` points to without updating that file in the same commit. `00`, `01` and `03` hold material that is not tied to one sketch.
+Every push to `main` that changes a sketch rebuilds the site with `scripts/build-pages.mjs`.
 
-## 5. Getting a sketch's files
+- Every sketch with an `index.html` goes online at `/weather-commons/NN-name/`, unless its README header says `Publish: no`. A sketch with a `build:pages` script is built first. Sketch 01 has its own build.
+- The site uses only files in git. Box files and `assets/` folders are never copied.
+- Pages live under a sub-folder, so load files with relative paths (`data/x.json`), not paths starting with `/`. `check-sketches` warns about these.
+- To check before pushing: `node scripts/build-pages.mjs --out _preview/weather-commons`, then `python -m http.server 8090 -d _preview` and open http://localhost:8090/weather-commons/.
 
-```bash
-node scripts/assets.mjs check 02        # what it expects, what is on Box, what you have
-node scripts/assets.mjs pull 02         # required items only
-node scripts/assets.mjs pull 02 --all   # optional items too
-```
+## 9. Retiring a sketch
 
-Files land in `sketches/02-…/assets/`, which git ignores. The sketch reads them from there. A sketch never reads from the Box path directly at run time: paths differ between computers and Box streams files on demand.
-
-## 6. README header
-
-The first lines of every sketch README feed the index in the root README:
-
-```
-# 03 · Cloud seeding over the Sierra
-
-Author: Name · Started: 2026-10-20 · Status: sketch · Stack: Vite + three.js
-
-One paragraph: what it shows and the question it asks. The first sentence becomes the summary in the index.
-```
-
-Then: how to run it, what is on screen, the files, and **Sources and limits** (producer, date, licence, and whether each layer is observed, reanalysed, modelled, synthetic or interpretive). After editing a header run `node scripts/index-sketches.mjs`; CI fails if the index is out of date. Status values: `sketch`, `pilot`, `v0.2` …, `retired`.
-
-## 7. Notes between sessions
-
-Each sketch may keep a `NOTES.md` beside its README: observations, what the next version should do, decisions, open questions, done. It is the first thing to read before working on a sketch and the place to leave thoughts for whoever (or whatever) works on it next. Dated entries age well. When a version ships, move its items to Done and fold them into the README. Use GitHub Issues instead once several people work on the same sketch at once and need threads that can be assigned and closed.
-
-## 8. Commits, branches, checks
-
-- Work on `main` for your own sketch with small commits whose message starts with the sketch number: `02: refine cells where the water is active`.
-- Changes outside your sketch (root files, `scripts/`, someone else's sketch) go through a short branch and a pull request.
-- Before pushing: the sketch's own checks (for 01: `pnpm check`, `pnpm lint`, `pnpm build` inside its folder), then `node scripts/check-sizes.mjs`.
-- GitHub Actions run the size and index checks on every push and pull request.
-- Windows: Git may convert line endings on checkout. For data whose hashes are recorded, add a `.gitattributes` in the sketch marking it `-text` (see `sketches/01-realtime-weather-pilot/.gitattributes`).
-
-## 9. Publishing on the web
-
-Sketches run publicly at https://realtimeurbanismlab.github.io/weather-commons/. On every push to `main` that touches a sketch, `.github/workflows/pages.yml` runs `node scripts/build-pages.mjs` and deploys `_site/`.
-
-- Only sketches listed in `PUBLISHED` in `scripts/build-pages.mjs` go online, each at `/weather-commons/NN-name/`. Add a sketch there when its author agrees and its **Sources and limits** section is in place. The entry says which files to copy, or how to build them.
-- A published sketch runs from files in git only; Box files and `assets/` are never copied. Licensed fonts fall back to system fonts online.
-- Pages serve under a sub-path, so load files with relative paths (`cal/index.json`), not root-relative ones (`/cal/index.json`). Sketch 01 uses `publicUrl()` for its root-relative paths.
-- Check before pushing: `node scripts/build-pages.mjs --out <dir>/weather-commons`, then serve `<dir>` (for example `python -m http.server -d <dir>`) and open `/weather-commons/`.
-
-## 10. Retiring a sketch
-
-Leave it in place, set `Status: retired` in its README header, run the index script and say in the README what replaced it. Its Box folder stays.
+Leave it in place, set `Status: retired` in its README header, and say in the README what replaced it. Its Box folder stays.

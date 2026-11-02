@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup guide · Weather Commons</title>
+<meta name="description" content="How to set up GitHub and Claude and publish your first page for the Realtime Weather working group.">
+<style>
+  :root {
+    --fg: #000; --bg: #fff; --muted: #555; --line: #000; --soft: #f2f2f2;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg: #fff; --bg: #000; --muted: #aaa; --line: #fff; --soft: #161616; }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.55 var(--font); }
+  main { max-width: 44rem; margin: 0 auto; padding: 24px 16px 80px; }
+  a { color: inherit; text-underline-offset: 2px; }
+  nav.top { display: flex; gap: 16px; flex-wrap: wrap; font-size: 15px; margin-bottom: 40px; }
+  nav.top a { text-decoration: none; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 34px; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 12px; }
+  h2 { font-size: 22px; margin: 56px 0 8px; padding-top: 12px; border-top: 2px solid var(--line); }
+  h3 { font-size: 17px; margin: 28px 0 4px; }
+  p, li { max-width: 40rem; }
+  .lede { font-size: 19px; }
+  .muted, .gloss { color: var(--muted); }
+  .gloss { font-size: 15px; }
+  ol.steps { list-style: none; padding: 0; margin: 16px 0 0; counter-reset: step; }
+  ol.steps > li { counter-increment: step; position: relative; padding: 0 0 20px 44px; }
+  ol.steps > li::before {
+    content: counter(step); position: absolute; left: 0; top: 0;
+    width: 28px; height: 28px; border: 1.5px solid var(--line); border-radius: 50%;
+    display: grid; place-items: center; font-size: 14px; font-weight: 600;
+  }
+  .ok { font-size: 15px; }
+  .ok::before { content: "You should see: "; font-weight: 600; }
+  code { font-family: var(--mono); font-size: 0.88em; background: var(--soft); padding: 1px 4px; border-radius: 3px; overflow-wrap: anywhere; }
+  .code { position: relative; margin: 8px 0; }
+  .code pre {
+    margin: 0; padding: 12px 14px; padding-right: 72px; background: var(--soft); border: 1px solid var(--line);
+    font: 14px/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  .code button {
+    position: absolute; top: 6px; right: 6px; font: 13px var(--font); padding: 4px 10px;
+    background: var(--bg); color: var(--fg); border: 1px solid var(--line); cursor: pointer;
+  }
+  .note { border: 1.5px solid var(--line); padding: 12px 16px; margin: 20px 0; }
+  .note p { margin: 4px 0; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 12px 0; }
+  .fields label { font-size: 13px; color: var(--muted); display: block; }
+  .fields input {
+    width: 100%; font: 15px var(--font); padding: 6px 8px; margin-top: 2px;
+    background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 0;
+  }
+  .tabs { display: flex; gap: 0; margin: 16px 0 0; }
+  .tabs button {
+    font: 15px var(--font); padding: 6px 16px; cursor: pointer;
+    background: var(--bg); color: var(--fg); border: 1px solid var(--line);
+  }
+  .tabs button + button { border-left: 0; }
+  .tabs button[aria-selected="true"] { background: var(--fg); color: var(--bg); }
+  .tabpanel { border: 1px solid var(--line); border-top: 0; padding: 4px 16px 8px; }
+  .tabpanel[hidden] { display: none; }
+  dl.trouble dt { font-weight: 600; margin-top: 20px; }
+  dl.trouble dd { margin: 4px 0 0; }
+  dl.trouble .ask { display: block; margin-top: 6px; font-size: 15px; }
+  table { border-collapse: collapse; margin: 12px 0; font-size: 15px; }
+  th, td { border: 1px solid var(--line); padding: 4px 12px; text-align: left; }
+  footer { margin-top: 64px; font-size: 14px; color: var(--muted); }
+  #handout { display: none; }
+
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    h1 { font-size: 28px; }
+    .code pre { padding: 40px 12px 12px; }
+    ol.steps > li { padding-left: 38px; }
+  }
+
+  /* Print: a one-page checklist handout instead of the full guide. */
+  @media print {
+    @page { size: A4; margin: 12mm 14mm; }
+    :root { --fg: #000; --bg: #fff; --muted: #333; --line: #000; --soft: #fff; }
+    body { font-size: 10pt; line-height: 1.35; }
+    main > *:not(#handout) { display: none !important; }
+    main { max-width: none; padding: 0; }
+    #handout { display: block; }
+    #handout h1 { font-size: 17pt; margin: 0 0 2pt; }
+    #handout h2 { font-size: 11pt; margin: 9pt 0 3pt; padding-top: 4pt; border-top: 1pt solid #000; }
+    #handout p { margin: 2pt 0; max-width: none; }
+    #handout ul { list-style: none; padding: 0; margin: 0; }
+    #handout li { padding-left: 16pt; position: relative; margin: 2.5pt 0; max-width: none; }
+    #handout li::before { content: ""; position: absolute; left: 0; top: 1.5pt; width: 8pt; height: 8pt; border: 1pt solid #000; }
+    #handout code { background: none; padding: 0; font-size: 9pt; }
+    #handout .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14pt; }
+    #handout .blank { display: inline-block; min-width: 110pt; border-bottom: 0.75pt solid #000; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+<nav class="top" aria-label="Site">
+  <a href="../">Weather Commons sketches</a>
+  <a href="#route-a">Route A: browser</a>
+  <a href="#route-b">Route B: desktop</a>
+  <a href="#share">Share with the group</a>
+  <a href="#trouble">Troubleshooting</a>
+</nav>
+
+<h1>Setup guide</h1>
+<p class="lede">Get your own copy of the Weather Commons sketches and put your first page on the web. Realtime Weather working group, TBA21 UNI, Mondays 2–23 November 2026.</p>
+<p>There are two ways to work. <strong>Route A</strong> uses only a web browser. Use it today. <strong>Route B</strong> installs a few tools on your laptop, for later sessions. Both end with a page you can open on any phone.</p>
+
+<div class="note">
+  <p><strong>Before you start</strong></p>
+  <p>Ask a facilitator for your <strong>sketch number</strong>. Each breakout room has a block: 10–19, 20–29, 30–39 or 40–49. Your number is yours for the whole workshop. Nobody else uses it.</p>
+  <p>You need a Claude plan (you have one) and about 20 minutes.</p>
+</div>
+
+<h3>Words you will meet</h3>
+<p class="gloss"><strong>Repository</strong>: a project folder that lives on GitHub, with its full history. <strong>Fork</strong>: your own copy of someone else's repository, under your account. <strong>Pull request (PR)</strong>: a proposal to add changes to a repository; someone reviews it and <strong>merges</strong> it, which means accepting it. <strong>Branch</strong>: a separate line of changes, kept apart until it is merged. <strong>Actions</strong>: GitHub's robots that run jobs, such as building your site. <strong>Pages</strong>: GitHub's free web hosting.</p>
+
+<!-- Route A -->
+<h2 id="route-a">Route A: browser only</h2>
+<p>For everyone, today. Nothing to install.</p>
+
+<ol class="steps">
+  <li>
+    <strong>Make a GitHub account.</strong>
+    Go to <a href="https://github.com/signup">github.com/signup</a> and follow the steps. Choose your username with care: it will be part of your web address.
+    <p class="ok">your profile page at github.com/&lt;your username&gt;.</p>
+  </li>
+  <li>
+    <strong>Fork the repository.</strong>
+    Open <a href="https://github.com/RealtimeUrbanismLab/weather-commons">github.com/RealtimeUrbanismLab/weather-commons</a>. Click <strong>Fork</strong> (top right), then <strong>Create fork</strong>. Leave the settings as they are.
+    <p class="ok">a page titled <code>&lt;your username&gt;/weather-commons</code>, with “forked from RealtimeUrbanismLab/weather-commons” under it.</p>
+  </li>
+  <li>
+    <strong>Turn on Actions and Pages in your fork.</strong>
+    Forks start with Actions switched off.
+    <br>a. In your fork, open the <strong>Actions</strong> tab. Click <strong>I understand my workflows, go ahead and enable them</strong>.
+    <br>b. Open <strong>Settings</strong> → <strong>Pages</strong> (left side). Under <strong>Build and deployment</strong>, set <strong>Source</strong> to <strong>GitHub Actions</strong>.
+    <p class="ok">the Actions tab lists workflows instead of a warning, and Pages says the source is GitHub Actions.</p>
+  </li>
+  <li>
+    <strong>Connect Claude to your fork.</strong>
+    Open <a href="https://claude.ai/code">claude.ai/code</a> and sign in. When it asks, connect your GitHub account and install the <strong>Claude</strong> GitHub app. On GitHub's page, choose <strong>Only select repositories</strong> and pick <code>&lt;your username&gt;/weather-commons</code>. Click <strong>Install</strong>.
+    <p class="ok"><code>weather-commons</code> in Claude's repository list.</p>
+  </li>
+  <li>
+    <strong>Ask Claude to make your first page.</strong>
+    In claude.ai/code, choose your <code>weather-commons</code> repository and start a new task. Fill in the boxes below, then copy the prompt and paste it in.
+    <div class="fields">
+      <div><label for="f-name">Your name</label><input id="f-name" autocomplete="name" placeholder="Ada Lovelace"></div>
+      <div><label for="f-user">GitHub username</label><input id="f-user" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="your-username"></div>
+      <div><label for="f-num">Sketch number</label><input id="f-num" inputmode="numeric" maxlength="2" placeholder="12"></div>
+      <div><label for="f-title">Working title</label><input id="f-title" placeholder="Hail cannons in Mendoza"></div>
+    </div>
+    <div class="code">
+<pre id="prompt">I'm a participant in the Realtime Weather workshop. This repository is my fork. Please explain each step to me in plain words as you go.
+
+1. Run: node scripts/new-sketch.mjs "&lt;title&gt;" --number &lt;number&gt; --author "&lt;name&gt;"
+2. In the new sketch folder, make a first page from the template: my title, my name, one question my sketch asks, and the "Sources and limits" box. Label anything made up as synthetic. Use relative paths only.
+3. Read AGENTS.md and follow it. Work only in my sketch folder.
+4. Commit with a message that starts with my number, push a branch, and open a pull request in my fork: base &lt;username&gt;/weather-commons, branch main. Not RealtimeUrbanismLab.
+5. Give me the link to the pull request, and the address my page will have once it is merged: https://&lt;username&gt;.github.io/weather-commons/&lt;number&gt;-&lt;slug&gt;/</pre>
+      <button type="button" data-copy="prompt">Copy</button>
+    </div>
+    <p class="gloss">The words in &lt;angle brackets&gt; fill in as you type. If they stay, replace them yourself before you send.</p>
+    <p class="ok">Claude works for a few minutes, then gives you a pull request link. If it can't open the pull request itself, it shows a <strong>Create PR</strong> button. Check that the base is <em>your</em> fork.</p>
+  </li>
+  <li>
+    <strong>Merge it in your fork.</strong>
+    Open the pull request link. Read what changed under <strong>Files changed</strong>. Click <strong>Merge pull request</strong>, then <strong>Confirm merge</strong>.
+    <p class="ok">a purple “Merged” label. In the Actions tab, a job called <em>pages</em> starts running.</p>
+  </li>
+  <li>
+    <strong>Open your live page.</strong>
+    Wait about a minute, until the Actions job has a green tick. Then open:
+    <div class="code"><pre id="live">https://&lt;username&gt;.github.io/weather-commons/&lt;number&gt;-&lt;slug&gt;/</pre><button type="button" data-copy="live">Copy</button></div>
+    <p class="gloss">The slug is your title in lowercase, with hyphens for spaces. Your fork's front page, <code>https://&lt;username&gt;.github.io/weather-commons/</code>, lists every sketch in your copy.</p>
+    <p class="ok">your page, on your laptop and your phone. Post the link in the <a href="https://community.ocean-archive.org/spaces/25478985">community space</a>.</p>
+  </li>
+</ol>
+
+<p>Today's first page stays in your fork. You can keep changing it: start a new task in claude.ai/code, say what you want, and merge again.</p>
+
+<!-- Route B -->
+<h2 id="route-b">Route B: desktop app</h2>
+<p>From session 2, for anyone who wants to preview pages before publishing, work with larger data, or use the lab's Box files. You install three tools once. A <strong>terminal</strong> is a window where you type commands: <strong>Terminal</strong> on a Mac, <strong>Terminal</strong> or <strong>PowerShell</strong> on Windows.</p>
+
+<div class="tabs" role="tablist" aria-label="Operating system">
+  <button type="button" role="tab" id="tab-mac" aria-controls="panel-mac" aria-selected="true">Mac</button>
+  <button type="button" role="tab" id="tab-win" aria-controls="panel-win" aria-selected="false">Windows</button>
+</div>
+<div class="tabpanel" role="tabpanel" id="panel-mac" aria-labelledby="tab-mac">
+  <ol class="steps">
+    <li>
+      <strong>Git</strong> (keeps track of changes). In Terminal, run the line below and click <strong>Install</strong> in the window that opens.
+      <div class="code"><pre id="c-xcode">xcode-select --install</pre><button type="button" data-copy="c-xcode">Copy</button></div>
+      <p class="gloss">If it says the tools are already installed, you're done with this step.</p>
+    </li>
+    <li><strong>Node</strong> (runs the repository's scripts). Download the <strong>LTS</strong> installer from <a href="https://nodejs.org/">nodejs.org</a> and open it.</li>
+    <li><strong>GitHub CLI</strong> (talks to GitHub from the terminal). Download the macOS <code>.pkg</code> from <a href="https://cli.github.com/">cli.github.com</a> and open it.</li>
+    <li><strong>Close Terminal and open it again</strong>, so it finds the new tools.</li>
+  </ol>
+</div>
+<div class="tabpanel" role="tabpanel" id="panel-win" aria-labelledby="tab-win" hidden>
+  <ol class="steps">
+    <li>
+      <strong>Git, Node and the GitHub CLI</strong> in one line. Open Terminal (or PowerShell) and run:
+      <div class="code"><pre id="c-winget">winget install Git.Git OpenJS.NodeJS.LTS GitHub.cli</pre><button type="button" data-copy="c-winget">Copy</button></div>
+      <p class="gloss">Accept the prompts. Git keeps track of changes, Node runs the repository's scripts, and the GitHub CLI talks to GitHub from the terminal.</p>
+    </li>
+    <li><strong>Close the terminal and open it again</strong>, so it finds the new tools.</li>
+  </ol>
+</div>
+
+<h3>Then, on both</h3>
+<ol class="steps">
+  <li>
+    <strong>Sign in to GitHub.</strong> Choose <strong>GitHub.com</strong>, <strong>HTTPS</strong> and <strong>Login with a web browser</strong>, and follow the code it gives you.
+    <div class="code"><pre id="c-auth">gh auth login</pre><button type="button" data-copy="c-auth">Copy</button></div>
+    Then let Git use the same sign-in:
+    <div class="code"><pre id="c-setup">gh auth setup-git</pre><button type="button" data-copy="c-setup">Copy</button></div>
+  </li>
+  <li>
+    <strong>Fork and download the repository.</strong> This makes a folder called <code>weather-commons</code> where you run it. If you already forked it in Route A, it just downloads your fork.
+    <div class="code"><pre id="c-fork">gh repo fork RealtimeUrbanismLab/weather-commons --clone</pre><button type="button" data-copy="c-fork">Copy</button></div>
+  </li>
+  <li>
+    <strong>Open it in Claude.</strong> Install the Claude desktop app from <a href="https://claude.ai/download">claude.ai/download</a>. Open the <strong>Code</strong> tab and choose the <code>weather-commons</code> folder.
+    <p class="ok">Claude can now preview your page on your laptop before you publish it. The prompt from Route A step 5 works here too.</p>
+  </li>
+</ol>
+
+<!-- Sharing -->
+<h2 id="share">Share with the group</h2>
+<p>Your fork is your own site. To add a sketch to the shared site at <a href="../">realtimeurbanismlab.github.io/weather-commons</a>, propose it with a pull request to the group's repository.</p>
+<ol class="steps">
+  <li>On your fork's page on GitHub, click <strong>Contribute</strong>, then <strong>Open pull request</strong>.</li>
+  <li>Check the top line: base is <code>RealtimeUrbanismLab/weather-commons</code>, <code>main</code>. Write two lines about your sketch and click <strong>Create pull request</strong>.</li>
+  <li>A facilitator reviews it, may ask for changes, and merges it. Your sketch then appears on the shared site and its index.</li>
+</ol>
+<p>Group sketches for the shared site start in session 2.</p>
+
+<div class="note" id="public">
+  <p><strong>This is public.</strong> The repository and both sites can be read by anyone. Your name and GitHub username show on your sketch and in its history. Nothing goes on the shared site until you open a pull request and it is merged: that is how you say yes. If you would rather use a pseudonym, use it for both your GitHub username and the <code>--author</code> name.</p>
+</div>
+
+<h3>Sketch numbers</h3>
+<p>Numbers are handed out by the facilitators, one block per breakout room. Use only yours; the checks stop two sketches sharing a number.</p>
+<table>
+  <tr><th>Room</th><th>Numbers</th></tr>
+  <tr><td>1</td><td>10–19</td></tr>
+  <tr><td>2</td><td>20–29</td></tr>
+  <tr><td>3</td><td>30–39</td></tr>
+  <tr><td>4</td><td>40–49</td></tr>
+</table>
+
+<!-- Troubleshooting -->
+<h2 id="trouble">Troubleshooting</h2>
+<dl class="trouble">
+  <dt>Nothing happens in the Actions tab after I merge.</dt>
+  <dd>Actions are still off in your fork. Open the <strong>Actions</strong> tab and click <strong>I understand my workflows, go ahead and enable them</strong>. Then merge again, or open the <em>pages</em> workflow and click <strong>Run workflow</strong> if it offers one.
+    <span class="ask">Stuck? Ask in the community space: <a href="https://community.ocean-archive.org/spaces/25478985">https://community.ocean-archive.org/spaces/25478985</a></span></dd>
+
+  <dt>The Actions job fails at the deploy step.</dt>
+  <dd>Pages isn't set up yet. Go to <strong>Settings</strong> → <strong>Pages</strong> and set <strong>Source</strong> to <strong>GitHub Actions</strong>. Then open the failed job and click <strong>Re-run all jobs</strong>.
+    <span class="ask">Stuck? Ask in the community space: <a href="https://community.ocean-archive.org/spaces/25478985">https://community.ocean-archive.org/spaces/25478985</a></span></dd>
+
+  <dt>My page says 404.</dt>
+  <dd>For the first minute after a deploy, that is normal. Wait until the Actions job has a green tick, then reload. If it still says 404, check the address: your username, then <code>/weather-commons/</code>, then your folder name, which starts with your number. The folder name is in your fork under <code>sketches/</code>.
+    <span class="ask">Stuck? Ask in the community space: <a href="https://community.ocean-archive.org/spaces/25478985">https://community.ocean-archive.org/spaces/25478985</a></span></dd>
+
+  <dt>Claude can't see my fork, or can't push to it.</dt>
+  <dd>The Claude GitHub app doesn't have access to it. On GitHub, open your profile picture → <strong>Settings</strong> → <strong>Applications</strong> → <strong>Claude</strong> → <strong>Configure</strong>. Under <strong>Repository access</strong>, add <code>weather-commons</code> and save. Then start a new task in claude.ai/code.
+    <span class="ask">Stuck? Ask in the community space: <a href="https://community.ocean-archive.org/spaces/25478985">https://community.ocean-archive.org/spaces/25478985</a></span></dd>
+
+  <dt>The pull request went to RealtimeUrbanismLab instead of my fork.</dt>
+  <dd>GitHub often suggests the group's repository first. No harm done: close that pull request with a short note, then open a new one with base <code>&lt;your username&gt;/weather-commons</code>.
+    <span class="ask">Stuck? Ask in the community space: <a href="https://community.ocean-archive.org/spaces/25478985">https://community.ocean-archive.org/spaces/25478985</a></span></dd>
+
+  <dt>The terminal says “command not found” or “is not recognized”.</dt>
+  <dd>The terminal was open while you installed, so it doesn't know about the new tools yet. Close every terminal window, open a new one and try again. On Windows, if that doesn't help, sign out of Windows and back in.
+    <span class="ask">Stuck? Ask in the community space: <a href="https://community.ocean-archive.org/spaces/25478985">https://community.ocean-archive.org/spaces/25478985</a></span></dd>
+</dl>
+
+<footer>
+  <p>Weather Commons, Realtime Urbanism Lab with TBA21 UNI. Facilitators: Farzin Lotfi-Jam and Boone Mercado. Print this page for a one-page checklist.</p>
+  <p><a href="../">All sketches</a> · <a href="https://github.com/RealtimeUrbanismLab/weather-commons">Repository</a> · <a href="https://community.ocean-archive.org/spaces/25478985">Community space</a></p>
+</footer>
+
+<!-- Printed handout: hidden on screen, shown instead of the guide when printed. -->
+<section id="handout" aria-hidden="true">
+  <h1>Weather Commons · setup checklist</h1>
+  <p>Full guide: realtimeurbanismlab.github.io/weather-commons/guide/ · Help: community.ocean-archive.org/spaces/25478985</p>
+  <p>Name <span class="blank"></span> &nbsp; GitHub username <span class="blank"></span> &nbsp; Sketch number <span class="blank" style="min-width:40pt"></span></p>
+
+  <h2>Route A · browser only (today)</h2>
+  <ul>
+    <li>Make a GitHub account at github.com/signup.</li>
+    <li>Fork github.com/RealtimeUrbanismLab/weather-commons: <b>Fork</b> → <b>Create fork</b>.</li>
+    <li>In your fork, <b>Actions</b> tab → <b>I understand my workflows, go ahead and enable them</b>.</li>
+    <li>In your fork, <b>Settings → Pages → Source: GitHub Actions</b>.</li>
+    <li>claude.ai/code → connect GitHub → install the Claude app for <b>Only select repositories</b>: your weather-commons.</li>
+    <li>Start a task on your fork. Paste the prompt from the online guide (step 5). It runs<br><code>node scripts/new-sketch.mjs "&lt;title&gt;" --number &lt;NN&gt; --author "&lt;name&gt;"</code></li>
+    <li>Open the pull request. Check the base is <i>your</i> fork. <b>Merge pull request → Confirm merge</b>.</li>
+    <li>Wait for the green tick in Actions (about a minute). Open<br><code>https://&lt;username&gt;.github.io/weather-commons/&lt;NN&gt;-&lt;slug&gt;/</code></li>
+    <li>Post your link in the community space.</li>
+  </ul>
+
+  <h2>Route B · desktop (from session 2)</h2>
+  <div class="cols">
+    <ul>
+      <li><b>Mac:</b> <code>xcode-select --install</code></li>
+      <li><b>Mac:</b> Node LTS installer from nodejs.org</li>
+      <li><b>Mac:</b> GitHub CLI .pkg from cli.github.com</li>
+      <li><b>Windows:</b> <code>winget install Git.Git OpenJS.NodeJS.LTS GitHub.cli</code></li>
+      <li>Close the terminal and open it again.</li>
+    </ul>
+    <ul>
+      <li><code>gh auth login</code> (GitHub.com, HTTPS, web browser)</li>
+      <li><code>gh auth setup-git</code></li>
+      <li><code>gh repo fork RealtimeUrbanismLab/weather-commons --clone</code></li>
+      <li>Claude desktop app → <b>Code</b> tab → open the weather-commons folder.</li>
+    </ul>
+  </div>
+
+  <h2>Share with the group</h2>
+  <ul>
+    <li>Your fork on GitHub → <b>Contribute → Open pull request</b>, base RealtimeUrbanismLab/weather-commons. A facilitator reviews and merges.</li>
+  </ul>
+  <p>Public: your name and username show on the shared site. Nothing goes there until your pull request is merged.<br>
+  Numbers: room 1 = 10–19, room 2 = 20–29, room 3 = 30–39, room 4 = 40–49.</p>
+
+  <h2>If something goes wrong</h2>
+  <div class="cols">
+    <p><b>No Actions run:</b> enable Actions in the fork.<br>
+    <b>Deploy fails:</b> Pages source must be GitHub Actions; re-run.<br>
+    <b>404:</b> wait a minute; check the address.</p>
+    <p><b>Claude can't see the fork:</b> GitHub Settings → Applications → Claude → Configure → add weather-commons.<br>
+    <b>Command not found:</b> close and reopen the terminal.</p>
+  </div>
+  <p>Stuck? Ask in the community space: community.ocean-archive.org/spaces/25478985</p>
+</section>
+
+</main>
+<script>
+(() => {
+  // Fill the prompt and the live address from the four boxes. Remembers them on this device only.
+  const ids = ['name', 'user', 'num', 'title'];
+  const el = Object.fromEntries(ids.map((k) => [k, document.getElementById('f-' + k)]));
+  const promptEl = document.getElementById('prompt');
+  const liveEl = document.getElementById('live');
+  const promptTpl = promptEl.textContent;
+  const liveTpl = liveEl.textContent;
+  const slugify = (s) => s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 48);
+  const fill = (tpl, v) => tpl
+    .replaceAll('<name>', v.name || '<name>')
+    .replaceAll('<username>', v.user || '<username>')
+    .replaceAll('<number>', v.num || '<number>')
+    .replaceAll('<title>', v.title || '<title>')
+    .replaceAll('<slug>', (v.title && slugify(v.title)) || '<slug>');
+  const update = () => {
+    const v = {};
+    for (const k of ids) v[k] = el[k].value.trim();
+    if (v.num && /^\d$/.test(v.num)) v.num = v.num.padStart(2, '0');
+    promptEl.textContent = fill(promptTpl, v);
+    liveEl.textContent = fill(liveTpl, v);
+    try { localStorage.setItem('wc-guide', JSON.stringify(v)); } catch {}
+  };
+  try {
+    const saved = JSON.parse(localStorage.getItem('wc-guide') || '{}');
+    for (const k of ids) if (saved[k]) el[k].value = saved[k];
+  } catch {}
+  for (const k of ids) el[k].addEventListener('input', update);
+  update();
+
+  // Copy buttons.
+  document.querySelectorAll('button[data-copy]').forEach((b) => {
+    b.addEventListener('click', async () => {
+      const text = document.getElementById(b.dataset.copy).textContent;
+      try { await navigator.clipboard.writeText(text); b.textContent = 'Copied'; }
+      catch { b.textContent = 'Select and copy'; }
+      setTimeout(() => { b.textContent = 'Copy'; }, 1600);
+    });
+  });
+
+  // Mac / Windows tabs. Opens on the reader's system.
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const show = (tab) => tabs.forEach((t) => {
+    const on = t === tab;
+    t.setAttribute('aria-selected', on);
+    t.tabIndex = on ? 0 : -1;
+    document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+  });
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => show(t));
+    t.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      show(next); next.focus();
+    });
+  });
+  if (/Win/i.test(navigator.platform || navigator.userAgent)) show(document.getElementById('tab-win'));
+  else show(tabs[0]);
+})();
+</script>
+</body>
+</html>
