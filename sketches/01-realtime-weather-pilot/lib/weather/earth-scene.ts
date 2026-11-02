@@ -11,6 +11,7 @@ import { cloudHeightGeometry } from './cloud-height';
 import type { EarthInspection } from './earth-inspection';
 import type { GlobeProps } from '@/components/weather/globe';
 import { cameraTilt, cameraHeading } from './navigation';
+import { publicUrl } from './public-url';
 import { inTerrainRegion, regionalTerrain } from './terrain-catalog';
 import type { createTerrainTiles } from './terrain-tiles';
 
@@ -58,7 +59,7 @@ export function createEarthScene(
     lastTerrainReport = 0,
     smoothedDatum: number | null = null;
   const earth = loader.load(
-    '/data/earth-january-2004.jpg',
+    publicUrl('/data/earth-january-2004.jpg'),
     undefined,
     undefined,
     () => onError('Earth image unavailable'),
@@ -66,7 +67,7 @@ export function createEarthScene(
   earth.colorSpace = THREE.SRGBColorSpace;
   earth.anisotropy = 4;
   const aerial = loader.load(
-    '/data/archive/earth/manhattan-naip.jpg',
+    publicUrl('/data/archive/earth/manhattan-naip.jpg'),
     undefined,
     undefined,
     () => onError('Local aerial imagery unavailable'),
@@ -431,7 +432,7 @@ export function createEarthScene(
     );
   }
   const get = <T>(url: string): Promise<T> =>
-    fetch(url).then((r) => {
+    fetch(publicUrl(url)).then((r) => {
       if (!r.ok) throw Error(url);
       return r.json() as Promise<T>;
     });
@@ -474,7 +475,7 @@ export function createEarthScene(
       rebuild(lastScale);
     })
     .catch(() => onError('Boundary archive unavailable'));
-  fetch('/data/archive/earth/elevation.i16')
+  fetch(publicUrl('/data/archive/earth/elevation.i16'))
     .then((r) => {
       if (!r.ok) throw Error();
       return r.arrayBuffer();

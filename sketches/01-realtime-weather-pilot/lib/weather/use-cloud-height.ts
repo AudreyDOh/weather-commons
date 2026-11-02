@@ -2,10 +2,11 @@
 import { useEffect, useRef, useState } from 'react';
 import manifest from '@/public/data/archive/cloud-height/manifest.json';
 import type { CloudHeightFrame } from './cloud-height';
+import { publicUrl } from './public-url';
 
 export const cloudHeightManifest = manifest;
 async function binary(url: string) {
-  const response = await fetch(url);
+  const response = await fetch(publicUrl(url));
   if (!response.ok) throw Error('Cloud height archive unavailable');
   return response.arrayBuffer();
 }

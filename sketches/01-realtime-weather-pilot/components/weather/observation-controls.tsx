@@ -5,6 +5,7 @@ import {
   imageryManifest,
   type Observation,
 } from '@/lib/weather/use-observation';
+import { publicUrl } from '@/lib/weather/public-url';
 
 export function ObservationControls({
   observation: o,
@@ -212,7 +213,7 @@ export function ObservationControls({
             >
               Scientific next step / NASA MOD35 cloud mask ↗
             </a>
-            <a href="/data/imagery/manifest.json" download>
+            <a href={publicUrl('/data/imagery/manifest.json')} download>
               Download frame sources & hashes ↓
             </a>
           </details>

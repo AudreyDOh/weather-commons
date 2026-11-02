@@ -42,6 +42,6 @@ Run `scripts/prepare-earth.py` with Python, NumPy and Pillow to reproduce the re
 
 ## Privacy
 
-The GitHub repository is private. Milestone commits and ordinary pushes to `origin/main` are authorized. Public deployment is not authorized. Participant contributions still exist only in the current browser unless exported.
+The GitHub repository is public since 2026-11-02, by the project lead's decision. A static export of the pilot is published on GitHub Pages at https://realtimeurbanismlab.github.io/weather-commons/01-realtime-weather-pilot/ and redeploys on every push to `main` that touches the sketch. Milestone commits and ordinary pushes to `origin/main` are authorized; any other deployment is not. Participant contributions still exist only in the current browser unless exported.
 
 Reproduce regional terrain with `python scripts/prepare-terrain-tiles.py` (NumPy, Pillow). Existing originals are reused. The Rainier manifest records original exports, service/catalogue responses, transforms and all derived hashes. See [STREAMING.md](STREAMING.md).

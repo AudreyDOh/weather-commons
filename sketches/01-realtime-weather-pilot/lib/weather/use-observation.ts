@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import manifest from '@/public/data/imagery/manifest.json';
+import { publicUrl } from './public-url';
 
 export { manifest as imageryManifest };
 
@@ -44,7 +45,7 @@ export function useObservation() {
             clearTimeout(timer);
             reject(Error('Image unavailable'));
           };
-          image.src = path;
+          image.src = publicUrl(path);
         });
         cache.current.set(path, pending);
         pending.catch(() => cache.current.delete(path));

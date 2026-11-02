@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import manifest from '@/public/data/archive/goes/manifest.json';
+import { publicUrl } from './public-url';
 
 export { manifest as goesManifest };
 export type GoesProduct = (typeof manifest.products)[number];
@@ -41,7 +42,7 @@ export function useGoesFrame(product: GoesProduct | null, index: number) {
           clearTimeout(timeout);
           reject(Error('Image unavailable'));
         };
-        image.src = path;
+        image.src = publicUrl(path);
       });
       cache.current.set(path, request);
       request.catch(() => cache.current.delete(path));
