@@ -29,6 +29,10 @@ vec3 navigate(vec3 p){
  return vec3(.5+x/.303744,.5+y/.303744,visible);
 }`;
 
+// Place labels: 20 px tall boxes, drawn at 3x for sharp text.
+const LABEL_HEIGHT = 20,
+  LABEL_PIXELS = 3;
+
 export function createEarthScene(
   canvas: HTMLCanvasElement,
   onError: (value: string) => void,
@@ -565,22 +569,47 @@ export function createEarthScene(
       );
       marker.position.copy(point);
       marker.userData.site = i;
+      // Labels are drawn at 12 px type and sized in screen pixels each frame,
+      // so they stay the same size at every zoom instead of covering the map.
       const labelCanvas = document.createElement('canvas');
-      labelCanvas.width = 512;
-      labelCanvas.height = 64;
-      const context = labelCanvas.getContext('2d')!;
-      context.fillStyle = 'rgba(250,250,247,.92)';
-      context.fillRect(0, 0, 512, 64);
-      context.font = '400 30px "Libre Franklin", Arial';
-      context.fillStyle = '#151c20';
-      context.fillText(s.label.toUpperCase(), 14, 43);
       const labelTexture = new THREE.CanvasTexture(labelCanvas);
       labelTexture.colorSpace = THREE.SRGBColorSpace;
       const label = new THREE.Sprite(
-        new THREE.SpriteMaterial({ map: labelTexture, depthWrite: false }),
+        new THREE.SpriteMaterial({
+          map: labelTexture,
+          depthWrite: false,
+          depthTest: false,
+        }),
       );
-      label.scale.set(0.44, 0.055, 1);
-      label.position.set(0.23, 0.045, 0);
+      label.renderOrder = 10;
+      const draw = () => {
+        const text = s.label.toUpperCase(),
+          context = labelCanvas.getContext('2d')!;
+        context.font = `400 ${12 * LABEL_PIXELS}px "Libre Franklin", Arial`;
+        const w =
+          Math.ceil(context.measureText(text).width / LABEL_PIXELS) + 12;
+        labelCanvas.width = w * LABEL_PIXELS;
+        labelCanvas.height = LABEL_HEIGHT * LABEL_PIXELS;
+        context.fillStyle = 'rgba(250,250,247,.92)';
+        context.fillRect(0, 0, labelCanvas.width, labelCanvas.height);
+        context.font = `400 ${12 * LABEL_PIXELS}px "Libre Franklin", Arial`;
+        context.fillStyle = '#000';
+        context.textBaseline = 'middle';
+        context.fillText(
+          text,
+          6 * LABEL_PIXELS,
+          (LABEL_HEIGHT / 2 + 0.5) * LABEL_PIXELS,
+        );
+        labelTexture.needsUpdate = true;
+        label.userData.width = w;
+        // Anchor the left edge 8 px to the right of the marker.
+        label.center.set(-8 / w, 0.5);
+      };
+      draw();
+      document.fonts
+        ?.load(`400 12px "Libre Franklin"`)
+        .then(() => alive && draw())
+        .catch(() => undefined);
       marker.add(label);
       sites.add(marker);
       siteObjects.push(marker);
@@ -827,7 +856,9 @@ export function createEarthScene(
       sites.visible = state.placesVisible && !state.fabricFocus;
       for (const marker of siteObjects)
         marker.scale.setScalar(Math.max(0.002, 1 / Math.max(1, zoom * 0.5)));
-      const placed: { x: number; y: number }[] = [];
+      const placed: { x: number; y: number; w: number }[] = [];
+      const pixel =
+        (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))) / height;
       for (const marker of [...siteObjects].sort(
         (a, b) =>
           Number(b.userData.site === state.selectedSite) -
@@ -835,16 +866,29 @@ export function createEarthScene(
       )) {
         const label = marker.children[0];
         if (!label) continue;
-        const p = marker.position.clone().project(camera),
+        const world = marker.getWorldPosition(new THREE.Vector3()),
+          p = world.clone().project(camera),
           x = ((p.x + 1) * width) / 2,
-          y = ((1 - p.y) * height) / 2;
+          y = ((1 - p.y) * height) / 2,
+          w = (label.userData.width as number) ?? 80,
+          // World units per screen pixel at the marker, in the marker's own scale.
+          unit =
+            (world.distanceTo(camera.position) * pixel) /
+            (marker.getWorldScale(new THREE.Vector3()).x || 1);
+        label.scale.set(w * unit, LABEL_HEIGHT * unit, 1);
+        // Hide labels on the far side of the globe.
+        const facing = world.dot(camera.position.clone().sub(world)) > 0;
         label.visible =
           (zoom > 3 || marker.userData.site === state.selectedSite) &&
           p.z < 1 &&
+          facing &&
           !placed.some(
-            (a) => Math.abs(a.x - x) < 180 && Math.abs(a.y - y) < 35,
+            (a) =>
+              x < a.x + a.w + 16 &&
+              a.x < x + w + 16 &&
+              Math.abs(a.y - y) < LABEL_HEIGHT + 4,
           );
-        if (label.visible) placed.push({ x, y });
+        if (label.visible) placed.push({ x, y, w });
       }
       if (lastSnapshot !== state.snapshot || scaleChanged || depthChanged) {
         lastSnapshot = state.snapshot;
