@@ -93,6 +93,6 @@ Two shortcuts are built in. Ask Claude to **start a sketch** (the `start-sketch`
 
 ## The pilot
 
-Sketch 01, *Realtime Weather*, is a worked example with a globe, satellite imagery, cloud heights, terrain and a simple transport model. Its exercises for these sessions are in [sketches/01-realtime-weather-pilot/docs/WORKSHOP.md](../../sketches/01-realtime-weather-pilot/docs/WORKSHOP.md).
+Sketch 01, *Realtime Weather pilot*, is a worked example with a globe, satellite imagery, cloud heights, terrain and a simple transport model. Its exercises for these sessions are in [sketches/01-realtime-weather-pilot/docs/WORKSHOP.md](../../sketches/01-realtime-weather-pilot/docs/WORKSHOP.md).
 
 Sketch 02, *Haida witness composite*, models the 2012 Haida Gwaii iron dump.
