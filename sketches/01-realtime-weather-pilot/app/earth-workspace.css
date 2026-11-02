@@ -289,6 +289,14 @@
   font-size: 14px !important;
   line-height: 1.5;
 }
+/* The casebook title is the panel's one 28 px title. */
+.earth-workspace .casebook h1 {
+  font-size: 28px !important;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  margin: 18px 0 24px;
+}
 .earth-workspace .panel-close {
   position: sticky;
   top: 0;
