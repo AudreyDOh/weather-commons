@@ -16,8 +16,9 @@ Working notes for sketch 02. Anyone (and any agent) working on this sketch reads
 
 ## Questions
 
-- 2026-11-02: the header links to the catalog and the five-technique model are private claude.ai artifacts. Should they become public, or be hidden on the public page? The site now has a public catalog page at `../catalog/`, which the catalog link could point to.
+-
 
 ## Done
 
+- 2026-11-02: the catalog and five-technique model artifacts are now public, so the header links work for every visitor; README updated.
 - 2026-11-02: published on GitHub Pages at https://realtimeurbanismlab.github.io/weather-commons/02-haida-witness-composite/ (index.html, app.js, cal/ only).
