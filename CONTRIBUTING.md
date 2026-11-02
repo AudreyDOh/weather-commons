@@ -9,8 +9,10 @@ Three systems, three jobs:
 ## 1. Set up once
 
 1. Clone the repository and install Node 22 or newer. Sketch 01 also needs pnpm (`corepack enable`).
-2. Install Box Drive and accept the share of **2026 Realtime Weather**.
-3. Run `node scripts/assets.mjs where`. It looks for the Box folder in `WC_ASSETS`, then `~/Box/2026 Realtime Weather` (Windows), then `~/Library/CloudStorage/Box-Box/2026 Realtime Weather` (macOS). If yours is elsewhere, set `WC_ASSETS` to it.
+2. Lab members: install Box Drive and accept the share of **2026 Realtime Weather**. Without Box you can still run and change every sketch. You cannot pull raw downloads or licensed fonts, or add large files.
+3. Run `node scripts/assets.mjs where`. It looks for the Box folder in `WC_ASSETS`, then `~/Box/2026 Realtime Weather` (Windows), then `~/Library/CloudStorage/Box-Box/2026 Realtime Weather` (macOS). If yours is elsewhere, for example inside `~/Box/Realtime Urbanism Lab/Projects/`, set `WC_ASSETS` to it.
+
+The repository is public: everything committed, including history, can be read by anyone. Box is private to the lab.
 
 ## 2. New sketch or new version?
 
@@ -100,6 +102,15 @@ Each sketch may keep a `NOTES.md` beside its README: observations, what the next
 - GitHub Actions run the size and index checks on every push and pull request.
 - Windows: Git may convert line endings on checkout. For data whose hashes are recorded, add a `.gitattributes` in the sketch marking it `-text` (see `sketches/01-realtime-weather-pilot/.gitattributes`).
 
-## 9. Retiring a sketch
+## 9. Publishing on the web
+
+Sketches run publicly at https://realtimeurbanismlab.github.io/weather-commons/. On every push to `main` that touches a sketch, `.github/workflows/pages.yml` runs `node scripts/build-pages.mjs` and deploys `_site/`.
+
+- Only sketches listed in `PUBLISHED` in `scripts/build-pages.mjs` go online, each at `/weather-commons/NN-name/`. Add a sketch there when its author agrees and its **Sources and limits** section is in place. The entry says which files to copy, or how to build them.
+- A published sketch runs from files in git only; Box files and `assets/` are never copied. Licensed fonts fall back to system fonts online.
+- Pages serve under a sub-path, so load files with relative paths (`cal/index.json`), not root-relative ones (`/cal/index.json`). Sketch 01 uses `publicUrl()` for its root-relative paths.
+- Check before pushing: `node scripts/build-pages.mjs --out <dir>/weather-commons`, then serve `<dir>` (for example `python -m http.server -d <dir>`) and open `/weather-commons/`.
+
+## 10. Retiring a sketch
 
 Leave it in place, set `Status: retired` in its README header, run the index script and say in the README what replaced it. Its Box folder stays.

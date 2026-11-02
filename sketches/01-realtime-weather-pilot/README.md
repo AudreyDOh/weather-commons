@@ -17,6 +17,8 @@ pnpm lint
 pnpm build
 ```
 
+Or open the published copy: https://realtimeurbanismlab.github.io/weather-commons/01-realtime-weather-pilot/. Nothing is needed from Box: every file the pilot reads is committed here.
+
 The local pilot opens at the URL printed by `pnpm dev`. It has no accounts, server storage, live weather feed, or collaboration service: imported contributions remain in the current browser until exported.
 
 ## What is included
@@ -61,4 +63,6 @@ The primary case does not attribute rainfall, civilian harm, or any event outcom
 
 ## Privacy and publishing
 
-This is a private package and should remain a private repository while it contains workshop development material. Before connecting participants, establish authentication, a private object store, an editorial review step, and a clear policy for contributors' data and media rights. The planned online architecture is documented in [docs/ROADMAP.md](docs/ROADMAP.md).
+The repository is public, and the pilot runs as a static page at https://realtimeurbanismlab.github.io/weather-commons/01-realtime-weather-pilot/, rebuilt on every push to `main`. The static site has no server: contributions stay in the visitor's browser until they export them. Before connecting participants to a shared service, establish authentication, a private object store, an editorial review step, and a clear policy for contributors' data and media rights. The planned online architecture is documented in [docs/ROADMAP.md](docs/ROADMAP.md).
+
+To build the static site locally: `STATIC_EXPORT=1 pnpm build` writes `dist/client/`. Set `NEXT_PUBLIC_BASE_PATH=/weather-commons/01-realtime-weather-pilot` to serve it under a sub-path. From the repository root, `node scripts/build-pages.mjs` builds the whole published site into `_site/`.

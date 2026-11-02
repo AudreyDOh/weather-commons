@@ -1,5 +1,8 @@
 # Provenance hashes describe exact downloaded bytes, including line endings.
 public/data/archive/** -text
+# Derived data is hashed too, and pnpm check regenerates the examples with LF.
+public/data/** -text
+public/examples/** -text
 *.i16 binary
 *.u16 binary
 *.f32 binary

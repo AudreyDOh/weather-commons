@@ -29,3 +29,4 @@ This repository is a collection of independent, numbered sketches for the Weathe
 - Commit messages start with the sketch number: `02: …`. Root changes start with `repo: …`.
 - Run the sketch's own checks before committing (sketch 01: `pnpm check`, `pnpm lint`, `pnpm build`).
 - Do not deploy, change repository visibility or force-push unless the person asks.
+- The repository is public, and a push to `main` redeploys GitHub Pages with every sketch listed in `PUBLISHED` in `scripts/build-pages.mjs`. Add a sketch to that list only when the person asks. In a published sketch, load files with relative paths so the page works under `/weather-commons/NN-name/`.

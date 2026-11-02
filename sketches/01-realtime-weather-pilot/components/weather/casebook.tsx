@@ -9,6 +9,7 @@ import {
   caseSites,
 } from '@/lib/weather/case-study';
 import type { Snapshot } from '@/lib/weather/types';
+import { publicUrl } from '@/lib/weather/public-url';
 type Props = {
   snapshot: Snapshot;
   baseline: Snapshot | null;
@@ -170,13 +171,13 @@ export default function Casebook({
               above ground, 1 October 1966 at 00 UTC. The experiment holds that
               single field fixed. The assumed release is not a recorded mission.
             </p>
-            <a href="/data/archive/era5-wind-raw.json" download>
+            <a href={publicUrl('/data/archive/era5-wind-raw.json')} download>
               Raw wind response ↓
             </a>
-            <a href="/data/archive/era5-rain-raw.json" download>
+            <a href={publicUrl('/data/archive/era5-rain-raw.json')} download>
               Raw rainfall response ↓
             </a>
-            <a href="/data/popeye-archive.json" download>
+            <a href={publicUrl('/data/popeye-archive.json')} download>
               Processed grid & request URLs ↓
             </a>
             <a

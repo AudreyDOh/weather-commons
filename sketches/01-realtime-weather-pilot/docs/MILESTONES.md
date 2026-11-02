@@ -28,12 +28,16 @@ Replaces the separate GOES viewer and 2D overlay compositor with a shared Three.
 
 Adds globe/map/orbit camera behavior in the same scene, progressive tilt, heading-aware panning, pinch zoom, double-click approach and a close-range pan toggle. A real USGS 3DEP/NAIP Mount Rainier archive becomes 85 OGC 3D Tiles with four geometry/texture levels, lazy loading, configured cache/request/parse budgets and coarse fallback. Source inspection and UI labels distinguish current mesh spacing, archived resolution, finite coverage and 1× source heights. Raw responses, catalogue metadata, generation script and geometry/hash checks are included. No solver or deployment change.
 
+## 08 — Public static site
+
+On 2026-11-02 the project lead made the repository public and asked for the pilot to run as a public static page. `STATIC_EXPORT=1` builds a vinext static export, and `NEXT_PUBLIC_BASE_PATH` serves it under a sub-path. `lib/weather/public-url.ts` prefixes root-relative `public/` paths at load time, so the hashed archive manifests stay byte-identical. GitHub Pages publishes it with sketch 02 through the root `scripts/build-pages.mjs` and `.github/workflows/pages.yml`. No solver, data or provenance change.
+
 ## Next bounded milestone
 
-Validation for milestones 06–07 is recorded in [VALIDATION.md](VALIDATION.md). The repository remains private and no website deployment is included.
+Validation for milestones 06–07 is recorded in [VALIDATION.md](VALIDATION.md).
 
 Replace approximate JPEG colour registration with calibrated ABI channel/RGB reprojection and assess parallax against the ACHA layer. Extend regional coverage with calibrated height/reference adapters and extend participant packages beyond wind fields. Preserve scan time, solver time, retrieved height and display exaggeration as separate quantities.
 
 ## Recording policy
 
-The project lead requested incremental commits and pushes for coherent, verified milestones. Keep task lists and source notes in the same commit as the implementation. Push normally to the verified private remote; never force-push or publish a website as part of this workflow without separate authorization.
+The project lead requested incremental commits and pushes for coherent, verified milestones. Keep task lists and source notes in the same commit as the implementation. Push normally to the verified remote (public since 2026-11-02). A push to `main` redeploys the GitHub Pages static site. Never force-push, and never publish anywhere else as part of this workflow without separate authorization.

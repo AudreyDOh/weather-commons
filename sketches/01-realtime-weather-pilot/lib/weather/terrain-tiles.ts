@@ -11,6 +11,7 @@ import {
   regionalElevation,
   type TerrainStatus,
 } from './terrain-catalog';
+import { publicUrl } from './public-url';
 
 /** On-demand regional OGC 3D Tiles; this module is loaded only near its coverage. */
 export function createTerrainTiles(
@@ -18,7 +19,7 @@ export function createTerrainTiles(
   camera: THREE.PerspectiveCamera,
   renderer: THREE.WebGLRenderer,
 ) {
-  const tiles = new TilesRenderer(regionalTerrain.tileset);
+  const tiles = new TilesRenderer(publicUrl(regionalTerrain.tileset));
   const cache = new LRUCache();
   cache.minSize = 24;
   cache.maxSize = 48;
@@ -68,7 +69,7 @@ export function createTerrainTiles(
     grid: Float32Array | null = null,
     wasActive = false;
   const controller = new AbortController();
-  fetch(regionalTerrain.grid, { signal: controller.signal })
+  fetch(publicUrl(regionalTerrain.grid), { signal: controller.signal })
     .then((r) => {
       if (!r.ok) throw Error();
       return r.arrayBuffer();

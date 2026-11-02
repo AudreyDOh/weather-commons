@@ -1,6 +1,7 @@
 'use client';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { publicUrl } from '@/lib/weather/public-url';
 
 const datasets = [
   {
@@ -118,7 +119,7 @@ export function EarthSources({ onClose }: { onClose: () => void }) {
             Read the source ↗
           </a>
           {d.archive !== '/SOURCES.md' && (
-            <a href={d.archive} download>
+            <a href={publicUrl(d.archive)} download>
               Archive / provenance ↓
             </a>
           )}

@@ -39,7 +39,6 @@ import Casebook, { GeographicAnalysis } from './casebook';
 import { popeye, caseSites } from '@/lib/weather/case-study';
 import { ReadingGuide, Evidence, HeightSection } from './reading-guide';
 import { infrastructure } from '@/lib/weather/infrastructure';
-import Link from 'next/link';
 import Image from 'next/image';
 import { useWeatherTools } from '@/lib/weather/use-weather-tools';
 // Vite's ?worker loader supplies a default constructor at build time.
@@ -47,6 +46,7 @@ import { useWeatherTools } from '@/lib/weather/use-weather-tools';
 import SimulationWorker from '../../lib/weather/simulation.worker?worker';
 import { atlantic, validateContribution } from '@/lib/weather/contributions';
 import type { Contribution, Parameters, Snapshot } from '@/lib/weather/types';
+import { publicUrl } from '@/lib/weather/public-url';
 const empty = {
   positions: new Float32Array(),
   hours: 0,
@@ -312,12 +312,12 @@ export default function WeatherLab() {
       }
     >
       <header className="topbar">
-        <Link className="brand" href="/" aria-label="Weather Commons home">
+        <a className="brand" href={publicUrl('/')} aria-label="Weather Commons home">
           <span className="brand-symbol">
             <Globe2 size={23} />
           </span>
           <span>Realtime Weather</span>
-        </Link>
+        </a>
         <select
           className="study-select"
           aria-label="Choose a study"
@@ -460,7 +460,11 @@ export default function WeatherLab() {
               </p>
             )}
             <p>{inspection.note}</p>
-            <a href={inspection.source} target="_blank" rel="noreferrer">
+            <a
+              href={publicUrl(inspection.source)}
+              target="_blank"
+              rel="noreferrer"
+            >
               Inspect source record ↗
             </a>
           </aside>
@@ -778,7 +782,7 @@ export default function WeatherLab() {
                     <figure>
                       <Image
                         unoptimized
-                        src="/data/ecmwf-bologna.jpg"
+                        src={publicUrl('/data/ecmwf-bologna.jpg')}
                         alt="ECMWF data centre in Bologna, a converted tobacco factory"
                         width="1000"
                         height="667"

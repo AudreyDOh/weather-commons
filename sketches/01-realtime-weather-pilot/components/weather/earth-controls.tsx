@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import type { useSatellite } from '@/lib/weather/use-satellite';
+import { publicUrl } from '@/lib/weather/public-url';
 
 export function SatelliteControls({
   satellite: s,
@@ -127,7 +128,7 @@ export function SatelliteControls({
         <a href={s.product.source} target="_blank" rel="noreferrer">
           NOAA / NESDIS / STAR ↗
         </a>
-        <a href="/data/archive/goes/manifest.json" download>
+        <a href={publicUrl('/data/archive/goes/manifest.json')} download>
           Original images and provenance ↓
         </a>
       </details>
@@ -169,7 +170,7 @@ export function SatelliteControls({
         <a href={s.height.manifest.algorithm} target="_blank" rel="noreferrer">
           NOAA retrieval algorithm ↗
         </a>
-        <a href="/data/archive/cloud-height/manifest.json" download>
+        <a href={publicUrl('/data/archive/cloud-height/manifest.json')} download>
           Raw NetCDF, quality flags and transforms ↓
         </a>
         {s.height.error && <p role="alert">{s.height.error}</p>}
@@ -275,7 +276,7 @@ export function ReliefControls(p: {
           Aerial and terrain dates differ. This is not live weather or a
           street-scale survey.
         </p>
-        <a href="/data/archive/rainier/manifest.json" download>
+        <a href={publicUrl('/data/archive/rainier/manifest.json')} download>
           Regional sources, tile transforms and hashes ↓
         </a>
       </details>
@@ -308,7 +309,7 @@ export function ReliefControls(p: {
           Atmospheric shells describe assumed display heights. No building,
           terrain or satellite layer changes the tracer calculation.
         </p>
-        <a href="/data/archive/earth/manifest.json" download>
+        <a href={publicUrl('/data/archive/earth/manifest.json')} download>
           Geometry sources and transforms ↓
         </a>
         <a

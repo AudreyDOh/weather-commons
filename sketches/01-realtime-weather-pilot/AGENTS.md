@@ -9,7 +9,8 @@ This repository is a browser-based research pilot for the Realtime Weather worki
 - Install with `pnpm install` and start with `pnpm dev`.
 - Run `pnpm check`, `pnpm lint`, and `pnpm build` before committing code changes.
 - Do not deploy, push, or change repository visibility unless the project lead explicitly requests it.
-- The project lead has requested incremental milestone commits and pushes for this pilot. After the checks above, update the roadmap and milestone log and push normally to the verified private `origin/main`. This does not authorize public website deployment or force-pushing.
+- The project lead has requested incremental milestone commits and pushes for this pilot. After the checks above, update the roadmap and milestone log and push normally to `origin/main`. This does not authorize force-pushing or any deployment beyond the one below.
+- The repository is public (2026-11-02), and a push to `main` redeploys the static export on GitHub Pages (`.github/workflows/pages.yml`). Everything committed here is published, so commit nothing that must stay private. Code that loads a file from `public/` passes its root-relative path through `publicUrl()` (`lib/weather/public-url.ts`), so the static site works under its sub-path. Check with `node scripts/build-pages.mjs` from the repository root.
 
 ## Data and claims
 
