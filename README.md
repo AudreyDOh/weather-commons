@@ -86,6 +86,10 @@ Box, **2026 Realtime Weather**:
 03 Renders/                                      finished renders, prints and video
 ```
 
+## Licences
+
+Code is MIT ([LICENSE](LICENSE)). Text, images and data we made are CC BY 4.0. Material from others keeps its own licence, listed in each sketch's Sources and limits. Details: [LICENSE-CONTENT.md](LICENSE-CONTENT.md).
+
 ## The shared site
 
 The repository is public. Every push to `main` that changes a sketch rebuilds the site with `scripts/build-pages.mjs` and publishes it on GitHub Pages. Every sketch with an `index.html` goes online. Add `Publish: no` to a sketch's README header to keep it off. A fork publishes its own copy at `https://<username>.github.io/weather-commons/`. Box files are never part of the site.

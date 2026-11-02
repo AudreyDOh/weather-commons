@@ -2,7 +2,7 @@
 
 Each sketch is one person's project in its own folder, `sketches/NN-name/`, with a web page, a README and a NOTES file. It can grow out of research you're already doing. This page explains how to add one and keep it in good shape. To get set up first, follow the [setup guide](https://realtimeurbanismlab.github.io/weather-commons/guide/).
 
-The repository is public: anyone can read everything in it, including its history. Box is private to the lab.
+The repository is public: anyone can read everything in it, including its history. Box is private to the lab. What you add is shared under the repository's licences: MIT for code, CC BY 4.0 for text, images and data you made (see [LICENSE-CONTENT.md](LICENSE-CONTENT.md)).
 
 ## 1. How work gets in
 
