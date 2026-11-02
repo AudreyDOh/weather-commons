@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03 · Operation Popeye, Laos 1966–1972 · Weather Commons</title>
+<meta name="description" content="The US military seeded clouds over Laos to stretch the rainy season and close the roads south. A sketch in four parts: event, simulate, situate, narrate.">
+<!-- style.css is the shared Weather Commons look, copied into this folder. Sketch-only styles follow. -->
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Kind-of-evidence tags: every claim says what sort of material it is. */
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;
+         border: 1px solid var(--line); padding: 0 5px; margin-right: 6px; vertical-align: 2px; white-space: nowrap; }
+  .tag.soft { border-style: dashed; }
+  sup a { text-decoration: none; font-size: 12px; }
+  .timeline { margin: 16px 0 0; }
+  .timeline dt { font-variant-numeric: tabular-nums; margin-top: 18px; }
+  .timeline dd { margin: 2px 0 0; }
+  figure { margin: 20px 0; }
+  figcaption { font-size: 14px; color: var(--muted); margin-top: 6px; }
+  .map { width: 100%; height: auto; display: block; border: 1px solid var(--line); cursor: crosshair; touch-action: manipulation; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 10px 0 0; font-size: 15px; }
+  .controls button { font: 14px var(--font); padding: 4px 12px; cursor: pointer; background: var(--bg); color: var(--fg); border: 1px solid var(--line); }
+  .controls input[type=range] { flex: 1 1 200px; accent-color: var(--fg); }
+  .readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px 16px; margin: 14px 0 0; font-size: 15px; }
+  .readout strong { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .places { list-style: none; padding: 0; margin: 12px 0 0; }
+  .places li { border-top: 1px solid var(--line); padding: 10px 0; max-width: none; }
+  .places button { all: unset; cursor: pointer; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+  .places .n { display: inline-block; width: 22px; font-variant-numeric: tabular-nums; }
+  .ledger td:first-child { white-space: nowrap; }
+  #rain svg { width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+<main>
+<header class="site-header">
+  <a class="wordmark" href="../">Weather Commons</a>
+  <nav aria-label="Site">
+    <a href="../">Sketches</a>
+    <a href="../guide/">Guide</a>
+    <a href="../catalog/">Catalog</a>
+    <a href="https://github.com/RealtimeUrbanismLab/weather-commons/blob/main/CONTRIBUTING.md">Contribute</a>
+    <a href="https://community.ocean-archive.org/spaces/25478985">Community</a>
+  </nav>
+</header>
+
+<p class="muted small">03 · Farzin Lotfi-Jam (with Claude) · forked from sketch 01, 2 November 2026</p>
+<h1>Operation Popeye, Laos 1966–1972</h1>
+<p class="lede">For six rainy seasons the US military seeded clouds over Laos, trying to stretch the monsoon and turn the roads south into mud. What did it try to do to the weather, where did that weather go, and who lived under it?</p>
+<ul class="toc" aria-label="On this page">
+  <li><a href="#event">1. Event</a></li>
+  <li><a href="#simulate">2. Simulate</a></li>
+  <li><a href="#situate">3. Situate</a></li>
+  <li><a href="#narrate">4. Narrate</a></li>
+  <li><a href="#sources">Sources and limits</a></li>
+</ul>
+
+<!-- 1. EVENT: what happened, when, and how we know. -->
+<h2 id="event">1. Event</h2>
+<p>In October 1966 the US Department of Defense ran more than 50 cloud-seeding experiments over southern Laos. A State Department memo of January 1967 reports them and asks whether to make rain a weapon. Its aim was to slow the trucks carrying supplies south through Laos to the war in Vietnam.<sup><a href="#s1">1</a></sup> Later accounts say the seeding ran every rainy season until 1972.<sup><a href="#s2">2</a></sup></p>
+
+<dl class="timeline">
+  <dt>October 1966</dt>
+  <dd><span class="tag">Documented</span>Tests in "the valley of the Se Kong River", east of the Bolovens Plateau, "without consultation with Lao authorities". The Defense Department called the results "outstandingly successful": by its own count, 82% of the seeded clouds produced rain soon after.<sup><a href="#s1">1</a></sup></dd>
+  <dt>13 January 1967</dt>
+  <dd><span class="tag">Documented</span>Foy Kohler writes to Secretary of State Dean Rusk. He proposes seeding along the supply routes in North Vietnam and southern Laos, "to inhibit overland vehicular movement" and, in Laos, "to extend rainfall through the dry season". He warns that the amount and spread of the extra rain cannot be predicted, and he writes on the memo, "I have serious doubts."<sup><a href="#s1">1</a></sup></dd>
+  <dt>1967–1972</dt>
+  <dd><span class="tag soft">Reported</span>Seeding with silver and lead iodide every rainy season, flown from Udon Thani in Thailand. The aims: soften roads, set off landslides, wash out river crossings.<sup><a href="#s2">2</a></sup></dd>
+  <dt>1971–1974</dt>
+  <dd><span class="tag soft">Reported</span>The programme becomes public: a column by Jack Anderson (March 1971), a New York Times report by Seymour Hersh (3 July 1972)<sup><a href="#s3">3</a></sup> and a US Senate hearing on weather modification (20 March 1974).<sup><a href="#s2">2</a></sup></dd>
+  <dt>1976–1978</dt>
+  <dd><span class="tag">Documented</span>The UN General Assembly adopts ENMOD, the convention banning the military or hostile use of environmental modification (10 December 1976). It opens for signature in Geneva on 18 May 1977 and comes into force on 5 October 1978.<sup><a href="#s4">4</a></sup></dd>
+</dl>
+
+<p>The weather it worked on was the end of the monsoon. ERA5 rainfall at the Se Kong valley falls from about 216 mm in September 1966 to 120 mm in October and 53 mm in November. Popeye was meant to stretch that season.</p>
+<figure id="rain" aria-label="Daily rainfall at the Se Kong valley, September to November 1966"></figure>
+
+<!-- 2. SIMULATE: a small, honest model, and what it leaves out. -->
+<h2 id="simulate">2. Simulate</h2>
+<p>We can't model cloud seeding: whether it added any rain is exactly what nobody could measure. What we can show is the weather it worked on. That week, how did the air over the test area move, and how far, across which borders? The dots below start in the Se Kong valley and drift with the archived hourly wind for the first week of October 1966. Click the map to release them somewhere else.</p>
+
+<figure>
+  <canvas id="map" class="map" width="1000" height="940" aria-label="Map of southern Laos and its neighbours with drifting dots showing calculated air movement"></canvas>
+  <div class="controls">
+    <button id="play" type="button">Play</button>
+    <input id="hour" type="range" min="0" max="167" value="0" aria-label="Hours since release">
+    <span id="when" class="small">1 Oct 1966, 00:00 UTC</span>
+    <button id="reset" type="button">Back to Se Kong</button>
+    <label class="small"><input id="arrows" type="checkbox" checked> Wind arrows</label>
+  </div>
+  <div class="legend">
+    <span><span class="tag">Reanalysed</span>wind arrows: ERA5, 100 m above ground</span>
+    <span><span class="tag soft">Synthetic</span>release: 1,500 dots in a 25 km circle</span>
+    <span><span class="tag soft">Calculated</span>their paths</span>
+    <span><span class="tag soft">Cartographic</span>today's borders, rivers and towns</span>
+  </div>
+  <div class="readout" aria-live="polite">
+    <div><strong id="dist">0 km</strong>median distance from the release</div>
+    <div><strong id="far">0 km</strong>furthest dot</div>
+    <div><strong id="kept">100%</strong>still inside the wind data</div>
+  </div>
+  <figcaption id="towns">Towns the air passed within 20 km of: none yet.</figcaption>
+</figure>
+
+<p><span class="tag soft">Calculated</span>How it works: each dot moves with the wind at its position every five minutes, with a little random spread for turbulence. The wind is read from the hourly ERA5 grid, 1° apart, 100 m above the ground. Dots that leave the grid stop.</p>
+<p>What it leaves out: clouds, rain, mountains, height, and anything the seeding did. A dot is not a cloud or a pollutant. It is a way of seeing where the air went. Passing near a town is a calculated distance, not exposure or harm.</p>
+
+<!-- 3. SITUATE: places, institutions, and the larger war. -->
+<h2 id="situate">3. Situate</h2>
+<p>Popeye tied together a decision in Washington, a test range in California, an air base in Thailand, the roads of Laos, and towns in North Vietnam. The memo itself lists who could be hurt.<sup><a href="#s1">1</a></sup></p>
+<figure>
+  <canvas id="locator" class="map" width="1000" height="940" aria-label="Map of the places described below"></canvas>
+</figure>
+<ol class="places" id="places"></ol>
+<p class="small muted">Off the map: Washington, where the State and Defense departments decided; China Lake, California, where the Navy tested the seeding equipment<sup><a href="#s1">1</a></sup>; Geneva, where ENMOD opened for signature in 1977.<sup><a href="#s4">4</a></sup></p>
+<p>Popeye was one small part of a far larger air war over Laos. The bombs from that war still lie in the ground. In 2018 the UN counted more than 60,000 hectares of confirmed hazardous areas, found since 2015, that hold back farming, roads and schools.<sup><a href="#s5">5</a></sup> That is the legacy of bombing, not of seeding. The two are kept apart here.</p>
+
+<!-- 4. NARRATE: the story, and a ledger of what supports it. -->
+<h2 id="narrate">4. Narrate</h2>
+<p><span class="tag soft">Interpretive</span>In the first week of October 1966, the air over the Se Kong valley drifts southwest. It passes Attapu and Pakxe on the first day, crosses into Cambodia by the third, and reaches the Thai border by the fifth. The rains are ending. In secret, and without asking Laos, a government tries to keep them going, to turn a season into a weapon against trucks. Its own memo cannot say how much rain it would make or where that rain would fall. It names the farmers who might be flooded, then proposes going ahead. Rain does not stay over a road or inside a border. That is the problem the 1977 treaty tried to put into law.</p>
+
+<table class="ledger">
+  <thead><tr><th>Kind</th><th>What this sketch shows</th></tr></thead>
+  <tbody>
+    <tr><td><span class="tag">Documented</span></td><td>The tests, the aims, the secrecy, and the risks the memo foresaw.<sup><a href="#s1">1</a></sup> ENMOD's dates.<sup><a href="#s4">4</a></sup></td></tr>
+    <tr><td><span class="tag soft">Reported</span></td><td>The 1967–1972 operation, its base, its seeding agents and how it became public.<sup><a href="#s2">2</a></sup></td></tr>
+    <tr><td><span class="tag">Reanalysed</span></td><td>Wind and rainfall in 1966 from ERA5, a model built from historical observations.<sup><a href="#s6">6</a></sup></td></tr>
+    <tr><td><span class="tag soft">Calculated</span></td><td>Where air from the test area drifted in one week: southwest, across two borders.</td></tr>
+    <tr><td><span class="tag soft">Not known</span></td><td>Whether seeding added any rain, closed any road, or harmed anyone. No independent assessment is cited here.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="sources">Sources and limits</h2>
+<ol class="small">
+  <li id="s1">Foy D. Kohler to Dean Rusk, memorandum, 13 January 1967. <i>Foreign Relations of the United States, 1964–1968</i>, vol. XXVIII, Laos, doc. 274. <a href="https://history.state.gov/historicaldocuments/frus1964-68v28/d274">history.state.gov</a>. Primary source: the government's own claims and plans, not an independent test of them.</li>
+  <li id="s2">"Operation Popeye", Wikipedia, read 2 November 2026. <a href="https://en.wikipedia.org/wiki/Operation_Popeye">en.wikipedia.org</a>. Secondary source. It cites a 1974 Defense Department report, the 1974 Senate hearing and press reports, which we have not read. Details tagged "Reported" come from here.</li>
+  <li id="s3">Seymour M. Hersh, "Rainmaking is used as weapon by U.S.", <i>New York Times</i>, 3 July 1972. <a href="https://www.nytimes.com/1972/07/03/archives/rainmaking-is-used-as-weapon-by-us-cloudseeding-in-indochina-is.html">nytimes.com</a> (as cited in 2; not read here).</li>
+  <li id="s4">Convention on the Prohibition of Military or Any Other Hostile Use of Environmental Modification Techniques (ENMOD). UN Treaty Collection, chapter XXVI-1. <a href="https://treaties.un.org/Pages/ViewDetails.aspx?src=TREATY&amp;mtdsg_no=XXVI-1&amp;chapter=26">treaties.un.org</a>.</li>
+  <li id="s5">UNDP, "Unexploded ordnance, an obstacle to development", UN Lao PDR, 4 April 2018. <a href="https://laopdr.un.org/en/14539-unexploded-ordnance-obstacle-development">laopdr.un.org</a>.</li>
+  <li id="s6">ERA5 hourly reanalysis (Hersbach et al., ECMWF, <a href="https://doi.org/10.24381/cds.adbb2d47">doi:10.24381/cds.adbb2d47</a>), via the <a href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo historical API</a>, CC BY 4.0. Wind at 100 m on a 1° grid (102–110° E, 12–19° N), hourly, 1–7 October 1966. Daily rainfall at the grid cell nearest 15.5° N, 107° E, September to November 1966. Request addresses and checksums are in <a href="data/manifest.json">data/manifest.json</a>. Reanalysis is a model's best estimate from historical observations, which were sparse in 1960s Laos. It is not a measurement at each point.</li>
+  <li id="s7">Natural Earth 1:10m coastlines, land borders, rivers and populated places, public domain. <a href="https://www.naturalearthdata.com/">naturalearthdata.com</a>. Present-day cartography. The supply routes through Laos are not drawn, because we have no sourced map of them, and the Se Kong test area is placed approximately.</li>
+</ol>
+<p class="small">What this sketch cannot show: whether seeding changed any rain or harmed anyone, the routes themselves, the weather after 7 October, or anything above 100 m. The model is a teaching tool, not a reconstruction of the operation.</p>
+
+<footer class="site-footer">
+  <p>Operation Popeye, Laos 1966–1972 · Farzin Lotfi-Jam (with Claude) · Realtime Weather working group, Weather Commons</p>
+  <p>Code MIT, text CC BY 4.0. <a href="https://github.com/RealtimeUrbanismLab/weather-commons/tree/main/sketches/03-operation-popeye-laos-1966-1972">Code, data and how to adapt this sketch for your own event</a></p>
+</footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "retrievedAt": "2026-11-02T12:19:31.870Z",
+  "producer": "ECMWF ERA5 (Hersbach et al. 2020, doi:10.24381/cds.adbb2d47), served by Open-Meteo (doi:10.5281/zenodo.7970649), CC BY 4.0",
+  "settings": {
+    "west": 102,
+    "east": 110,
+    "south": 12,
+    "north": 19,
+    "step": 1,
+    "windStart": "1966-10-01",
+    "windEnd": "1966-10-07",
+    "rainPlace": {
+      "name": "Se Kong valley",
+      "latitude": 15.5,
+      "longitude": 107
+    },
+    "rainStart": "1966-09-01",
+    "rainEnd": "1966-11-30"
+  },
+  "requests": {
+    "wind": "https://archive-api.open-meteo.com/v1/archive?latitude=12%2C12%2C12%2C12%2C12%2C12%2C12%2C12%2C12%2C13%2C13%2C13%2C13%2C13%2C13%2C13%2C13%2C13%2C14%2C14%2C14%2C14%2C14%2C14%2C14%2C14%2C14%2C15%2C15%2C15%2C15%2C15%2C15%2C15%2C15%2C15%2C16%2C16%2C16%2C16%2C16%2C16%2C16%2C16%2C16%2C17%2C17%2C17%2C17%2C17%2C17%2C17%2C17%2C17%2C18%2C18%2C18%2C18%2C18%2C18%2C18%2C18%2C18%2C19%2C19%2C19%2C19%2C19%2C19%2C19%2C19%2C19&longitude=102%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C110%2C102%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C110%2C102%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C110%2C102%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C110%2C102%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C110%2C102%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C110%2C102%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C110%2C102%2C103%2C104%2C105%2C106%2C107%2C108%2C109%2C110&start_date=1966-10-01&end_date=1966-10-07&hourly=wind_speed_100m%2Cwind_direction_100m&wind_speed_unit=ms&models=era5&timezone=GMT&elevation=nan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan%2Cnan&cell_selection=nearest",
+    "rain": "https://archive-api.open-meteo.com/v1/archive?latitude=15.5&longitude=107&start_date=1966-09-01&end_date=1966-11-30&daily=precipitation_sum&models=era5&timezone=GMT&elevation=nan&cell_selection=nearest"
+  },
+  "transform": "u = -speed·sin(direction), v = -speed·cos(direction), rounded to 0.01 m/s. Rainfall unchanged.",
+  "sha256": {
+    "raw/wind.json": "64b93720135f3536d0aca0aad520070a154eb8bdd7f21c958c64a6d5a40cd330",
+    "raw/rain.json": "4f59952ac760c45ac62a51a6eb1afe4ec6d6d6e491769a081cde5eb95f977465",
+    "wind.json": "95f55238b687fa05a6c452e9775f2eb084f34ea236dc296f0379cd3cfbaf9d22",
+    "rain.json": "ff6a2038fe732ae5e8e064c3d8c97a956f5abd43c7c0fa3578a2b8786afa18ad"
+  }
+}
