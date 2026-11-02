@@ -16,7 +16,7 @@ Working notes for sketch 02. Anyone (and any agent) working on this sketch reads
 
 ## Questions
 
-- 2026-11-02: the header links to the catalog and the five-technique model are private claude.ai artifacts. Should they become public, or be hidden on the public page?
+- 2026-11-02: the header links to the catalog and the five-technique model are private claude.ai artifacts. Should they become public, or be hidden on the public page? The site now has a public catalog page at `../catalog/`, which the catalog link could point to.
 
 ## Done
 
