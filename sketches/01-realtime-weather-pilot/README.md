@@ -53,6 +53,8 @@ Models and studies:
 - **Casebook:** marks what is observed or reanalysed, what is assumed, what is calculated, what comes from the archive, and what can't be concluded.
 - **Contributions:** wind fields as checked JSON files that participants can import and export.
 
+The Project Popeye study has its own sketch now: [03 · Operation Popeye, Laos 1966–1972](../03-operation-popeye-laos-1966-1972/), a single page in four parts with a week of hourly wind. The casebook here links to it.
+
 ## Moving through scales
 
 Choose **Explore → Regional terrain / Rainier**.

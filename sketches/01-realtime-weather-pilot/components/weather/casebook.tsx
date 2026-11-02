@@ -104,6 +104,14 @@ export default function Casebook({
           <button className="case-action" onClick={onNarrative}>
             Follow the places in the record →
           </button>
+          <a
+            className="footnote"
+            href="https://realtimeurbanismlab.github.io/weather-commons/03-operation-popeye-laos-1966-1972/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            The full case, in four parts: sketch 03, Operation Popeye ↗
+          </a>
         </div>
       )}
       {page === 1 && (

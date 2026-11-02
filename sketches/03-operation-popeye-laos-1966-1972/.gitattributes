@@ -1,0 +1,2 @@
+# data/manifest.json records SHA-256 checksums of the exact bytes downloaded and written.
+data/** -text
