@@ -2,67 +2,84 @@
 
 Author: Farzin Lotfi-Jam · Started: 2026-09-02 · Status: pilot · Stack: vinext (Next on Vite) + React + three.js, Cloudflare
 
-An evidence-led technical pilot for the Weather Commons working group. It lets participants place a small, documented atmospheric field inside a spatial narrative and inspect the difference between source material, model rules, calculated tracer movement, and interpretation.
+An evidence-led technical pilot for the Weather Commons working group. It places a small, documented weather field on a 3D Earth, and keeps four things visibly apart: the source material, the model's rules, the movement it calculates, and the interpretation.
 
-## Run locally
+## Run
 
-Requires Node 22.13+ and pnpm. Run everything from this folder.
+Online: https://realtimeurbanismlab.github.io/weather-commons/01-realtime-weather-pilot/
+
+On your computer (Node 22.13 or newer, and pnpm), from this folder:
 
 ```bash
-cd sketches/01-realtime-weather-pilot
 pnpm install
-pnpm dev
-pnpm check
+pnpm dev        # opens at the address it prints
+pnpm check      # tests and data checks
 pnpm lint
 pnpm build
 ```
 
-Or open the published copy: https://realtimeurbanismlab.github.io/weather-commons/01-realtime-weather-pilot/. Nothing is needed from Box: every file the pilot reads is committed here.
+Everything the pilot reads is in this folder, so nothing is needed from Box. There are no accounts, no server storage and no live weather feed. Imported contributions stay in your browser until you export them.
 
-The local pilot opens at the URL printed by `pnpm dev`. It has no accounts, server storage, live weather feed, or collaboration service: imported contributions remain in the current browser until exported.
+## What's on screen
 
-## What is included
+The opening view is a 3D Earth you can turn.
 
-The opening view is one rotatable **3D Earth**. **Explore** switches between imagery, cloud-top height, land/seafloor, built fabric and transport/history. Click **Sources** for the dataset ledger, or click the Earth to inspect a source sample. **Earth** opens layer controls: choose a GOES product, play its ten-minute archive, change opacity, inspect Atlantic relief, or enter a bounded Lower Manhattan building sample. **Paper / White** switches to a dark background. Satellite colours retain NOAA's processing; navigation of the published JPEGs uses an explicitly approximate GOES fixed-grid registration.
+- **Explore** switches between satellite imagery, cloud-top heights, land and seafloor, buildings, and transport and history.
+- **Sources** lists every dataset. Click the Earth to inspect the source behind a point.
+- **Earth** opens the layer controls:
+  - pick a GOES satellite product and play its ten-minute archive;
+  - change opacity;
+  - look at Atlantic relief;
+  - zoom into a small sample of Lower Manhattan buildings.
+- **Paper / White** switches to a dark background.
+- **The timeline** at the bottom follows the view: dates of satellite frames for imagery, elapsed model time for transport. The two clocks are separate.
+- **Conditions → Active study** switches between the two studies.
 
-Land and seafloor are a displaced NOAA ETOPO1 mesh, with a separate transparent sea-level surface. The city sample combines 522 OpenStreetMap building extrusions with USGS NAIP ground/roof imagery. These layers share a Three.js depth buffer with vectors, sites and calculated tracers. Twelve matched NOAA ACHA cloud-top-height grids are now triangulated as a separate, quality-masked surface. A 0–20 km colour legend and 1×/20×/50×/100× height scales distinguish retrieval values from display exaggeration. A bounded Mount Rainier sample now streams USGS 3DEP terrain and NAIP aerial textures as OGC 3D Tiles. Photogrammetric facades remain future work.
+Satellite colours are NOAA's own processing. Placing the published JPEGs on the globe uses an approximate GOES grid.
 
-- A fast, browser-worker passive-tracer simulation with documented assumptions, reproducible seeded runs, 3D height, diffusion, decay, and grid boundaries.
-- Two studies: a synthetic Atlantic teaching field and an archival Project Popeye study based on a deliberately limited 1966 ERA5 reanalysis snapshot.
-- A local NASA Blue Marble surface, Natural Earth cartography, selected institutional infrastructure, and case-specific geographic context.
-- An evidence casebook that marks observed/reanalyzed input, synthetic assumptions, calculation, archival claims, and non-inference.
-- Validated portable JSON contributions for workshop research and narration.
-- A dated satellite observation sequence: open **Earth → Earlier MODIS archive**, hide GOES, then play, scrub, or blend six NASA Terra/MODIS daily mosaics. Its 2024 observation clock is independent of the simulation clock.
-- **Cloud isolation** removes dark and strongly coloured pixels approximately. Under **Cloud mask & height**, set an assumed shell height and choose 1×, 50× or 200× exaggeration. This is a thin image shell, not measured or volumetric clouds. **Original satellite mosaic** restores the ground-level image.
+Layers:
+- **Land and seafloor:** NOAA ETOPO1 elevation as a mesh, with a separate transparent sea surface.
+- **City sample:** 522 OpenStreetMap buildings with USGS NAIP aerial imagery.
+- **Cloud-top heights:** twelve matched NOAA ACHA grids as a surface, with low-quality data masked. A 0–20 km legend and 1×/20×/50×/100× scales separate the measured value from on-screen exaggeration.
+- **Mount Rainier:** USGS 3DEP terrain and NAIP imagery, streamed as 3D Tiles.
+- **MODIS:** six NASA Terra/MODIS daily images from 2024, under **Earth → Earlier MODIS archive** (hide GOES first). Their clock is separate from the model's.
+- **Cloud isolation** roughly removes dark and strongly coloured pixels. **Cloud mask & height** lifts the image to an assumed height (1×, 50× or 200×). This is a thin image shell, not measured or volumetric cloud. **Original satellite mosaic** restores the flat image.
 
-It is not a forecast, an atmospheric-dynamics solver, an exposure assessment, a weather-modification reconstruction, or a decision tool. Refer to [SOURCES.md](SOURCES.md) for evidentiary scope.
-
-The bottom timeline follows the current view: dated observation frames for satellite/cloud layers, elapsed model time for transport. **Conditions → Active study** switches between the two teaching studies. These clocks are independent.
+Models and studies:
+- **Transport model:** a fast passive-tracer simulation that runs in the browser. It has documented assumptions, repeatable seeded runs, height, diffusion, decay and grid edges.
+- **Two studies:**
+  - a synthetic Atlantic teaching field;
+  - Project Popeye, using a deliberately limited ERA5 reanalysis snapshot from 1966.
+- **Casebook:** marks what is observed or reanalysed, what is assumed, what is calculated, what comes from the archive, and what can't be concluded.
+- **Contributions:** wind fields as checked JSON files that participants can import and export.
 
 ## Moving through scales
 
-Choose **Explore → Regional terrain / Rainier**. Scroll or pinch to approach; drag rotates the globe, pans at regional scale, and orbits at close range. The camera tilts gradually without changing scenes. **Shift-drag** swaps pan and orbit; **Use pan** offers the same choice without a modifier key. Double-click a surface to approach that location; single-click to inspect its source. Arrow keys pan, Shift-arrow keys orbit, and +/− zoom.
+Choose **Explore → Regional terrain / Rainier**.
+- **Approach:** scroll or pinch.
+- **Move:** dragging turns the globe from far away, pans at regional scale and orbits up close. **Shift-drag**, or **Use pan**, swaps pan and orbit.
+- **Inspect:** double-click a surface to fly to it; click once to inspect its source.
+- **Keyboard:** arrow keys pan, Shift-arrows orbit, and + and − zoom.
 
-Rainier is a finite ~32 km regional archive, with four levels of geometry and aerial texture. The interface reports the finest visible mesh spacing: roughly 487, 244, 122 or 61 m. The best archived aerial pixels are ~8 m. Zooming past those limits adds no source detail. Regional elevation stays at 1×; global relief and cloud exaggeration remain separate. See [docs/STREAMING.md](docs/STREAMING.md) for the architecture and what a global service would add.
+The Rainier archive covers about 32 km, at four levels of detail. The interface shows the finest mesh spacing on screen: about 487, 244, 122 or 61 m. The sharpest aerial pixels are about 8 m. Zooming further adds no real detail. Terrain height here stays at 1×. See [docs/STREAMING.md](docs/STREAMING.md).
 
-## Repository map
+## Files
 
-- [CONTRIBUTING.md](CONTRIBUTING.md) — contribution schema and provenance requirements.
-- [docs/STATUS.md](docs/STATUS.md) — current capability and deliberate limits.
-- [docs/WORKSHOP.md](docs/WORKSHOP.md) — four-session structure and participant outputs.
-- [docs/DATASETS.md](docs/DATASETS.md) — practical sources for imagery, models, ocean, and sensing infrastructure.
-- [docs/ROADMAP.md](docs/ROADMAP.md) — next implementation phases.
-- [AGENTS.md](AGENTS.md) — development norms for contributors and coding agents.
-- [docs/MILESTONES.md](docs/MILESTONES.md) — recorded milestones and the next bounded build.
+- [CONTRIBUTING.md](CONTRIBUTING.md): the contribution format and what each contribution must document.
+- [docs/WORKSHOP.md](docs/WORKSHOP.md): exercises with the pilot for the workshop sessions.
+- [docs/STATUS.md](docs/STATUS.md): what works now and its deliberate limits.
+- [docs/DATASETS.md](docs/DATASETS.md): useful sources for imagery, models, ocean and sensing infrastructure.
+- [docs/ROADMAP.md](docs/ROADMAP.md) and [docs/MILESTONES.md](docs/MILESTONES.md): what's next and what's done.
+- [AGENTS.md](AGENTS.md): rules for people and coding agents working on the pilot.
 
-## Data and provenance
+## Sources and limits
 
-The project commits small source responses and processed artifacts needed to reproduce the archival case. `public/data/archive/manifest.json` records hashes, source URLs, and transformations. Raw data, derived fields, and visual layers must always state their origin, valid time, spatial scope, and limits.
+[SOURCES.md](SOURCES.md) lists every source and what it can and can't support. The small source responses and processed files needed to reproduce the case are in this folder. `public/data/archive/manifest.json` records their checksums, source addresses and every change made to them. Every layer states where it comes from, the time it shows, the area it covers, and its limits.
 
-The primary case does not attribute rainfall, civilian harm, or any event outcome to Project Popeye. Its released tracers are a hypothetical visual experiment through a stationary reanalysis field, not a reconstruction of an operation.
+The pilot is not a forecast, a weather-physics model, an exposure assessment, a reconstruction of weather modification, or a decision tool. The Popeye case doesn't attribute rainfall, harm or any outcome to the operation. Its tracers are a hypothetical experiment in a fixed reanalysis wind, not a reconstruction.
 
-## Privacy and publishing
+## Publishing
 
-The repository is public, and the pilot runs as a static page at https://realtimeurbanismlab.github.io/weather-commons/01-realtime-weather-pilot/, rebuilt on every push to `main`. The static site has no server: contributions stay in the visitor's browser until they export them. Before connecting participants to a shared service, establish authentication, a private object store, an editorial review step, and a clear policy for contributors' data and media rights. The planned online architecture is documented in [docs/ROADMAP.md](docs/ROADMAP.md).
+The pilot is published as a static page, rebuilt on every push to `main`. It has no server, so nothing a visitor imports leaves their browser. Before connecting participants to a shared online service, we'd need sign-in, private storage, an editorial review step and a clear policy on contributors' data and rights (see [docs/ROADMAP.md](docs/ROADMAP.md)).
 
-To build the static site locally: `STATIC_EXPORT=1 pnpm build` writes `dist/client/`. Set `NEXT_PUBLIC_BASE_PATH=/weather-commons/01-realtime-weather-pilot` to serve it under a sub-path. From the repository root, `node scripts/build-pages.mjs` builds the whole published site into `_site/`.
+To build the static version yourself: `STATIC_EXPORT=1 pnpm build` writes `dist/client/`. Add `NEXT_PUBLIC_BASE_PATH=/weather-commons/01-realtime-weather-pilot` to serve it from a sub-folder. From the repository root, `node scripts/build-pages.mjs` builds the whole site.

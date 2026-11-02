@@ -1,67 +1,72 @@
-# Four-part working group structure
+# Exercises with the pilot
 
-The aim is a collective atlas of how weather becomes legible, governable, and contestable. Each group contributes a bounded field rather than attempting a universal model of the planet.
+How the workshop runs (the four parts Event, Simulate, Situate, Narrate, peer feedback and vocabulary) is in [docs/workshop/README.md](../../../docs/workshop/README.md). This page holds exercises that use this pilot. Open it at https://realtimeurbanismlab.github.io/weather-commons/01-realtime-weather-pilot/.
 
-## Session 1 — Situate a field
+Start a session by comparing three things side by side: a real observation, a model product and a made-up teaching field.
 
-Choose a weather system, measurement practice, or contested intervention. Make a source ledger: what is measured, reanalyzed, modelled, synthetic, mapped, and narrated? Locate instruments, institutions, computational sites, and affected landscapes. Leave with a one-page research question and a small source pack.
+## One Earth, five kinds of evidence (20 minutes)
 
-## Session 2 — Build a limited simulation
+Use **Explore**. Change one thing at a time, and keep a short list of claims and what supports them.
 
-Convert a documented field into the contribution schema, or begin with the uniform teaching field. State resolution, timestamp, units, interpolation, missing-data policy, and every transformation. Build one small transport or visual experiment. The result should be falsifiable and legible, not comprehensive.
+1. **Satellite imagery.** Pause at 04:10 UTC. Switch between Air Mass and GeoColor without changing the time. What becomes visible because of how the channels are combined? These colours are processed measurements, not what an eye would see.
+2. **Cloud-top heights.** Pick the same scan. Compare 1× with 50× height. Click a patch and note its retrieval, scan time and quality rule. Why would a smooth, continuous surface hide missing data? Cloud tops don't tell you a cloud's full volume.
+3. **Land and seafloor.** Lower the water opacity and compare 1× with 60× relief. Click a point in the deep ocean. What is the depth in metres in the source, and what does the screen show? Whose measurements and interpolation built this global surface?
+4. **Built fabric.** Inspect three buildings. Find a height taken from tags and, if the sample has one, an assumed height. How do an outline, an aerial photo and a height rule become a model of architecture? Note the mismatch in source dates and the flat ground level.
+5. **Transport and history.** Open **Read**, then **Conditions**. Change one setting and run again with the same seed. Pair a calculated difference with a claim from the archive, then write down the evidence that would be needed to connect them. Never treat simulated nearness as proof that weather modification worked or caused harm.
 
-## Session 3 — Connect infrastructure and consequence
+For the final presentation, ask each participant for:
+- one inspected record;
+- one diagram of how the data was transformed;
+- one rerun with a changed setting;
+- one thing the model explicitly cannot show.
 
-Place the model in its material geography: sensors, satellite ground stations, forecasting centres, airfields, archives, rivers, settlements, military logistics, legal jurisdictions, or supply chains. Separate calculated proximity from any claim about people or environments. Pair the model with a narrated sequence of locations.
+Being precise here means making the difference between source, calculation and display easy to read, even when the picture is beautiful.
 
-## Session 4 — Publish a contribution
+## Two clocks
 
-Present an evidence-led scene: source, model rule, calculated output, geographic context, interpretation, and limit. Assemble a contribution package for the shared globe and a short public explanation. Peer review checks provenance, readability, and overclaiming before publication.
+The imagery has its own time, separate from the model's time.
 
-## Participant roles
+- **GOES.** In **Explore → Satellite imagery**, pause on one time and compare GeoColor with Airmass RGB. Name three features that look different, and say which measurement or processing choice causes it. Then look at the derived-wind plate: what extra step turns tracked cloud features into wind? The wind has its own time, so it isn't a matched pair with the image.
+- **MODIS.** Open **Earth → Earlier MODIS archive**, hide GOES and choose **Show**.
+  - Play the six Terra/MODIS daily images while the model is paused. Then pause the images and run the model. What changed each time, and what evidence would link them?
+  - Lower the image opacity to see where the 2004 background shows through gaps in the 2024 coverage.
+  - Find a cloud system and note its date. Why doesn't the image alone give you wind or cloud height?
+- **Mismatched dates.** The mismatch with the 1966 case is deliberate and labelled. Every spatial claim needs a source date.
 
-Groups of two to four work well: a data steward documents sources and transforms; a modeller builds or checks the field; a spatial researcher maps infrastructure and geography; a writer/editor develops the narrative and claim ledger. Roles can overlap.
+## What changes when we zoom?
 
-## Minimum contribution package
+Start at the globe and approach **Regional terrain / Rainier**.
 
-1. A validated JSON field and parameter set.
-2. A source ledger with URLs, dates, licenses, processing steps, and unknowns.
-3. Three to five geographic or institutional waypoints.
-4. One statement of what the simulation calculates and one statement of what it cannot establish.
-5. A short narrative suitable for the casebook.
+- **Compare** the mesh spacing on screen with the finest elevation sample in the archive and the aerial pixel size.
+- **Explore** the archive: orbit the summit, pan into a valley, inspect a source elevation, then find the edge of the archive.
+- **Tell apart** detail in the photograph, detail in the geometry, a sampled source height, and the hidden seams between tiles.
+- **Ask:** which claims still hold when the scale changes?
 
-## Facilitation
+Pick one angle to follow up:
+- how the 3DEP elevation data was produced;
+- the NAIP imagery catalogue and its varying dates;
+- how tiling, memory limits and camera position decide what you see.
 
-Begin each session by comparing a real observation, a model product, and a synthetic teaching field. Keep a shared vocabulary for `observation`, `reanalysis`, `forecast`, `simulation`, `visualization`, and `interpretation`. Ask groups to make their uncertainty visible as part of the form, rather than smoothing it away.
+Record:
+- the coverage;
+- the acquisition dates;
+- the horizontal and vertical reference;
+- where the data came from;
+- what can and can't be concluded.
 
-## Pilot exercise: two clocks
+Terrain isn't connected to the transport model yet. A claim that a plume or runoff follows a valley would need more equations and testing, not just a visual reading of the mesh.
 
-Explore → Satellite imagery adds an exercise in comparative observation: pause a single acquisition label and compare GeoColor with Airmass RGB. Name three features that change appearance and explain which measurement/processing choice produced that change. Then compare the original derived-wind plate and identify the extra inference needed to turn tracked cloud features into a wind retrieval. The wind still has its own source time and cannot be treated as a matched-time image pair.
+## Importing data into the pilot
 
-Open Earth → Earlier MODIS archive, hide GOES and choose Show. Play the six Terra/MODIS daily mosaics while the tracer model is paused, then pause the imagery and run the simulation. Ask participants what changed in each case and what evidence would justify linking them. Lower imagery opacity to identify where the 2004 background is being shown underneath missing 2024 coverage. Locate a cloud system, record its observation date, and explain why its image alone does not supply wind vectors or cloud height. The mismatch with the 1966 case is deliberate and labelled: a source date must be part of every spatial claim.
+The pilot imports wind fields in its contribution format (see [CONTRIBUTING.md](../CONTRIBUTING.md)). Imported JSON is treated as data only and never run as code.
 
-## Pilot exercise: one Earth, five kinds of evidence
+A future layer format could also declare:
+- source type, archive and version;
+- geographic and vertical reference;
+- time range;
+- display changes;
+- missing data;
+- places in the story;
+- rights.
 
-Use **Explore** as a 20-minute opening exercise. Change one variable at a time and keep a small claim ledger.
-
-1. **Satellite imagery:** pause 04:10 UTC. Switch Air Mass / GeoColor without changing the date. What becomes legible because of a channel combination? The colours are processed observations, not natural vision of an atmosphere.
-2. **Cloud-top heights:** select the same scan. Compare 1× with 50× height. Click a patch and record its retrieval, scan interval and DQF rule. Explain why an attractive continuous mesh would conceal missingness. Cloud tops do not define a cloud's full volume.
-3. **Land + seafloor:** lower water opacity and compare 1×/60× relief. Click a deep-ocean point. Distinguish metres in the source from apparent depth on screen. Ask whose observations and interpolation assembled that global surface.
-4. **Built fabric:** inspect three buildings. Find a tagged height and, if present in the selected sample, an assumed height. Explain how a cadastral-style outline, an aerial photograph and a height convention become a model of architecture. Record the mismatch in source dates and the flat datum.
-5. **Transport + history:** open Read, then Conditions. Change one transport parameter and rerun with the same seed. Pair a calculated difference with an archival claim; write the missing evidence needed to connect them. Never turn simulated proximity into weather-modification effectiveness or harm attribution.
-
-For the final presentation, require one inspected record, one transformation diagram, one counterfactual rerun, and one explicit non-inference. Scientific precision here means making the source/algorithm/display distinction readable, including when the display is beautiful.
-
-## AI-assisted work protocol
-
-Give Codex a bounded source pack, a declared question and a maximum client data size. Ask it first to identify units, axes, time coverage, missing-data codes and licensing from the original metadata. Have it produce a small derived field plus reproducible transform and manifest. Ask a second human participant to inspect a few source values and trace a narrative claim back to its document before accepting the output. Never let plausible generated numbers stand in for observations. Imported JSON remains data only; executable student modules are not supported by this pilot.
-
-The current adapter examples are `prepare-earth.py` and `prepare-cloud-height.py`. A future participant layer schema should include source kind, archive/version, geographic and vertical reference, acquisition interval, display transform, missingness, narrative waypoints and rights. These broader layer packages are a roadmap item; current participant imports still accept the validated wind-field contribution schema.
-
-## Exercise: what changes when we zoom?
-
-Start at the globe and approach **Regional terrain / Rainier**. Compare the current displayed mesh spacing with the finest archived elevation sample and aerial pixel size. Orbit the summit, pan into a valley, inspect a source elevation, then find the archive boundary. Ask participants to distinguish apparent photographic detail, geometric detail, a sampled source height and the hidden seam geometry. Which claims survive a change of scale?
-
-One group can document the 3DEP elevation production chain; another can inspect the NAIP catalogue and differing dates; a third can explain how tiling, memory budgets and camera position decide what becomes visible. Each contribution should include its coverage, acquisition dates, horizontal/vertical reference, provenance and permissible inferences. Terrain is not yet coupled to transport: a valley-shaped plume or runoff claim would require additional equations and validation, not a visual reading of the mesh.
-
-A future participant layer package should declare a versioned tileset/imagery manifest, source category, footprint, resolution range, coordinate/height reference, time range, attribution, narrative waypoints and licensing. This is a proposed schema extension; current JSON imports do not execute code or load arbitrary tile manifests.
+That format is on the roadmap.

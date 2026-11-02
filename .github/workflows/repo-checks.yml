@@ -13,5 +13,11 @@ jobs:
           node-version: 22
       - name: No file over 10 MB
         run: node scripts/check-sizes.mjs --report
+      - name: Sketches have a README header, sources and limits, unique numbers and relative paths
+        run: node scripts/check-sketches.mjs
+      # Pull requests don't touch the README table (it would make them collide), so this only
+      # reminds maintainers on main: run node scripts/index-sketches.mjs after merging.
       - name: Sketch index in README is current
+        if: github.event_name == 'push'
+        continue-on-error: true
         run: node scripts/index-sketches.mjs --check

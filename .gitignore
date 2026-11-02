@@ -6,6 +6,7 @@ dist/
 build/
 out/
 _site/
+_preview/
 .next/
 .vinext/
 .vite/

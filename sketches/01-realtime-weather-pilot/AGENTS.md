@@ -1,34 +1,54 @@
-# Weather Commons contributor guide
+# Working on the pilot
 
-## Purpose
+This is the project lead's guide for sketch 01. It adds to the repository's AGENTS.md and wins inside this folder.
 
-This repository is a browser-based research pilot for the Realtime Weather working group. It combines sourced historical material, observed or reanalyzed data, deliberately synthetic teaching fields, and a lightweight passive-tracer simulation. Keep those categories visibly distinct in interface copy, exports, and documentation.
+## What the pilot is
 
-## Working locally
+A browser-based research pilot for the Realtime Weather working group. It mixes sourced historical material, observed or reanalysed data, deliberately synthetic teaching fields, and a light tracer simulation. Keep these kinds of material clearly apart in the interface, in exports and in the docs.
+
+## Working
 
 - Install with `pnpm install` and start with `pnpm dev`.
-- Run `pnpm check`, `pnpm lint`, and `pnpm build` before committing code changes.
-- Do not deploy, push, or change repository visibility unless the project lead explicitly requests it.
-- The project lead has requested incremental milestone commits and pushes for this pilot. After the checks above, update the roadmap and milestone log and push normally to `origin/main`. This does not authorize force-pushing or any deployment beyond the one below.
-- The repository is public (2026-11-02), and a push to `main` redeploys the static export on GitHub Pages (`.github/workflows/pages.yml`). Everything committed here is published, so commit nothing that must stay private. Code that loads a file from `public/` passes its root-relative path through `publicUrl()` (`lib/weather/public-url.ts`), so the static site works under its sub-path. Check with `node scripts/build-pages.mjs` from the repository root.
+- Before committing code, run `pnpm check`, `pnpm lint` and `pnpm build`.
+- Don't deploy, push or change repository visibility unless the project lead asks.
+- The project lead has asked for small commits and pushes at each milestone. After the checks, update the roadmap and the milestone log, then push normally to `origin/main`. That doesn't cover force-pushing or deploying anywhere other than the GitHub Pages site below.
+- The repository is public, and a push to `main` republishes the static version on GitHub Pages. Everything committed here is public, so commit nothing private.
+- Code that loads a file from `public/` passes its path through `publicUrl()` (`lib/weather/public-url.ts`), so the page works in its sub-folder online. Check with `node scripts/build-pages.mjs` from the repository root.
 
 ## Data and claims
 
-- Keep original downloaded responses in `public/data/archive/`; record source URL, retrieval time, transform, and SHA-256 in `manifest.json`.
-- A visual layer must declare whether it is observed, reanalyzed, modelled, synthetic, cartographic, or interpretive.
-- Never infer exposure, injury, rainfall change, or political causality from tracer proximity alone.
-- Student imports are data only. Validate their schema and do not execute imported content.
-- ACHA cloud-top heights are retrieved quantities, not volumetric clouds. Preserve quality flags, scan intervals, source navigation and the distinction between source height and display exaggeration. Keep imagery time separate from model time.
-- Regional tiles use a spherical reference adapter, not general ellipsoidal ECEF. Keep source elevation, display exaggeration, mesh spacing and imagery pixel size distinct. Do not connect external tilesets without declaring their coordinate and height references. See `docs/STREAMING.md`.
+- Keep original downloads in `public/data/archive/`. Record the source address, download time, every change and the SHA-256 checksum in `manifest.json`.
+- Every visual layer says whether it is observed, reanalysed, modelled, synthetic, cartographic or interpretive.
+- Never infer exposure, injury, rainfall change or political cause from nearness to tracers alone.
+- Participants' imports are data only. Check them against the schema, and never run imported content.
+- **Cloud tops:** ACHA heights are retrieved values, not volumetric clouds. Keep:
+  - quality flags and scan times;
+  - the source's own positioning;
+  - the difference between source height and on-screen exaggeration;
+  - image time separate from model time.
+- **Regional tiles:** they use a spherical reference, not a full ellipsoid. Keep source elevation, on-screen exaggeration, mesh spacing and image pixel size apart. Don't connect outside tilesets without stating their coordinate and height references. See `docs/STREAMING.md`.
 
-## Interface direction
+## Interface
 
-- The globe and evidence are the primary experience; controls remain secondary and are disclosed as needed.
-- The project lead requested lighter type after the Franklin Gothic Medium pass. Use bundled Libre Franklin at weight 400 consistently; do not let installed medium-weight faces override it. All interface text is uppercase. Use only the 12 px metadata, 14 px body, and 28 px title tokens; no italic styling.
-- The default interface is warm white with black text; a dark background remains selectable. Keep controls within the same globe workspace.
-- Keep interface chrome monochrome. The project lead requested vivid scientific imagery: preserve source colours in GOES RGB and infrared products, including their supplied cartography. Do not invent vectors, lighting, or physical meaning for those colours.
-- Prefer a few durable controls and clear source labels over feature density.
+- The globe and the evidence come first. Controls stay secondary and appear when needed.
+- **Type:**
+  - Use the bundled Libre Franklin at weight 400 everywhere, and don't let installed medium weights override it. The lead asked for lighter type after the Franklin Gothic Medium pass.
+  - All interface text is uppercase.
+  - Use only the 12 px (metadata), 14 px (body) and 28 px (titles) sizes, and no italics.
+- **Colour:**
+  - The default is warm white with black text. A dark background stays available.
+  - Controls stay in the same globe workspace.
+  - Interface chrome is black and white.
+  - Scientific imagery stays vivid: keep the source colours of GOES RGB and infrared products, including their own map lines. Don't invent vectors, lighting or physical meaning for those colours.
+- Prefer a few lasting controls and clear source labels over many features.
 
-## Contribution shape
+## Contributions
 
-Every contribution needs a title, author, a documented source, parameters, a velocity field, and a narrative. A workshop-ready submission also includes a provenance note, the distinction between observed and calculated material, and any relevant geographic or institutional context. See `CONTRIBUTING.md` and `docs/WORKSHOP.md`.
+Every contribution needs:
+- a title and an author;
+- a documented source;
+- parameters;
+- a wind (velocity) field;
+- a short story.
+
+A workshop-ready one also has a note on where everything came from, a clear split between observed and calculated material, and the places or institutions involved. See `CONTRIBUTING.md` and `docs/WORKSHOP.md`.
