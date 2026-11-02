@@ -14,6 +14,12 @@
       "port": 8000
     },
     {
+      "name": "03-operation-popeye-laos-1966-1972",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8003", "--directory", "sketches/03-operation-popeye-laos-1966-1972"],
+      "port": 8003
+    },
+    {
       "name": "site-preview",
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8090", "--directory", "_preview"],
