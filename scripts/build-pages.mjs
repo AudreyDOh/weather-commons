@@ -92,13 +92,13 @@ function landing(sketches) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weather Commons</title>
+<title>Realtime Weather</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main class="wide">
 <header class="site-header">
-  <a class="wordmark" href="./">Weather Commons</a>
+  <div class="brand"><a class="wordmark" href="./">Realtime Weather</a><span class="tagline">Part of <a href="https://tba21.org/uni_weathercommons">Weather Commons</a>, TBA21–Academy UNI</span></div>
   <nav aria-label="Site">
     <a href="./" aria-current="page">Sketches</a>
     <a href="guide/">Guide</a>

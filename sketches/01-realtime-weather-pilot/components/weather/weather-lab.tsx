@@ -312,11 +312,11 @@ export default function WeatherLab() {
       }
     >
       <header className="topbar">
-        <a className="brand" href={publicUrl('/')} aria-label="Weather Commons home">
+        <a className="brand" href={publicUrl('/')} aria-label="Realtime Weather pilot home">
           <span className="brand-symbol">
             <Globe2 size={23} />
           </span>
-          <span>Realtime Weather</span>
+          <span>Realtime Weather pilot</span>
         </a>
         <select
           className="study-select"

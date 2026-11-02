@@ -1,8 +1,8 @@
-# 01 · Realtime Weather
+# 01 · Realtime Weather pilot
 
 Author: Farzin Lotfi-Jam · Started: 2026-09-02 · Status: pilot · Stack: vinext (Next on Vite) + React + three.js, Cloudflare
 
-An evidence-led technical pilot for the Weather Commons working group. It places a small, documented weather field on a 3D Earth, and keeps four things visibly apart: the source material, the model's rules, the movement it calculates, and the interpretation.
+An evidence-led technical pilot for the Realtime Weather working group. It places a small, documented weather field on a 3D Earth, and keeps four things visibly apart: the source material, the model's rules, the movement it calculates, and the interpretation.
 
 ## Run
 

@@ -51,7 +51,7 @@ A short interpretive paragraph, then a ledger that sorts each claim: documented,
 | --- | --- |
 | `index.html` | the page: all text, in the four parts |
 | `app.js` | map drawing, the wind-drift simulation, the rainfall chart and the places. Settings and places are at the top |
-| `style.css` | the shared Weather Commons look (a copy of `site/style.css`) |
+| `style.css` | the shared Realtime Weather look (a copy of `site/style.css`) |
 | `data/wind.json` | hourly wind on a 1° grid, 102–110° E, 12–19° N, 1–7 October 1966 (m/s) |
 | `data/rain.json` | daily rainfall at the Se Kong valley, September to November 1966 (mm) |
 | `data/map.json` | coastlines, borders, rivers and towns, clipped to the area |

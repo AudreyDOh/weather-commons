@@ -1,4 +1,4 @@
-/* Weather Commons: one look for the site's pages (front page, guide, catalog) and new sketches.
+/* Realtime Weather: one look for the site's pages (front page, guide, catalog) and new sketches.
    Black and white, system fonts, light and dark. new-sketch.mjs copies this file into each new
    sketch, so a sketch keeps working on its own. */
 
@@ -13,10 +13,13 @@
   :root { --fg: #fff; --bg: #000; --muted: #aaa; --line: #fff; --soft: #161616; }
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; } /* short and long pages line up */
 body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.55 var(--font); }
-main { max-width: var(--text); margin: 0 auto; padding: 0 16px 80px; }
-main.wide { max-width: var(--wide); }
+/* Every page has the same frame, so the header and footer never move. Content keeps a
+   reading width inside it, left-aligned; the header, footer and front-page cards span the frame. */
+main { max-width: var(--wide); margin: 0 auto; padding: 0 16px 80px; }
+main > * { max-width: var(--text); }
+main > .site-header, main > .site-footer, main > .cards, main > .full { max-width: none; }
 a { color: inherit; text-underline-offset: 2px; overflow-wrap: anywhere; }
 a:hover { text-decoration-thickness: 2px; }
 
@@ -25,7 +28,9 @@ a:hover { text-decoration-thickness: 2px; }
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 24px;
   border-bottom: 1px solid var(--line); padding: 20px 0 12px; margin-bottom: 40px;
 }
+.brand { display: flex; flex-direction: column; gap: 2px; }
 .wordmark { font-weight: 700; text-transform: uppercase; letter-spacing: .02em; text-decoration: none; }
+.tagline { font-size: 13px; color: var(--muted); }
 .site-header nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
 .site-header nav a, .label, h2 {
   font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em;

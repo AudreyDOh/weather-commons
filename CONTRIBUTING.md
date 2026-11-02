@@ -110,7 +110,7 @@ Every page, guide and README in this repository should look and sound the same.
 **Look**
 - Black and white, system fonts, light and dark.
 - No colour except the source colours of scientific imagery.
-- Pages use `site/style.css` (new sketches get their own copy) and the same header: the **Weather Commons** wordmark, then Sketches, Guide and Catalog.
+- Pages use `site/style.css` (new sketches get their own copy) and the same header: the **Realtime Weather** wordmark with "Part of Weather Commons, TBA21–Academy UNI" beneath it, then Sketches, Guide and Catalog.
 - Section headings are small capitals with a rule above.
 - Images are greyscale on the front page.
 - Sketches 01 and 02 keep their own designs.
