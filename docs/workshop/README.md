@@ -4,7 +4,9 @@ Realtime Weather is a working group in *Weather Commons*, TBA21–Academy's UNI 
 
 We look at how weather is monitored, modelled, managed and shown in real time. We try to understand these practices on their own terms and to place them in their social, political and global context. We model an event and also its effects, through scientific, geographic, historical, humanities and critical approaches. Behind it all is the program's question: if the atmosphere is a commons, who has the right to change the weather?
 
-Each person or small group makes one sketch: a small web page that models and explains one event. Together the sketches form a shared atlas of how weather becomes visible, governable and contested. Each sketch covers one bounded case. None tries to model the whole planet.
+There are 17 participants, and each works on their own project: a sketch, which is a small web page that models and explains one event, practice or intervention. Many of you bring research you're already doing. Use the workshop to take it further, and we'll support you. Together the sketches form a shared atlas of how weather becomes visible, governable and contested. Each covers one bounded case. None tries to model the whole planet.
+
+In each session, breakout rooms of four or five are for peer feedback, not group work.
 
 - Shared site: https://realtimeurbanismlab.github.io/weather-commons/
 - Setup guide: https://realtimeurbanismlab.github.io/weather-commons/guide/
@@ -15,7 +17,7 @@ Each person or small group makes one sketch: a small web page that models and ex
 
 ### 1. Event (2 November)
 
-Choose a weather event, a way of measuring weather, or a contested intervention. The catalog is a good starting point.
+Choose a weather event, a way of measuring weather, or a contested intervention. It can come from your own research, or start from the catalog.
 
 Make a source list. For each source, note what it is: measured, reanalysed, modelled, made up for teaching, mapped, or told as a story. Find the instruments, institutions, computers and landscapes involved.
 
@@ -49,14 +51,12 @@ Present the event as a scene. Show:
 
 Write a short public explanation. Before publishing, a peer review checks where every claim comes from, whether the page is easy to read, and whether it claims too much. Then the sketch joins the shared site.
 
-## Roles
+## Peer feedback
 
-Groups of two to four work well. People can share roles:
-
-- **Data steward:** keeps the source list and records every change to the data.
-- **Modeller:** builds or checks the model.
-- **Spatial researcher:** maps the infrastructure, places and institutions.
-- **Writer:** shapes the story, and keeps a list of claims and their evidence.
+In each session you spend some time in a breakout room of four or five people. Each person shows where their project is, and the others respond:
+- **What's clear?** What does the page show, and what is it about?
+- **What's missing?** Which source, place or effect would make it stronger?
+- **Does it claim too much?** Is anything simulated or interpreted presented as fact?
 
 ## What a finished sketch includes
 

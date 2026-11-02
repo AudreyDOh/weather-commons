@@ -6,7 +6,8 @@
 //   node scripts/new-sketch.mjs "Cloud seeding over the Sierra" --number 12 --author "Your Name"
 //   node scripts/new-sketch.mjs "Cloud seeding over the Sierra" --author "Your Name" --stack "Vite + three.js"
 //
-// Creates sketches/NN-cloud-seeding-over-the-sierra/ with index.html, README.md, NOTES.md and assets.json.
+// Creates sketches/NN-cloud-seeding-over-the-sierra/ with index.html, style.css (a copy of site/style.css),
+// README.md, NOTES.md and assets.json.
 // Workshop participants use the number the facilitators gave them (--number), so sketches made
 // in different forks never collide. Without --number the next free number is used.
 // Numbers only go up: never reuse or renumber, even when a sketch is retired.
@@ -46,6 +47,7 @@ const today = new Date().toISOString().slice(0, 10);
 const values = { NN: nn, TITLE: title, AUTHOR: author, STACK: stack, DATE: today, NAME: name };
 
 fs.cpSync(TEMPLATE, dir, { recursive: true });
+fs.copyFileSync(path.join(REPO, 'site', 'style.css'), path.join(dir, 'style.css')); // the shared look, owned by the sketch from now on
 for (const e of fs.readdirSync(dir, { withFileTypes: true, recursive: true })) {
   if (!e.isFile() || !/\.(html|md|json|js|css)$/.test(e.name)) continue;
   const f = path.join(e.parentPath ?? e.path, e.name);

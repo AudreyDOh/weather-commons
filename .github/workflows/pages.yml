@@ -5,9 +5,9 @@ name: pages
 on:
   push:
     branches: [main]
-    paths: [sketches/**, guide/**, catalog/**, scripts/build-pages.mjs, scripts/index-sketches.mjs, .github/workflows/pages.yml]
+    paths: [sketches/**, guide/**, catalog/**, site/**, scripts/build-pages.mjs, scripts/index-sketches.mjs, .github/workflows/pages.yml]
   pull_request:
-    paths: [sketches/**, guide/**, catalog/**, scripts/build-pages.mjs, scripts/index-sketches.mjs, .github/workflows/pages.yml]
+    paths: [sketches/**, guide/**, catalog/**, site/**, scripts/build-pages.mjs, scripts/index-sketches.mjs, .github/workflows/pages.yml]
   workflow_dispatch:
 permissions:
   contents: read

@@ -32,7 +32,7 @@ The person is probably new to git and GitHub. Before each step, say what you're 
      - **If it isn't on**, tell them how: on github.com, open their fork → **Actions** → enable workflows. Then **Settings → Pages → Source: GitHub Actions**. Then re-run the "pages" workflow.
    - The page is live about a minute after the "pages" workflow finishes: `https://<their-username>.github.io/weather-commons/NN-name/`. Give them this link.
 
-5. **Share it with the group (only when they ask, usually from session 2).**
+5. **Add it to the shared site (only when they ask, usually from session 2).**
    - Open a pull request from their fork to `RealtimeUrbanismLab/weather-commons`, base `main`. It should change only `sketches/NN-name/`.
    - The title starts with the sketch number. Fill in the checklist in the pull request template.
    - Tell them a facilitator will review it, and the sketch then appears on https://realtimeurbanismlab.github.io/weather-commons/.

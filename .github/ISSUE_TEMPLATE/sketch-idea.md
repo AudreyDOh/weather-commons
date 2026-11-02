@@ -1,6 +1,6 @@
 ---
 name: Propose a sketch
-about: Describe an event you want to model, so the group can find collaborators and sources.
+about: Describe the event or project you want to work on, to get feedback and suggested sources.
 labels: sketch idea
 ---
 
@@ -10,4 +10,4 @@ labels: sketch idea
 
 **Sources you know of:** datasets, archives, articles.
 
-**Help wanted:** for example data, modelling, mapping, history, writing.
+**Where you'd like help:** for example data, modelling, mapping, history, writing.

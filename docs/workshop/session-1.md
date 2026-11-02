@@ -13,13 +13,13 @@ Have these open before you start:
 
 - **Rehearse Tech Demo 1** end to end with a second GitHub account, and time it. Record the screen as a fallback in case the live demo stalls.
 - **Post a welcome thread** in the community space with the three links above, and ask everyone to post their live page there.
-- **Decide the breakout rooms** and give out number blocks: room 1 gets 10–19, room 2 gets 20–29, and so on.
+- **Decide the breakout rooms:** 17 people in four rooms of four or five, for peer feedback. Everyone works on their own project. Give out sketch numbers by room: room 1 gets 10–19, room 2 gets 20–29, and so on.
 
 ## Part 1: Intro (60 minutes)
 
 **10 min: Boone and Farzin introduce themselves.**
 
-**30 min: participants introduce themselves.** Each person gives their name, their practice, and a weather event or question they care about. Write the events down, because they seed the breakout.
+**30 min: participants introduce themselves.** That's under two minutes each for 17 people. Each person gives their name, their practice, and the research or weather question they want to work on. Many will bring an existing project. Write the topics down for the breakout.
 
 **10 min: Workshop introduction.** Use [README.md](README.md) in this folder.
 - **The framing:** how weather is monitored, modelled, managed and shown in real time, and who has the right to change it.
@@ -43,13 +43,13 @@ Show the page, its "synthetic" label and its Sources and limits box. "Everything
 
 ## Part 2: Peer to peer (45 minutes)
 
-Use three or four breakout rooms of three or four people. Each room has one facilitator dropping in.
+Four breakout rooms of four or five people, for peer feedback. Everyone works on their own project. Facilitators move between rooms.
 
-**15 min: Explore.** Prompt:
-> Browse the catalog and the map. Pick one event or practice, or bring your own research. What happened, where, when, and who decided? What would you want to see that you can't see now?
+**15 min: Explore, on your own.** Prompt:
+> If you have a research project, write down the event or practice at its centre. If not, browse the catalog and the map and pick one. What happened, where, when, and who decided? What would you want to see that you can't see now?
 
-**15 min: Discuss.** Prompt:
-> Each person has two minutes to pitch an event; the others ask one question each. Note sources you already know of. Is anyone interested in the same event?
+**15 min: Feedback.** Prompt:
+> Each person has two or three minutes to describe their event and question. The others give feedback: what's clear, what's missing, and which sources they know of.
 
 **15 min: Set up and publish a first page.** Everyone follows the setup guide, route A (browser only), using their own sketch number. The aim is one live page each, even if it only shows the template with their question on it.
 
@@ -63,13 +63,13 @@ Use three or four breakout rooms of three or four people. Each room has one faci
 | The workflow fails at "deploy" | In the fork, set **Settings → Pages → Source: GitHub Actions**, then re-run. |
 | Claude can't see the fork | In GitHub, open **Settings → Applications → Claude** and give it access to the `weather-commons` fork. |
 | Claude says the number is taken | They used someone else's number. Check the roster. |
-| Someone without Claude access | Pair them with a neighbour for today and sort out access afterwards. |
+| Claude asks to upgrade, or code isn't available | Check they're signed in to the account that has their Claude plan. |
 
 Anything else goes into the community space, where facilitators answer after the session.
 
 ## Part 3: Report back and next steps (45 minutes)
 
-**20 min: Report back.** Five minutes per room: the events they picked, one open question, and one live page shown on screen.
+**20 min: Report back.** Five minutes per room: the range of projects in the room, one open question, and one live page shown on screen.
 
 **20 min: Tech Demo 2, weather simulation.**
 - **Sketch 01, one Earth, five kinds of evidence**, from [the pilot's exercises](../../sketches/01-realtime-weather-pilot/docs/WORKSHOP.md):

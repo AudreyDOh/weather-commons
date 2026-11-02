@@ -1,6 +1,6 @@
 # Weather Commons
 
-Sketches from the Realtime Weather working group (Realtime Urbanism Lab, Cornell AAP, with TBA21–Academy UNI). Each sketch is a small web page that models one weather event, practice or intervention. Together they look at how weather is monitored, modelled, managed and shown in real time, and who has the right to change it.
+Sketches from the Realtime Weather working group (Realtime Urbanism Lab, Cornell AAP, with TBA21–Academy UNI; Mondays, 2–23 November 2026). Each sketch is one person's project: a small web page that models one weather event, practice or intervention. Together they look at how weather is monitored, modelled, managed and shown in real time, and who has the right to change it.
 
 **See them online:** https://realtimeurbanismlab.github.io/weather-commons/
 
@@ -9,7 +9,7 @@ Sketches from the Realtime Weather working group (Realtime Urbanism Lab, Cornell
 Joining the workshop?
 
 1. **Set up GitHub and Claude** with the [setup guide](https://realtimeurbanismlab.github.io/weather-commons/guide/). Everything happens in the browser, with no installs.
-2. **Pick an event** from the [catalog](https://realtimeurbanismlab.github.io/weather-commons/catalog/).
+2. **Choose your project.** It can be research you're already doing, or an event from the [catalog](https://realtimeurbanismlab.github.io/weather-commons/catalog/).
 3. **Ask Claude to start your sketch** with your sketch number, then to publish it.
 4. **Talk to the group** in the [community space](https://community.ocean-archive.org/spaces/25478985).
 
@@ -54,7 +54,7 @@ node scripts/new-sketch.mjs "Hail cannons in Mendoza" --number 12 --author "Your
                                        # start a sketch from the template, with your number
 node scripts/check-sketches.mjs        # README header, sources and limits, unique numbers, relative paths
 node scripts/check-sizes.mjs           # no file over 10 MB
-node scripts/build-pages.mjs           # build the website into _site/ (GitHub does this on every push)
+node scripts/build-pages.mjs           # build the site into _site/ (GitHub does this on every push)
 node scripts/index-sketches.mjs        # refresh the table above
 node scripts/assets.mjs pull 02 --all  # lab members: copy a sketch's Box files into its assets/ folder
 node scripts/assets.mjs add 12 <path> --about "source, date, licence"
@@ -70,10 +70,10 @@ sketches/
   _template/                    what every new sketch starts from
   01-realtime-weather-pilot/    one folder per sketch: index.html or app, README.md, NOTES.md, assets.json
   02-haida-witness-composite/
-guide/  catalog/                pages on the website
+guide/  catalog/  site/         the setup guide, the catalog and the shared stylesheet
 docs/workshop/                  how the workshop runs, session plans, sketch numbers
 scripts/                        small Node scripts, no packages needed
-.github/                        checks and website build, pull request and issue templates
+.github/                        checks, site build, pull request and issue templates
 .claude/skills/                 start-sketch and publish, for Claude
 ```
 
@@ -86,7 +86,7 @@ Box, **2026 Realtime Weather**:
 03 Renders/                                      finished renders, prints and video
 ```
 
-## Website
+## The shared site
 
 The repository is public. Every push to `main` that changes a sketch rebuilds the site with `scripts/build-pages.mjs` and publishes it on GitHub Pages. Every sketch with an `index.html` goes online. Add `Publish: no` to a sketch's README header to keep it off. A fork publishes its own copy at `https://<username>.github.io/weather-commons/`. Box files are never part of the site.
 

@@ -11,7 +11,7 @@ The person is probably new to code. Before each step, say what you're doing in o
    - a short title for the sketch (it can change later);
    - their sketch number from the facilitators, for example 12. If they don't have one, ask them to check with a facilitator. Don't guess.
    - their name as it should appear on the site;
-   - in a sentence or two, the weather event, practice or intervention they're interested in, and what they want to find out.
+   - in a sentence or two, the weather event, practice or intervention they want to work on, and what they want to find out. Many participants bring an existing research project. If they do, ask for a short description and any sources they already have, and build the first version around it.
 
 2. **Check where you are.** Run `git remote -v`. If `origin` is `RealtimeUrbanismLab/weather-commons` itself and they aren't a maintainer, stop. Explain that they first need their own copy (a fork), and point them to the setup guide: https://realtimeurbanismlab.github.io/weather-commons/guide/
 

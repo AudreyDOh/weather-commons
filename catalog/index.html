@@ -5,52 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Catalog of weather events · Weather Commons</title>
 <meta name="description" content="Where to look for a weather event, practice or intervention to study in the Realtime Weather working group.">
-<style>
-  :root { --fg: #000; --bg: #fff; --muted: #555; --rule: #000; }
-  @media (prefers-color-scheme: dark) {
-    :root { --fg: #fff; --bg: #000; --muted: #aaa; --rule: #fff; }
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
-  main { max-width: 42rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
-  a { color: inherit; text-underline-offset: 0.15em; }
-  a:hover { text-decoration-thickness: 2px; }
-  nav { font-size: 0.875rem; margin-bottom: 3rem; }
-  h1 { font-size: 2rem; line-height: 1.15; font-weight: 600; margin: 0 0 1rem; letter-spacing: -0.01em; }
-  h2 {
-    font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
-    margin: 3rem 0 1rem; padding-top: 0.75rem; border-top: 1px solid var(--rule);
-  }
-  p { margin: 0 0 1rem; }
-  .lead { font-size: 1.125rem; }
-  .question { font-weight: 600; }
-  .primary {
-    display: block; border: 1px solid var(--rule); padding: 1rem; text-decoration: none; margin: 1rem 0;
-  }
-  .primary:hover { background: var(--fg); color: var(--bg); }
-  .primary strong { display: block; font-size: 1.125rem; }
-  .note { color: var(--muted); font-size: 0.875rem; }
-  dl { margin: 0; }
-  dt { font-weight: 600; margin-top: 1rem; }
-  dd { margin: 0; }
-  ul, ol { margin: 0; padding-left: 1.25rem; }
-  li { margin-bottom: 0.75rem; }
-  .part { font-weight: 600; }
-  footer { margin-top: 3rem; padding-top: 0.75rem; border-top: 1px solid var(--rule); font-size: 0.875rem; }
-</style>
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
 <main>
-  <nav><a href="../">Weather Commons</a> / Catalog</nav>
+  <header class="site-header">
+  <a class="wordmark" href="../">Weather Commons</a>
+  <nav aria-label="Site">
+    <a href="../">Sketches</a>
+    <a href="../guide/">Guide</a>
+    <a href="../catalog/" aria-current="page">Catalog</a>
+    <a href="https://github.com/RealtimeUrbanismLab/weather-commons/blob/main/CONTRIBUTING.md">Contribute</a>
+    <a href="https://community.ocean-archive.org/spaces/25478985">Community</a>
+  </nav>
+</header>
 
-  <h1>Choose a weather event to study</h1>
-  <p class="lead">This working group looks at how weather is monitored, modelled, managed and visualized in real time. We try to understand these practices on their own terms, and to place them in their social, political and global context. We model their effects, not only the weather itself.</p>
+  <h1>Catalog</h1>
+  <p class="lede">This working group looks at how weather is monitored, modelled, managed and visualized in real time. We try to understand these practices on their own terms, and to place them in their social, political and global context. We model their effects, not only the weather itself.</p>
+  <p>Each participant works on their own project. If you already have a research project, bring it. If you are looking for a starting point, begin here.</p>
   <p class="question">Who has the right to change the weather?</p>
 
   <h2>Main catalog</h2>
@@ -58,7 +30,7 @@
     <strong>Geoengineering Map →</strong>
     An interactive world map of more than 2,000 past, ongoing and planned projects, including weather modification.
   </a>
-  <p class="note">Made by ETC Group and the Heinrich Böll Foundation, building on an earlier map of Earth systems experimentation from 2012. Their data stays on their site. By its makers' own account the map is partial: there is no complete record of weather and climate control projects. When it opens it shows recent projects only; use the date filter to see older ones.</p>
+  <p class="muted small">Made by ETC Group and the Heinrich Böll Foundation, building on an earlier map of Earth systems experimentation from 2012. Their data stays on their site. By its makers' own account the map is partial: there is no complete record of weather and climate control projects. When it opens it shows recent projects only; use the date filter to see older ones.</p>
 
   <h2>Categories</h2>
   <p>Events can come from any of these. Many belong to more than one.</p>
@@ -96,10 +68,11 @@
     <li><span class="part">Narrate.</span> What one scene would you show someone, and what can your sources not tell you?</li>
   </ol>
 
-  <footer>
-    <p>Talk it over, post your choice and ask for help in the <a href="https://community.ocean-archive.org/spaces/25478985">community space on Ocean Archive</a>.</p>
-    <p><a href="../">All sketches</a></p>
-  </footer>
+  <p>Talk it over, post your choice and ask for help in the <a href="https://community.ocean-archive.org/spaces/25478985">community space on Ocean Archive</a>.</p>
+  <footer class="site-footer">
+  <p>Realtime Weather working group · Realtime Urbanism Lab, Cornell AAP, with TBA21–Academy UNI · Mondays, 2–23 November 2026</p>
+  <p><a href="../">Sketches</a> · <a href="https://github.com/RealtimeUrbanismLab/weather-commons">Code</a> · <a href="https://community.ocean-archive.org/spaces/25478985">Community space</a></p>
+</footer>
 </main>
 </body>
 </html>

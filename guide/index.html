@@ -5,118 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Setup guide · Weather Commons</title>
 <meta name="description" content="How to set up GitHub and Claude and publish your first page for the Realtime Weather working group.">
-<style>
-  :root {
-    --fg: #000; --bg: #fff; --muted: #555; --line: #000; --soft: #f2f2f2;
-    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --fg: #fff; --bg: #000; --muted: #aaa; --line: #fff; --soft: #161616; }
-  }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.55 var(--font); }
-  main { max-width: 44rem; margin: 0 auto; padding: 24px 16px 80px; }
-  a { color: inherit; text-underline-offset: 2px; }
-  nav.top { display: flex; gap: 16px; flex-wrap: wrap; font-size: 15px; margin-bottom: 40px; }
-  nav.top a { text-decoration: none; border-bottom: 1px solid var(--line); }
-  h1 { font-size: 34px; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 12px; }
-  h2 { font-size: 22px; margin: 56px 0 8px; padding-top: 12px; border-top: 2px solid var(--line); }
-  h3 { font-size: 17px; margin: 28px 0 4px; }
-  p, li { max-width: 40rem; }
-  .lede { font-size: 19px; }
-  .muted, .gloss { color: var(--muted); }
-  .gloss { font-size: 15px; }
-  ol.steps { list-style: none; padding: 0; margin: 16px 0 0; counter-reset: step; }
-  ol.steps > li { counter-increment: step; position: relative; padding: 0 0 20px 44px; }
-  ol.steps > li::before {
-    content: counter(step); position: absolute; left: 0; top: 0;
-    width: 28px; height: 28px; border: 1.5px solid var(--line); border-radius: 50%;
-    display: grid; place-items: center; font-size: 14px; font-weight: 600;
-  }
-  .ok { font-size: 15px; }
-  .ok::before { content: "You should see: "; font-weight: 600; }
-  code { font-family: var(--mono); font-size: 0.88em; background: var(--soft); padding: 1px 4px; border-radius: 3px; overflow-wrap: anywhere; }
-  .code { position: relative; margin: 8px 0; }
-  .code pre {
-    margin: 0; padding: 12px 14px; padding-right: 72px; background: var(--soft); border: 1px solid var(--line);
-    font: 14px/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere;
-  }
-  .code button {
-    position: absolute; top: 6px; right: 6px; font: 13px var(--font); padding: 4px 10px;
-    background: var(--bg); color: var(--fg); border: 1px solid var(--line); cursor: pointer;
-  }
-  .note { border: 1.5px solid var(--line); padding: 12px 16px; margin: 20px 0; }
-  .note p { margin: 4px 0; }
-  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 12px 0; }
-  .fields label { font-size: 13px; color: var(--muted); display: block; }
-  .fields input {
-    width: 100%; font: 15px var(--font); padding: 6px 8px; margin-top: 2px;
-    background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 0;
-  }
-  .tabs { display: flex; gap: 0; margin: 16px 0 0; }
-  .tabs button {
-    font: 15px var(--font); padding: 6px 16px; cursor: pointer;
-    background: var(--bg); color: var(--fg); border: 1px solid var(--line);
-  }
-  .tabs button + button { border-left: 0; }
-  .tabs button[aria-selected="true"] { background: var(--fg); color: var(--bg); }
-  .tabpanel { border: 1px solid var(--line); border-top: 0; padding: 4px 16px 8px; }
-  .tabpanel[hidden] { display: none; }
-  dl.trouble dt { font-weight: 600; margin-top: 20px; }
-  dl.trouble dd { margin: 4px 0 0; }
-  dl.trouble .ask { display: block; margin-top: 6px; font-size: 15px; }
-  table { border-collapse: collapse; margin: 12px 0; font-size: 15px; }
-  th, td { border: 1px solid var(--line); padding: 4px 12px; text-align: left; }
-  footer { margin-top: 64px; font-size: 14px; color: var(--muted); }
-  #handout { display: none; }
-
-  @media (max-width: 480px) {
-    body { font-size: 16px; }
-    h1 { font-size: 28px; }
-    .code pre { padding: 40px 12px 12px; }
-    ol.steps > li { padding-left: 38px; }
-  }
-
-  /* Print: a one-page checklist handout instead of the full guide. */
-  @media print {
-    @page { size: A4; margin: 12mm 14mm; }
-    :root { --fg: #000; --bg: #fff; --muted: #333; --line: #000; --soft: #fff; }
-    body { font-size: 10pt; line-height: 1.35; }
-    main > *:not(#handout) { display: none !important; }
-    main { max-width: none; padding: 0; }
-    #handout { display: block; }
-    #handout h1 { font-size: 17pt; margin: 0 0 2pt; }
-    #handout h2 { font-size: 11pt; margin: 9pt 0 3pt; padding-top: 4pt; border-top: 1pt solid #000; }
-    #handout p { margin: 2pt 0; max-width: none; }
-    #handout ul { list-style: none; padding: 0; margin: 0; }
-    #handout li { padding-left: 16pt; position: relative; margin: 2.5pt 0; max-width: none; }
-    #handout li::before { content: ""; position: absolute; left: 0; top: 1.5pt; width: 8pt; height: 8pt; border: 1pt solid #000; }
-    #handout code { background: none; padding: 0; font-size: 9pt; }
-    #handout .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14pt; }
-    #handout .blank { display: inline-block; min-width: 110pt; border-bottom: 0.75pt solid #000; }
-  }
-</style>
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
 <main>
 
-<nav class="top" aria-label="Site">
-  <a href="../">Weather Commons sketches</a>
-  <a href="#route-a">Route A: browser</a>
-  <a href="#route-b">Route B: desktop</a>
-  <a href="#share">Share with the group</a>
-  <a href="#trouble">Troubleshooting</a>
-</nav>
+<header class="site-header">
+  <a class="wordmark" href="../">Weather Commons</a>
+  <nav aria-label="Site">
+    <a href="../">Sketches</a>
+    <a href="../guide/" aria-current="page">Guide</a>
+    <a href="../catalog/">Catalog</a>
+    <a href="https://github.com/RealtimeUrbanismLab/weather-commons/blob/main/CONTRIBUTING.md">Contribute</a>
+    <a href="https://community.ocean-archive.org/spaces/25478985">Community</a>
+  </nav>
+</header>
 
 <h1>Setup guide</h1>
-<p class="lede">Get your own copy of the Weather Commons sketches and put your first page on the web. Realtime Weather working group, TBA21 UNI, Mondays 2–23 November 2026.</p>
+<p class="lede">Get your own copy of the Weather Commons sketches and put your first page on the web. Realtime Weather working group, Mondays, 2–23 November 2026.</p>
+<ul class="toc" aria-label="On this page">
+  <li><a href="#route-a">Route A: browser</a></li>
+  <li><a href="#route-b">Route B: desktop</a></li>
+  <li><a href="#share">Add to the shared site</a></li>
+  <li><a href="#trouble">Troubleshooting</a></li>
+</ul>
 <p>There are two ways to work. <strong>Route A</strong> uses only a web browser. Use it today. <strong>Route B</strong> installs a few tools on your laptop, for later sessions. Both end with a page you can open on any phone.</p>
 
 <div class="note">
   <p><strong>Before you start</strong></p>
   <p>Ask a facilitator for your <strong>sketch number</strong>. Each breakout room has a block: 10–19, 20–29, 30–39 or 40–49. Your number is yours for the whole workshop. Nobody else uses it.</p>
+  <p>Your sketch is your own project. It can be research you are already doing, or an event from the <a href="../catalog/">catalog</a>.</p>
   <p>You need a Claude plan (you have one) and about 20 minutes.</p>
 </div>
 
@@ -238,14 +156,14 @@
 </ol>
 
 <!-- Sharing -->
-<h2 id="share">Share with the group</h2>
-<p>Your fork is your own site. To add a sketch to the shared site at <a href="../">realtimeurbanismlab.github.io/weather-commons</a>, propose it with a pull request to the group's repository.</p>
+<h2 id="share">Add to the shared site</h2>
+<p>Your fork is your own site. To add a sketch to the shared site at <a href="../">realtimeurbanismlab.github.io/weather-commons</a>, propose it with a pull request to the shared repository.</p>
 <ol class="steps">
   <li>On your fork's page on GitHub, click <strong>Contribute</strong>, then <strong>Open pull request</strong>.</li>
   <li>Check the top line: base is <code>RealtimeUrbanismLab/weather-commons</code>, <code>main</code>. Write two lines about your sketch and click <strong>Create pull request</strong>.</li>
   <li>A facilitator reviews it, may ask for changes, and merges it. Your sketch then appears on the shared site and its index.</li>
 </ol>
-<p>Group sketches for the shared site start in session 2.</p>
+<p>Projects start going on the shared site from session 2.</p>
 
 <div class="note" id="public">
   <p><strong>This is public.</strong> The repository and both sites can be read by anyone. Your name and GitHub username show on your sketch and in its history. Nothing goes on the shared site until you open a pull request and it is merged: that is how you say yes. If you would rather use a pseudonym, use it for both your GitHub username and the <code>--author</code> name.</p>
@@ -281,7 +199,7 @@
     <span class="ask">Stuck? Ask in the community space: <a href="https://community.ocean-archive.org/spaces/25478985">https://community.ocean-archive.org/spaces/25478985</a></span></dd>
 
   <dt>The pull request went to RealtimeUrbanismLab instead of my fork.</dt>
-  <dd>GitHub often suggests the group's repository first. No harm done: close that pull request with a short note, then open a new one with base <code>&lt;your username&gt;/weather-commons</code>.
+  <dd>GitHub often suggests the shared repository first. No harm done: close that pull request with a short note, then open a new one with base <code>&lt;your username&gt;/weather-commons</code>.
     <span class="ask">Stuck? Ask in the community space: <a href="https://community.ocean-archive.org/spaces/25478985">https://community.ocean-archive.org/spaces/25478985</a></span></dd>
 
   <dt>The terminal says “command not found” or “is not recognized”.</dt>
@@ -289,9 +207,10 @@
     <span class="ask">Stuck? Ask in the community space: <a href="https://community.ocean-archive.org/spaces/25478985">https://community.ocean-archive.org/spaces/25478985</a></span></dd>
 </dl>
 
-<footer>
-  <p>Weather Commons, Realtime Urbanism Lab with TBA21 UNI. Facilitators: Farzin Lotfi-Jam and Boone Mercado. Print this page for a one-page checklist.</p>
-  <p><a href="../">All sketches</a> · <a href="https://github.com/RealtimeUrbanismLab/weather-commons">Repository</a> · <a href="https://community.ocean-archive.org/spaces/25478985">Community space</a></p>
+<footer class="site-footer">
+  <p>Realtime Weather working group · Realtime Urbanism Lab, Cornell AAP, with TBA21–Academy UNI · Mondays, 2–23 November 2026</p>
+  <p>Print this page for a one-page checklist.</p>
+  <p><a href="../">Sketches</a> · <a href="https://github.com/RealtimeUrbanismLab/weather-commons">Code</a> · <a href="https://community.ocean-archive.org/spaces/25478985">Community space</a></p>
 </footer>
 
 <!-- Printed handout: hidden on screen, shown instead of the guide when printed. -->
@@ -330,7 +249,7 @@
     </ul>
   </div>
 
-  <h2>Share with the group</h2>
+  <h2>Add to the shared site</h2>
   <ul>
     <li>Your fork on GitHub → <b>Contribute → Open pull request</b>, base RealtimeUrbanismLab/weather-commons. A facilitator reviews and merges.</li>
   </ul>

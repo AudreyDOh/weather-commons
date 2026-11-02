@@ -1,6 +1,6 @@
 # Contributing
 
-Each sketch is one idea in its own folder, `sketches/NN-name/`, with a web page, a README and a NOTES file. This page explains how to add one and keep it in good shape. To get set up first, follow the [setup guide](https://realtimeurbanismlab.github.io/weather-commons/guide/).
+Each sketch is one person's project in its own folder, `sketches/NN-name/`, with a web page, a README and a NOTES file. It can grow out of research you're already doing. This page explains how to add one and keep it in good shape. To get set up first, follow the [setup guide](https://realtimeurbanismlab.github.io/weather-commons/guide/).
 
 The repository is public: anyone can read everything in it, including its history. Box is private to the lab.
 
@@ -12,7 +12,7 @@ The repository is public: anyone can read everything in it, including its histor
    node scripts/new-sketch.mjs "Hail cannons in Mendoza" --number 12 --author "Your Name"
    ```
 3. **Publish it to your own copy.** Ask Claude to "publish", or commit, push and merge into your fork's `main`. It goes live about a minute later.
-4. **Share it with the group.** Open a pull request from your fork to `RealtimeUrbanismLab/weather-commons` and fill in the checklist. A facilitator reviews it. Once merged, it appears on the shared site.
+4. **Add it to the shared site.** Open a pull request from your fork to `RealtimeUrbanismLab/weather-commons` and fill in the checklist. A facilitator reviews it. Once merged, it appears on the shared site.
 
 A pull request should change only your own sketch folder. For changes to shared files (`scripts/`, the root READMEs, `.github/`), talk to a facilitator first.
 
@@ -39,7 +39,7 @@ One or two sentences: what it shows and the question it asks. The first sentence
 
 Then follow the four parts: **Event, Simulate, Situate, Narrate**. Finish with **Sources and limits**: for each dataset, who made it, its date, its licence, what you changed, and whether it is observed, reanalysed, modelled, synthetic or interpretive. Say what the sketch cannot show. The template already has these headings.
 
-Status is one of `sketch`, `pilot`, `v0.2` and so on, or `retired`. Add `Publish: no` to the header line to keep a sketch off the website.
+Status is one of `sketch`, `pilot`, `v0.2` and so on, or `retired`. Add `Publish: no` to the header line to keep a sketch off the shared site.
 
 ## 4. Notes between sessions
 
@@ -79,10 +79,10 @@ Not in the lab? Keep big files out of the repository and link to where they live
 ## 7. Commits and checks
 
 - Commit messages start with the sketch number: `12: add rainfall layer`. Changes to shared files start with `repo:` and go through a pull request.
-- Before pushing, run `node scripts/check-sketches.mjs` and `node scripts/check-sizes.mjs`, plus the sketch's own checks (for 01: `pnpm check`, `pnpm lint`, `pnpm build`). GitHub runs the same checks on every pull request, and builds the website to check it still works.
+- Before pushing, run `node scripts/check-sketches.mjs` and `node scripts/check-sizes.mjs`, plus the sketch's own checks (for 01: `pnpm check`, `pnpm lint`, `pnpm build`). GitHub runs the same checks on every pull request, and builds the site to check it still works.
 - On Windows, Git may change line endings. For data with recorded checksums, mark it `-text` in a `.gitattributes` in the sketch (see sketch 01's).
 
-## 8. The website
+## 8. The shared site
 
 Every push to `main` that changes a sketch rebuilds the site with `scripts/build-pages.mjs`.
 
@@ -91,6 +91,30 @@ Every push to `main` that changes a sketch rebuilds the site with `scripts/build
 - Pages live under a sub-folder, so load files with relative paths (`data/x.json`), not paths starting with `/`. `check-sketches` warns about these.
 - To check before pushing: `node scripts/build-pages.mjs --out _preview/weather-commons`, then `python -m http.server 8090 -d _preview` and open http://localhost:8090/weather-commons/.
 
-## 9. Retiring a sketch
+## 9. Writing and look
+
+Every page, guide and README in this repository should look and sound the same.
+
+**Writing**
+- Plain, natural language. Short sentences. Say it once.
+- Explain any technical word in a few words the first time, or leave it out.
+- Address the reader as "you".
+- Use the same names everywhere:
+  - **sketch:** one person's project and its page;
+  - **the shared site:** realtimeurbanismlab.github.io/weather-commons;
+  - **your own copy:** your fork and its site;
+  - **the setup guide, the catalog, the community space.**
+- The four parts are always **Event, Simulate, Situate, Narrate**, in that order.
+- Always say what kind of material something is: observed, reanalysed, modelled, synthetic or interpretive.
+
+**Look**
+- Black and white, system fonts, light and dark.
+- No colour except the source colours of scientific imagery.
+- Pages use `site/style.css` (new sketches get their own copy) and the same header: the **Weather Commons** wordmark, then Sketches, Guide and Catalog.
+- Section headings are small capitals with a rule above.
+- Images are greyscale on the front page.
+- Sketches 01 and 02 keep their own designs.
+
+## 10. Retiring a sketch
 
 Leave it in place, set `Status: retired` in its README header, and say in the README what replaced it. Its Box folder stays.

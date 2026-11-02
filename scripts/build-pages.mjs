@@ -72,71 +72,53 @@ function builder(name, dir) {
 }
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-function landing(sketches, pages) {
+function landing(sketches) {
   const repoUrl = `https://github.com/${REPO_NAME}`;
   const cards = sketches.map((s) => {
     const cover = ['cover.jpg', 'cover.png'].find((f) => fs.existsSync(path.join(SKETCHES, s.name, f)));
-    return `    <li>
-      <a class="card" href="${esc(s.name)}/">
-        ${cover ? `<img src="${esc(s.name)}/${cover}" alt="" loading="lazy">` : ''}
-        <span class="nn">${esc(s.nn)}</span>
-        <span class="title">${esc(s.title)}</span>
-        <span class="summary">${esc(s.summary)}</span>
-      </a>
-      <p class="meta">${esc(s.author)} · ${esc(s.status)} · <a href="${repoUrl}/tree/main/sketches/${esc(s.name)}">code and sources</a></p>
-    </li>`;
+    return `  <li>
+    <a class="card" href="${esc(s.name)}/">
+      ${cover ? `<img src="${esc(s.name)}/${cover}" alt="" loading="lazy">` : ''}
+      <span class="nn">${esc(s.nn)}</span>
+      <span class="title">${esc(s.title)}</span>
+      <span class="summary">${esc(s.summary)}</span>
+    </a>
+    <p class="meta">${esc(s.author)} · ${esc(s.status)} · <a href="${repoUrl}/tree/main/sketches/${esc(s.name)}">code and sources</a></p>
+  </li>`;
   }).join('\n');
-  const nav = [
-    pages.includes('guide') && '<a href="guide/">Setup guide</a>',
-    pages.includes('catalog') && '<a href="catalog/">Catalog</a>',
-    `<a href="${repoUrl}/blob/main/CONTRIBUTING.md">Contribute</a>`,
-    `<a href="${COMMUNITY}">Community</a>`,
-  ].filter(Boolean).join('\n    ');
-  const fork = IS_FORK ? `\n  <p class="note">This is ${esc(REPO_NAME.split('/')[0])}'s copy. The shared site is at <a href="${SHARED_SITE}">${SHARED_SITE.replace('https://', '')}</a>.</p>` : '';
+  const fork = IS_FORK ? `\n<p class="note">This is ${esc(REPO_NAME.split('/')[0])}'s own copy. The shared site is at <a href="${SHARED_SITE}">${SHARED_SITE.replace('https://', '')}</a>.</p>` : '';
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weather Commons</title>
-<style>
-  :root { color-scheme: light dark; --bg: #fff; --fg: #000; --muted: #666; --line: #000; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #000; --fg: #fff; --muted: #999; --line: #fff; } }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
-  main { max-width: 64rem; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
-  header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 1rem; border-bottom: 1px solid var(--line); padding-bottom: 1rem; }
-  h1 { font-size: 2rem; font-weight: 600; letter-spacing: -.02em; margin: 0; text-transform: uppercase; }
-  nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
-  a { color: inherit; }
-  nav a { text-decoration: none; text-transform: uppercase; font-size: .8125rem; letter-spacing: .04em; }
-  nav a:hover { text-decoration: underline; }
-  .intro { max-width: 40rem; margin: 1.5rem 0 0; }
-  .note { border: 1px solid var(--line); padding: .5rem .75rem; margin: 1.5rem 0 0; font-size: .875rem; }
-  ul { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 2rem 1.5rem; }
-  .card { display: flex; flex-direction: column; gap: .25rem; text-decoration: none; border-top: 1px solid var(--line); padding-top: .75rem; }
-  .card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; filter: grayscale(1); margin-bottom: .5rem; }
-  .card:hover .title { text-decoration: underline; }
-  .nn { font-size: .8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .title { font-size: 1.25rem; font-weight: 600; line-height: 1.25; }
-  .summary { font-size: .9375rem; }
-  .meta { margin: .5rem 0 0; font-size: .8125rem; color: var(--muted); }
-  footer { margin-top: 4rem; border-top: 1px solid var(--line); padding-top: 1rem; font-size: .8125rem; color: var(--muted); }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-  <header>
-    <h1>Weather Commons</h1>
-    <nav>
-    ${nav}
-    </nav>
-  </header>
-  <p class="intro">Sketches from the Realtime Weather working group (Realtime Urbanism Lab, Cornell AAP, with TBA21–Academy UNI). How is weather monitored, modelled, managed and shown in real time, and who has the right to change it?</p>${fork}
-  <ul>
+<main class="wide">
+<header class="site-header">
+  <a class="wordmark" href="./">Weather Commons</a>
+  <nav aria-label="Site">
+    <a href="./" aria-current="page">Sketches</a>
+    <a href="guide/">Guide</a>
+    <a href="catalog/">Catalog</a>
+    <a href="${repoUrl}/blob/main/CONTRIBUTING.md">Contribute</a>
+    <a href="${COMMUNITY}">Community</a>
+  </nav>
+</header>
+
+<h1>Sketches</h1>
+<p class="lede">How is weather monitored, modelled, managed and shown in real time, and who has the right to change it? Each sketch is one person's project: a small web page about one event, practice or intervention.</p>${fork}
+<ul class="cards">
 ${cards}
-  </ul>
-  <footer>Each sketch says where its data comes from and which parts are observed, modelled, synthetic or interpretive. Code: <a href="${repoUrl}">${esc(REPO_NAME)}</a></footer>
+</ul>
+
+<footer class="site-footer">
+  <p>Realtime Weather working group · Realtime Urbanism Lab, Cornell AAP, with TBA21–Academy UNI · Mondays, 2–23 November 2026</p>
+  <p>Each sketch says where its data comes from and which parts are observed, modelled, synthetic or interpretive.</p>
+  <p><a href="${repoUrl}">Code</a> · <a href="${COMMUNITY}">Community space</a></p>
+</footer>
 </main>
 </body>
 </html>
@@ -160,6 +142,7 @@ for (const name of names) {
 }
 const pages = SITE_PAGES.filter((p) => fs.existsSync(path.join(REPO, p, 'index.html')));
 for (const p of pages) copy(path.join(REPO, p), path.join(OUT, p));
-fs.writeFileSync(path.join(OUT, 'index.html'), landing(built, pages));
+copy(path.join(REPO, 'site', 'style.css'), path.join(OUT, 'style.css'));
+fs.writeFileSync(path.join(OUT, 'index.html'), landing(built));
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');
 console.log(`\nSite in ${path.relative(REPO, OUT)}/ for ${BASE || '/'}: ${[...built.map((s) => s.name), ...pages].join(', ')}`);

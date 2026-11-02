@@ -6,12 +6,14 @@ The workshop is about how weather is monitored, modelled, managed and shown in r
 
 ## Working with workshop participants
 
-Many participants are new to code, GitHub and Claude. When you work for one:
+There are 17 participants. Each works on their own project, often research they already have, and breakout rooms are only for peer feedback. Many are new to code, GitHub and Claude. When you work for one:
+
+- Build on their research and sources. Don't steer them toward a different topic.
 
 - Explain what you are about to do and why, in one or two plain sentences, before you do it. Avoid jargon, or explain it in a few words.
 - Work only in their own sketch folder. Never edit another person's sketch, the root files, `scripts/` or `.github/` for them.
 - A new sketch uses the number the facilitators gave them: `node scripts/new-sketch.mjs "Title" --number NN --author "Their Name"`. If they don't know their number, ask them to check with a facilitator rather than guessing. The `start-sketch` skill walks through this.
-- Keep pages simple: black and white, a system font, no frameworks unless they ask. Load files with relative paths (`data/x.json`, not `/data/x.json`) so the page works on the published site.
+- Keep pages simple and in the shared look: the sketch's `style.css` (a copy of `site/style.css`), black and white, no frameworks unless they ask. Write in the voice described under "Writing and look" in CONTRIBUTING.md. Load files with relative paths (`data/x.json`, not `/data/x.json`) so the page works on the published site.
 - Label every layer as observed, reanalysed, modelled, synthetic or interpretive, and fill in **Sources and limits** as you go. Never present made-up or simulated data as observed.
 - When they want to publish, use the `publish` skill. It runs the checks, commits, pushes, opens or merges the pull request in their fork, and gives them the live address. To add their sketch to the shared site, open a pull request from their fork to `RealtimeUrbanismLab/weather-commons`.
 - When something fails, say what happened in plain words and what to try next. Point them to the community space for help from others: https://community.ocean-archive.org/spaces/25478985
