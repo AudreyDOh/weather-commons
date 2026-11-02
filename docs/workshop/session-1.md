@@ -11,8 +11,41 @@ Have these open before you start:
 
 ## Before the session
 
-- **Rehearse Tech Demo 1** end to end with a second GitHub account, and time it. Record the screen as a fallback in case the live demo stalls.
-- **Post a welcome thread** in the community space with the three links above, and ask everyone to post their live page there.
+- **Rehearse Tech Demo 1** (see below) and record the screen as a fallback in case the live demo stalls.
+- **Prepare your demo fork:** fork it, and turn on Actions and Pages ahead of time, so the live demo starts at the Claude step.
+- **Post a welcome thread** in the community space with the three links above. Ask everyone to:
+  - make a GitHub account;
+  - check that claude.ai/code opens for them before the session;
+  - post their live page in the thread once it's up.
+
+### Rehearsal (about 15 minutes)
+
+Use an account that doesn't own the repository, such as Boone's or a spare one, so it behaves like a participant's.
+
+1. Open a private browser window and sign in as the test account.
+2. Fork `RealtimeUrbanismLab/weather-commons`. In the fork:
+   - **Actions** → enable workflows;
+   - **Settings → Pages → Source: GitHub Actions**.
+3. Open claude.ai/code. Connect GitHub and give the Claude app access to the fork only.
+4. Paste the first-page prompt from the setup guide, with number 09. Time how long Claude takes.
+5. Check that the pull request's base is the fork, not `RealtimeUrbanismLab`. Merge it, then watch the "pages" job under **Actions**.
+6. Open `https://<account>.github.io/weather-commons/09-…/` once the job has a green tick.
+7. Open a pull request from the fork to `RealtimeUrbanismLab/weather-commons`. Check that the checks run and that you can review it, then close it without merging.
+8. Note how long each step took, and anything that confused you.
+
+### What can go wrong
+
+| Risk | What happens | How to avoid it |
+| --- | --- | --- |
+| Actions are off in the fork (the most common) | Nothing deploys after merging | Turn on Actions straight after forking |
+| Pages source not set | The "deploy" step fails | **Settings → Pages → Source: GitHub Actions**, then re-run the job |
+| The pull request goes to the shared repository | GitHub suggests it first; the page doesn't go live | Close it and open one with base `<username>/weather-commons`. Branch protection stops accidental merges into the shared repository |
+| The Claude app can't see the fork | Claude can't open or push to the repository | GitHub → **Settings → Applications → Claude** → add the fork |
+| claude.ai/code is switched off | Some institutional Team or Enterprise plans disable it | Ask people to open claude.ai/code before the session |
+| Brand-new GitHub account | Email check, or a delay from spam protection | Make accounts the day before |
+| A repository called `weather-commons` already exists | The fork is named `weather-commons-1`, and the address ends `/weather-commons-1/` | The build handles it. Tell them to use that address |
+| The first deploy takes 1–2 minutes | The page shows 404 and people think it failed | Wait for the green tick under **Actions**, then reload |
+| 17 people on one connection while you share your screen | Slow pages and stalled demos | Keep the recording ready |
 - **Decide the breakout rooms:** 17 people in four rooms of four or five, for peer feedback. Everyone works on their own project. Give out sketch numbers by room: room 1 gets 10–19, room 2 gets 20–29, and so on.
 
 ## Part 1: Intro (60 minutes)
