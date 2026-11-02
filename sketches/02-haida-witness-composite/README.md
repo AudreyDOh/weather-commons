@@ -49,4 +49,4 @@ NASA EOSDIS GIBS / Worldview, MODIS Aqua, public domain. Frame 49–58° N, 145�
 
 The simulation is illustrative. The eddies are placed as the Haida eddies of 2012 and turn clockwise; growth and grazing are tuned by eye. The simulated bloom peaks near 40,000 km² against the ~10,000 km² reported, which still needs calibration. Carbon export is fixed at 12 % of grazed carbon. Nothing here attributes salmon returns or any other outcome to the release.
 
-Links in the header point to the geoengineering catalog and the five-technique model, both private claude.ai artifacts for now, so visitors to the public page cannot open them.
+Links in the header open two public claude.ai artifacts: the [catalog record](https://claude.ai/artifact/LvBx1zj9JR3qQJnSYdqLFL#s5329) for the Haida Gwaii release in the geoengineering catalog, and the [five-technique model](https://claude.ai/artifact/XAnQrNmp8KGmhmHCP2Jbq6).
