@@ -14,7 +14,7 @@ const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SKETCHES = path.join(REPO, 'sketches');
 const START = '<!-- sketches:start -->', END = '<!-- sketches:end -->';
 
-function read(name) {
+export function read(name) {
   const f = path.join(SKETCHES, name, 'README.md');
   const md = fs.existsSync(f) ? fs.readFileSync(f, 'utf8').replace(/\r\n/g, '\n') : '';
   const lines = md.split('\n');
