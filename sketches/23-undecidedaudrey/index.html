@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>23 · undecidedaudrey · Realtime Weather</title>
+<meta name="description" content="Audrey Doh’s first Realtime Weather sketch. Topic selection in progress, with a clearly labelled synthetic wind example.">
+<!-- style.css is the shared Realtime Weather look, copied into this folder. Add your own styles below it. -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<header class="site-header">
+  <div class="brand"><a class="wordmark" href="../">Realtime Weather</a><span class="tagline">Part of <a href="https://tba21.org/uni_weathercommons">Weather Commons</a>, TBA21–Academy UNI</span></div>
+  <nav aria-label="Site">
+    <a href="../">Sketches</a>
+    <a href="../guide/">Guide</a>
+    <a href="../catalog/">Catalog</a>
+    <a href="https://github.com/RealtimeUrbanismLab/weather-commons/blob/main/CONTRIBUTING.md">Contribute</a>
+    <a href="https://community.ocean-archive.org/spaces/25478985">Community</a>
+  </nav>
+</header>
+
+<h1>undecidedaudrey</h1>
+
+<p class="lede">A first sketch by Audrey Doh. The weather event and research question are still being chosen.</p>
+<p class="muted small">23 · Audrey Doh · started 2026-11-02 · topic undecided</p>
+
+<h2>Event</h2>
+<p class="question">Working question: which weather event, practice or intervention will this sketch examine, and what can its sources show?</p>
+<p>The case, place and period are not selected yet. This page records the starting point for the workshop.</p>
+
+<!-- 2. Simulate: a first model. This placeholder shows dots drifting in one steady wind. -->
+<h2>Simulate</h2>
+<canvas id="view" width="1200" height="600" role="img" aria-label="Synthetic particle motion: an invented steady flow with random spread. This is not observed weather.">Synthetic particles drift across an unlocated field. No observed weather data is used.</canvas>
+<p class="label">Synthetic: an invented flow toward the east with a small northward component. Not observed weather data.</p>
+
+<!-- 3. Situate: where, when, who. Add a map, places, institutions, dates. -->
+<h2>Situate</h2>
+<p>No location or date is assigned to the animation. After a case is chosen, this section will connect it to three to five relevant places or institutions.</p>
+
+<!-- 4. Narrate: the story in a few sentences, and what the model cannot show. -->
+<h2>Narrate</h2>
+<p>This is a preparation page, not a completed case study. You can see how a simple movement rule becomes an image. The next step is to choose a case and gather sources before making claims about weather or its effects.</p>
+
+<h2>Sources and limits</h2>
+<ul>
+  <li><strong>Synthetic model:</strong> the <a href="https://github.com/RealtimeUrbanismLab/weather-commons/tree/main/sketches/_template">Realtime Weather starter template</a>, Realtime Urbanism Lab, copied on 2 November 2026. The code is MIT-licensed; original text is CC BY 4.0. No external weather dataset is loaded.</li>
+  <li><strong>Rule:</strong> 1,500 particles move 1.2 pixels east and 0.2 pixels north per animation frame, plus random spread of up to 0.3 pixels per axis. Particles wrap around the canvas edges. These are screen units, not metres or real elapsed time.</li>
+  <li><strong>Changes:</strong> the working title, author, research status and explanatory text were added. The template’s movement rule is unchanged.</li>
+  <li><strong>Research sources:</strong> to be selected after the case is chosen. Their dates, licences and limitations will be recorded here.</li>
+</ul>
+<p><strong>What this sketch cannot show:</strong> weather at any real place or time, the effect of an intervention, or impacts on people or ecosystems. The animation is an illustrative placeholder.</p>
+
+<footer class="site-footer">
+  <p>undecidedaudrey · Audrey Doh · Realtime Weather working group, Weather Commons</p>
+</footer>
+</main>
+<script>
+  // A tiny simulation: dots carried by a steady wind, with a little random spread.
+  // Replace it with your own model. Load your own files with relative paths, e.g. fetch('data/my-file.json').
+  const canvas = document.getElementById('view');
+  const ctx = canvas.getContext('2d');
+  const ink = getComputedStyle(document.body).color;           // black, or white in dark mode
+  const paper = getComputedStyle(document.body).backgroundColor;
+  const wind = { east: 1.2, north: 0.2 }; // pixels per frame (synthetic)
+  const spread = 0.6;                      // random wobble per frame
+  const dots = Array.from({ length: 1500 }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height }));
+
+  function step() {
+    ctx.globalAlpha = 0.15;                // fade old positions into trails
+    ctx.fillStyle = paper;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = ink;
+    for (const d of dots) {
+      d.x = (d.x + wind.east + (Math.random() - 0.5) * spread + canvas.width) % canvas.width;
+      d.y = (d.y - wind.north + (Math.random() - 0.5) * spread + canvas.height) % canvas.height;
+      ctx.fillRect(d.x, d.y, 2, 2);
+    }
+    requestAnimationFrame(step);
+  }
+  step();
+</script>
+</body>
+</html>
