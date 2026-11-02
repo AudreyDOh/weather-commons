@@ -1,6 +1,6 @@
 # Exercises with the pilot
 
-How the workshop runs (the four parts Event, Simulate, Situate, Narrate, plus roles and vocabulary) is in [docs/workshop/README.md](../../../docs/workshop/README.md). This page holds exercises that use this pilot. Open it at https://realtimeurbanismlab.github.io/weather-commons/01-realtime-weather-pilot/.
+How the workshop runs (the four parts Event, Simulate, Situate, Narrate, peer feedback and vocabulary) is in [docs/workshop/README.md](../../../docs/workshop/README.md). This page holds exercises that use this pilot. Open it at https://realtimeurbanismlab.github.io/weather-commons/01-realtime-weather-pilot/.
 
 Start a session by comparing three things side by side: a real observation, a model product and a made-up teaching field.
 
@@ -14,7 +14,7 @@ Use **Explore**. Change one thing at a time, and keep a short list of claims and
 4. **Built fabric.** Inspect three buildings. Find a height taken from tags and, if the sample has one, an assumed height. How do an outline, an aerial photo and a height rule become a model of architecture? Note the mismatch in source dates and the flat ground level.
 5. **Transport and history.** Open **Read**, then **Conditions**. Change one setting and run again with the same seed. Pair a calculated difference with a claim from the archive, then write down the evidence that would be needed to connect them. Never treat simulated nearness as proof that weather modification worked or caused harm.
 
-For the final presentation, ask each group for:
+For the final presentation, ask each participant for:
 - one inspected record;
 - one diagram of how the data was transformed;
 - one rerun with a changed setting;
@@ -42,12 +42,12 @@ Start at the globe and approach **Regional terrain / Rainier**.
 - **Tell apart** detail in the photograph, detail in the geometry, a sampled source height, and the hidden seams between tiles.
 - **Ask:** which claims still hold when the scale changes?
 
-Groups can split the work:
-- one documents how the 3DEP elevation data was produced;
-- one reads the NAIP imagery catalogue and its varying dates;
-- one explains how tiling, memory limits and camera position decide what you see.
+Pick one angle to follow up:
+- how the 3DEP elevation data was produced;
+- the NAIP imagery catalogue and its varying dates;
+- how tiling, memory limits and camera position decide what you see.
 
-Each group records:
+Record:
 - the coverage;
 - the acquisition dates;
 - the horizontal and vertical reference;
