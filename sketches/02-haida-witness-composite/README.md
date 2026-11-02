@@ -6,6 +6,10 @@ A layered model of the 2012 Haida Gwaii iron dump. The Haida Salmon Restoration 
 
 ## Run
 
+Online: https://realtimeurbanismlab.github.io/weather-commons/02-haida-witness-composite/
+
+Locally:
+
 ```bash
 cd sketches/02-haida-witness-composite
 python -m http.server 8000      # or: npx serve .
@@ -13,7 +17,7 @@ python -m http.server 8000      # or: npx serve .
 
 Open http://localhost:8000. Opening `index.html` as a `file://` page will not work, because the page fetches `cal/index.json`.
 
-Optional: from the repository root, `node scripts/assets.mjs pull 02 --all` copies the raw downloads and fonts from Box into `assets/` (see [assets.json](assets.json)). The page runs without them.
+Optional, for lab members with Box: from the repository root, `node scripts/assets.mjs pull 02 --all` copies the raw downloads and fonts from Box into `assets/` (see [assets.json](assets.json)). The page runs without them, falling back from ABC Diatype to Helvetica/Arial. The online copy never includes them.
 
 ## What is on screen
 
@@ -45,4 +49,4 @@ NASA EOSDIS GIBS / Worldview, MODIS Aqua, public domain. Frame 49–58° N, 145�
 
 The simulation is illustrative. The eddies are placed as the Haida eddies of 2012 and turn clockwise; growth and grazing are tuned by eye. The simulated bloom peaks near 40,000 km² against the ~10,000 km² reported, which still needs calibration. Carbon export is fixed at 12 % of grazed carbon. Nothing here attributes salmon returns or any other outcome to the release.
 
-Links in the header point to the geoengineering catalog and the five-technique model, both private claude.ai artifacts for now.
+Links in the header point to the geoengineering catalog and the five-technique model, both private claude.ai artifacts for now, so visitors to the public page cannot open them.
