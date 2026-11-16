@@ -1,0 +1,129 @@
+{
+ "about": "January-February ERA5 snowfall total (cm) in the cell over Daegwallyeong, per winter. Reanalysed, not observed.",
+ "years": [
+  {
+   "year": 1980,
+   "snow": 26.5
+  },
+  {
+   "year": 1981,
+   "snow": 36.0
+  },
+  {
+   "year": 1982,
+   "snow": 39.9
+  },
+  {
+   "year": 1983,
+   "snow": 42.2
+  },
+  {
+   "year": 1984,
+   "snow": 38.4
+  },
+  {
+   "year": 1985,
+   "snow": 42.2
+  },
+  {
+   "year": 1986,
+   "snow": 47.3
+  },
+  {
+   "year": 1987,
+   "snow": 83.6
+  },
+  {
+   "year": 1988,
+   "snow": 42.6
+  },
+  {
+   "year": 1989,
+   "snow": 89.6
+  },
+  {
+   "year": 1990,
+   "snow": 83.2
+  },
+  {
+   "year": 1991,
+   "snow": 47.5
+  },
+  {
+   "year": 1992,
+   "snow": 44.3
+  },
+  {
+   "year": 1993,
+   "snow": 106.8
+  },
+  {
+   "year": 1994,
+   "snow": 51.8
+  },
+  {
+   "year": 1995,
+   "snow": 27.7
+  },
+  {
+   "year": 1996,
+   "snow": 45.8
+  },
+  {
+   "year": 1997,
+   "snow": 30.5
+  },
+  {
+   "year": 1998,
+   "snow": 81.4
+  },
+  {
+   "year": 1999,
+   "snow": 11.0
+  },
+  {
+   "year": 2000,
+   "snow": 47.0
+  },
+  {
+   "year": 2001,
+   "snow": 98.6
+  },
+  {
+   "year": 2002,
+   "snow": 32.7
+  },
+  {
+   "year": 2003,
+   "snow": 81.3
+  },
+  {
+   "year": 2004,
+   "snow": 20.6
+  },
+  {
+   "year": 2005,
+   "snow": 65.3
+  },
+  {
+   "year": 2006,
+   "snow": 48.0
+  },
+  {
+   "year": 2007,
+   "snow": 17.2
+  },
+  {
+   "year": 2008,
+   "snow": 53.3
+  },
+  {
+   "year": 2009,
+   "snow": 14.9
+  },
+  {
+   "year": 2010,
+   "snow": 69.0
+  }
+ ]
+}

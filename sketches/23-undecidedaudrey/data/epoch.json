@@ -1,0 +1,50 @@
+{
+ "about": "Mean daily ERA5 snowfall (cm) from 5 days before to 5 days after each matching day. Dominant 10 m wind from 45-135 degrees, daily mean relative humidity >= 80 %, daily mean temperature <= 0 C, in the ERA5 cell over Daegwallyeong. Reanalysed, not observed.",
+ "offsets": [
+  -5,
+  -4,
+  -3,
+  -2,
+  -1,
+  0,
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "y2006": {
+  "n": 3,
+  "snow": [
+   0.98,
+   0.163,
+   0.443,
+   0.443,
+   1.61,
+   6.72,
+   3.617,
+   0.35,
+   0.303,
+   0.0,
+   0.0
+  ]
+ },
+ "before": {
+  "n": 52,
+  "years": "1980-2005",
+  "snow": [
+   0.844,
+   0.883,
+   1.863,
+   1.956,
+   2.451,
+   7.273,
+   2.911,
+   1.207,
+   1.159,
+   1.19,
+   1.053
+  ]
+ },
+ "winter_mean": 0.885
+}
