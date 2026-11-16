@@ -30,30 +30,35 @@ const y = lat => (FRAME.north - lat) / (FRAME.north - FRAME.south) * H;
 
 const load = name => fetch(`data/${name}.json`).then(r => r.json());
 
-Promise.all([load('terrain'), load('wind-2006'), load('places'), load('candidate-days')])
-  .then(([terrain, wind, places, cand]) => start(terrain, wind, places.places, cand.days))
+Promise.all([load('terrain'), load('wind'), load('places')])
+  .then(([terrain, wind, places]) => start(terrain, wind, places.places))
   .catch(err => { document.getElementById('clock').textContent = 'Could not load the data: ' + err.message; });
 
-function start(terrain, wind, places, days) {
+function start(terrain, wind, places) {
+  const days = wind.days;
   drawBase(terrain, places);
 
   // Wind as u (east) and v (north) components, which can be averaged; directions cannot.
-  const u = wind.speed.map((g, t) => g.map((row, r) => row.map((s, c) => -s * Math.sin(wind.dir[t][r][c] * Math.PI / 180))));
-  const v = wind.speed.map((g, t) => g.map((row, r) => row.map((s, c) => -s * Math.cos(wind.dir[t][r][c] * Math.PI / 180))));
+  // u[day][hour][row][col]
+  const u = days.map(d => d.speed.map((g, t) => g.map((row, r) => row.map((s, c) => -s * Math.sin(d.dir[t][r][c] * Math.PI / 180)))));
+  const v = days.map(d => d.speed.map((g, t) => g.map((row, r) => row.map((s, c) => -s * Math.cos(d.dir[t][r][c] * Math.PI / 180)))));
 
   // Bilinear in space, linear in time, on the 0.25 degree ERA5 grid.
   function windAt(lat, lon, hour) {
+    const U = u[dayIndex], V = v[dayIndex], last = U.length - 1;
     const fr = (lat - wind.lats[0]) / 0.25, fc = (lon - wind.lons[0]) / 0.25;
     const r = Math.max(0, Math.min(3, Math.floor(fr))), c = Math.max(0, Math.min(3, Math.floor(fc)));
     const a = fr - r, b = fc - c;
-    const t0 = Math.max(0, Math.min(wind.times.length - 1, Math.floor(hour)));
-    const t1 = Math.min(wind.times.length - 1, t0 + 1), f = hour - Math.floor(hour);
+    const t0 = Math.max(0, Math.min(last, Math.floor(hour)));
+    const t1 = Math.min(last, t0 + 1), f = hour - Math.floor(hour);
     const at = (g, t) => (g[t][r][c] * (1 - a) * (1 - b) + g[t][r][c + 1] * (1 - a) * b
       + g[t][r + 1][c] * a * (1 - b) + g[t][r + 1][c + 1] * a * b);
-    return [at(u, t0) * (1 - f) + at(u, t1) * f, at(v, t0) * (1 - f) + at(v, t1) * f];
+    return [at(U, t0) * (1 - f) + at(U, t1) * f, at(V, t0) * (1 - f) + at(V, t1) * f];
   }
 
-  const pass = places.find(p => p.id === 'pass');
+  // Where particles start: the pass for the 2006 candidate days, the shrine on the 2025 rite day,
+  // nowhere on the 2025 flight days, because the flight paths are not public.
+  const origins = { pass: [places.find(p => p.id === 'pass'), AREA_KM], shrine: [places.find(p => p.id === 'shrine'), 0.5] };
   const dayButtons = document.getElementById('days');
   const slider = document.getElementById('hour');
   const playButton = document.getElementById('play');
@@ -63,7 +68,7 @@ function start(terrain, wind, places, days) {
   days.forEach((d, i) => {
     const b = document.createElement('button');
     b.type = 'button';
-    b.textContent = new Date(d.date + 'T00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    b.textContent = d.label + ' · ' + new Date(d.date + 'T00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
     b.setAttribute('aria-pressed', i === 0);
     b.onclick = () => { dayIndex = i; hour = 0; reset(); };
     dayButtons.append(b);
@@ -78,15 +83,18 @@ function start(terrain, wind, places, days) {
   }
 
   function release() {
+    const origin = origins[days[dayIndex].release];
+    if (!origin) return;
+    const [at, radius] = origin;
     for (let i = 0; i < RELEASE_PER_FRAME; i++) {
-      const ang = Math.random() * 2 * Math.PI, rad = Math.sqrt(Math.random()) * AREA_KM;
-      dots.push({ lat: pass.lat + rad * Math.sin(ang) / KM_PER_DEG_LAT, lon: pass.lon + rad * Math.cos(ang) / KM_PER_DEG_LON, age: 0 });
+      const ang = Math.random() * 2 * Math.PI, rad = Math.sqrt(Math.random()) * radius;
+      dots.push({ lat: at.lat + rad * Math.sin(ang) / KM_PER_DEG_LAT, lon: at.lon + rad * Math.cos(ang) / KM_PER_DEG_LON, age: 0 });
     }
   }
 
   const tctx = trails.getContext('2d');
   function step() {
-    const t = dayIndex * 24 + hour;
+    const t = hour;
     if (playing) {
       release();
       const spread = () => (Math.random() - 0.5) * 2 * SPREAD_M / 1000;
@@ -118,7 +126,8 @@ function start(terrain, wind, places, days) {
     ctx.drawImage(marks, 0, 0);
 
     const hh = String(Math.floor(hour)).padStart(2, '0'), mm = String(Math.floor(hour % 1 * 60)).padStart(2, '0');
-    clock.textContent = `${days[dayIndex].date}, ${hh}:${mm} Korea time · ${dots.length} particles`;
+    const day = days[dayIndex];
+    clock.textContent = `${day.date}, ${hh}:${mm} Korea time · ` + (day.release ? `${dots.length} particles` : 'wind only: flight paths are not public');
     requestAnimationFrame(step);
   }
 
@@ -207,7 +216,7 @@ function drawBase(terrain, places) {
     m.save(); m.strokeStyle = paper; m.lineWidth = 4; m.lineJoin = 'round'; m.strokeText(t, tx, ty); m.restore();
     m.fillText(t, tx, ty);
   };
-  // Approximate experiment area around the pass.
+  // Approximate 2006 experiment area around the pass.
   const pass = places.find(p => p.id === 'pass');
   m.setLineDash([3, 4]);
   m.beginPath();
@@ -232,7 +241,7 @@ function drawBase(terrain, places) {
     text(label, px0 + (right ? 10 : -10), py0 + (p.id === 'shrine' ? -8 : 5));
   }
   m.textAlign = 'left';
-  text('Experiment area, approximate', x(pass.lon) + 10, y(pass.lat) + 48);
+  text('2006 experiment area, approximate', x(pass.lon) + 10, y(pass.lat) + 48);
 
   // Scale bar, 10 km.
   const bar = 10 / KM_PER_DEG_LON / (FRAME.east - FRAME.west) * W;

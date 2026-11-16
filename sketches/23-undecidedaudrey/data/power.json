@@ -1,0 +1,77 @@
+{
+ "about": "Sample size to tell a seeding effect from chance, from ERA5 daily rain in the cell over Daegwallyeong on days with 1 mm or more, 16 Aug - 15 Sep, 1940-2024. Formula: n per group = 2 (z_alpha + z_beta)^2 (cv / e)^2, one-sided 5 % test, 80 % power. Reanalysed rain, modelled test.",
+ "fetched": "2026-11-16",
+ "days": 1426,
+ "mean_mm": 14.59,
+ "sd_mm": 21.76,
+ "cv": 1.491,
+ "z_alpha": 1.645,
+ "z_beta": 0.842,
+ "needed": [
+  {
+   "effect": 0.01,
+   "n_per_group": 275142
+  },
+  {
+   "effect": 0.02,
+   "n_per_group": 68786
+  },
+  {
+   "effect": 0.03,
+   "n_per_group": 30572
+  },
+  {
+   "effect": 0.05,
+   "n_per_group": 11006
+  },
+  {
+   "effect": 0.1,
+   "n_per_group": 2752
+  },
+  {
+   "effect": 0.15,
+   "n_per_group": 1223
+  },
+  {
+   "effect": 0.2,
+   "n_per_group": 688
+  },
+  {
+   "effect": 0.3,
+   "n_per_group": 306
+  },
+  {
+   "effect": 0.5,
+   "n_per_group": 111
+  }
+ ],
+ "monte_carlo": [
+  {
+   "effect": 0.1,
+   "n_per_group": 2752,
+   "share_detected": 0.79
+  },
+  {
+   "effect": 0.3,
+   "n_per_group": 306,
+   "share_detected": 0.71
+  }
+ ],
+ "trials": [
+  {
+   "label": "2006 ground",
+   "n": 9,
+   "source": "Lee et al. 2009"
+  },
+  {
+   "label": "2025 flights",
+   "n": 10,
+   "source": "SBS, 10 Sep 2025"
+  },
+  {
+   "label": "2008–2018 aircraft",
+   "n": 54,
+   "source": "Cha et al. 2019, Atmosphere 29(4)"
+  }
+ ]
+}

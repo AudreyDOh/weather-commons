@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>23 · Two asks at Daegwallyeong · Realtime Weather</title>
-<meta name="description" content="Cloud seeding for snow at Daegwallyeong in Korea’s Taebaek Mountains, 2006–2010, read beside the mountain-god rites at the same pass. By Audrey Doh.">
+<meta name="description" content="A rain rite and cloud seeding flights at Daegwallyeong in the 2025 drought, and how anyone could tell whether either brought the rain. By Audrey Doh.">
 <!-- style.css is the shared Realtime Weather look, copied into this folder. Add your own styles below it. -->
 <link rel="stylesheet" href="style.css">
 </head>
@@ -23,46 +23,108 @@
 
 <h1>Two asks at Daegwallyeong</h1>
 
-<p class="lede">Snow-making by cloud seeding at Daegwallyeong, in Korea’s Taebaek Mountains, 2006–2010, read beside the mountain-god rites held at the same pass.</p>
+<p class="lede">In the drought of 2025, people asked the sky for rain at Daegwallyeong in two ways: a rite at the mountain-god shrine, and cloud seeding from aircraft. This page asks how anyone could tell whether either one brought the rain.</p>
 <p class="muted small">23 · Audrey Doh · started 2026-11-02 · research in progress</p>
 
+<div class="note">
+  <p><strong>In brief.</strong> Weather cannot be run twice, so no one can prove that a rite or a seeding flight brought the rain.</p>
+  <p><strong>What happened.</strong> In the Gangneung drought of August 2025, a rain rite was held at the Daegwallyeong shrine on 23 August and cloud seeding aircraft flew from 26 August. Heavy rain came three weeks later. The meteorologists said themselves that the rain on their flight days did not come from seeding.</p>
+  <p><strong>What the numbers show.</strong> In late August, a day of 50 mm or more follows within three weeks about half the time, rite or no rite. To tell a 10 % seeding effect from chance would take about 2,750 seeded and 2,750 unseeded rainy days; there have been 1,426 such days in this season since 1940. Seeding is tried when clouds are already raining, and rites are held when a drought is near its end: both act when the sky is already about to change.</p>
+  <p><strong>The approach.</strong> The page puts the rite and the flight into the same formula, which cannot tell them apart. It shows how the weather is measured and where those measurements fall short, and how credit is claimed or declined in Daegwallyeong, Dubai and San Diego.</p>
+  <p class="muted small">Numbers from ERA5 reanalysis for one 25 km cell, and from news reports; see Sources and limits.</p>
+</div>
+
 <h2>Event</h2>
-<p class="question">Working question: how did the Daegwallyeong seeding experiments decide when to seed and whether it worked, and how does that compare with the way the rites at the same pass read the sky?</p>
-<p>In 2006 and from 2008 to 2010, the Korea Meteorological Administration’s research institute ran cloud seeding experiments to increase snowfall in the Taebaek Mountains. The 2006 ground experiment was at Daegwallyeong, a pass above Pyeongchang and Gangneung. According to the Geoengineering Map, there were nine ground-based experiments in early 2006 and 20 from aircraft over the next three winters. They used silver iodide, calcium chloride, aircraft and flare generators.</p>
-<p>Daegwallyeong is also where the Gangneung Danoje festival begins, with rites to the mountain god and the guardian deity of the pass. Both seeding and ritual ask the sky for something, and both face the same hard question: did it happen because of what was done, or would it have happened anyway?</p>
-<p class="label">Interpretive: this comparison is the sketch’s framing. It makes no claim that either the seeding or the rites worked.</p>
+<p class="question">Working question: when rain follows a rite or a seeding flight, how can anyone tell whether it would have fallen anyway?</p>
+<p>In August 2025 Gangneung, on the coast below Daegwallyeong, ran short of water. Its main reservoir fell below a fifth of its capacity, and the city restricted supply. Within a few days of each other, two kinds of request went up to the same sky.</p>
+<ul id="events"></ul>
+<canvas id="rain" width="1200" height="360" role="img" aria-label="Daily rainfall in the ERA5 cell over Daegwallyeong, 1 August to 30 September 2025, with the rain rite on 23 August and seeding flights on 1, 2 and 6 September marked.">Daily ERA5 rainfall, August and September 2025.</canvas>
+<p class="small"><strong>Reanalysed:</strong> bars are daily ERA5 precipitation for one cell about 25 km across that contains the pass and Gangneung. It is not the rain measured in Gangneung or over its reservoir. <strong>From news reports:</strong> the rite (◇) and the flights (▲) are placed by the dates the reports give. The reports name only three of the six flight days.</p>
+<p>The Korea Meteorological Administration said itself that the rain on its flight days did not come from the seeding: it flew on days when rain was already falling. One of its forecasters said the effect on the drought would be “extremely minimal”.</p>
+<p>The same pass has a longer history of asking. In 2006 the administration’s research institute burned silver iodide at Daegwallyeong on nine easterly, foggy days to make more snow (Lee et al. 2009), and flew seeding aircraft over the range from 2008 to 2010.</p>
+<p class="label">Interpretive: setting the rite and the seeding side by side is this sketch’s framing. It makes no claim that either brought rain.</p>
 
-<!-- 2. Simulate: real 2006 wind over Daegwallyeong carries particles from the experiment area. Code in map.js. -->
+<!-- 2. Simulate: real wind over Daegwallyeong carries particles. Code in map.js. -->
 <h2>Simulate</h2>
-<p>Where could the seeding material have gone? This map releases particles from around the pass and lets the 2006 wind carry them. Pick a day, then watch one day of wind play in about 36 seconds.</p>
-<p class="small"><span id="days" class="tabs" aria-label="Candidate day"></span></p>
+<p>Where did the wind go on those days? Pick a day, then watch one day of wind play in about 36 seconds.</p>
+<p class="small"><span id="days" class="tabs" aria-label="Day"></span></p>
 <p class="small"><button type="button" id="play">Pause</button> <label for="hour">Hour</label> <input type="range" id="hour" min="0" max="23" step="1" value="0"> <span id="clock" class="muted"></span></p>
-<canvas id="view" width="1200" height="1000" role="img" aria-label="Map of Daegwallyeong and Gangneung with terrain contours, the shrine, places, hourly wind arrows from ERA5 reanalysis, and modelled particles drifting from the pass.">Map of Daegwallyeong with 2006 wind and modelled particles. It needs JavaScript and a local server.</canvas>
-<p class="small"><strong>Candidate days:</strong> 18, 19 and 31 January 2006 are days whose reanalysed weather matches the conditions described for the experiments (easterly wind, humidity of 80 % or more, below freezing). They are not the confirmed experiment days, which are in the paywalled paper.</p>
-<p class="small"><strong>Reanalysed:</strong> the arrows are hourly 10 m wind from ERA5. ERA5 has one value per cell about 25 km across (dashed lines), so Daegwallyeong and Gangneung share a cell. The arrows between cell centres are interpolated.</p>
-<p class="small"><strong>Modelled:</strong> particles start inside the dashed circle, 3 km around the pass, because the generator site is not public. Each moves with the interpolated wind plus a random spread of up to 60 m per step, and is followed for 3 hours. They do not rise, fall, freeze or follow the terrain. They show where the wind pointed, not where silver iodide went or where snow fell.</p>
+<canvas id="view" width="1200" height="1000" role="img" aria-label="Map of Daegwallyeong and Gangneung with terrain contours, the shrine, places, hourly wind arrows from ERA5 reanalysis, and modelled particles.">Map of Daegwallyeong with reanalysed wind and modelled particles. It needs JavaScript and a local server.</canvas>
+<p class="small"><strong>Reanalysed:</strong> the arrows are hourly 10 m wind from ERA5. ERA5 has one value per cell about 25 km across (dashed lines), so the pass and Gangneung share a cell. The arrows between cell centres are interpolated.</p>
+<p class="small"><strong>Modelled:</strong> on the 2006 days, particles start inside the dashed circle, 3 km around the pass, because the generator site is not public. On the 2025 rite day they start at the shrine: an interpretive choice, showing where anything let go there would drift. On the 2025 flight days there are no particles, because the flight paths are not public. Each particle moves with the interpolated wind plus a random spread of up to 60 m per step, and is followed for 3 hours. Particles do not rise, fall, freeze or follow the terrain. They show where the wind pointed, not where silver iodide went or where rain fell.</p>
+<p class="small"><strong>2006 candidate days:</strong> 18, 19 and 31 January 2006 are days whose reanalysed weather matches the conditions described for the 2006 experiments (easterly wind, humidity of 80 % or more, below freezing). They are not the confirmed experiment days, which are in a paywalled paper.</p>
 <p class="small"><strong>Cartographic:</strong> contours every 200 m from the Copernicus DEM; the thick line is the coast. Places from OpenStreetMap.</p>
-<p class="small"><strong>Interpretive:</strong> the open diamond marks Guksaseonghwangsa and the mountain-god shrine, where the Gangneung Danoje rites begin. Placing it on the same map as the wind is this sketch’s framing, not a claim of any physical link.</p>
+<p class="small"><strong>Interpretive:</strong> the open diamond marks Guksaseonghwangsa and the mountain-god shrine, where the Gangneung Danoje rites begin and where the 2025 rain rite was held. Placing it on the same map as the wind is this sketch’s framing, not a claim of any physical link.</p>
 
-<!-- 3. Situate: where, when, who. Add a map, places, institutions, dates. -->
+<!-- 3. Situate: what would have happened anyway. Code in case.js. -->
 <h2>Situate</h2>
-<p>Places and institutions to research. Only the map entry and the first papers support these so far:</p>
-<ul>
-  <li>Daegwallyeong, where the 2006 ground experiment took place and later flights aimed;</li>
-  <li>the rites to the mountain god and guardian deity at Daegwallyeong, which open the Gangneung Danoje festival;</li>
-  <li>the Korea Meteorological Administration and its research institute;</li>
-  <li>the weather radar and satellites that may have recorded the seeding days.</li>
-</ul>
-<p>The map above places them. The ERA5 cell on the map is wider than the whole stretch from the pass to the coast: any effect of the seeding would sit inside one reanalysis cell.</p>
+<p>To say a rite or a flight made it rain, you would need to know how often rain comes anyway. The table takes every day from 16 to 30 August in the 85 years from 1940 to 2024, when there was no rite, and counts how often rain followed. It does the same for the driest 15 % of those days, as a stand-in for drought.</p>
+<table id="baseline" class="small"></table>
+<p class="small"><strong>Reanalysed:</strong> ERA5 daily precipitation for the same 25 km cell. <strong>Modelled:</strong> the window of days and the drought threshold are choices made for this page. <span id="baseline-note"></span></p>
+<p>Rain followed the 2025 rite, as it follows most late-August days. The table cannot tell the rite’s rain apart from the rain that comes anyway, and neither could the meteorologists for their flights. Seeding is only tried when the clouds are already there, and rites are held when a drought has gone on long enough to be near its end.</p>
 
-<!-- 4. Narrate: the story in a few sentences, and what the model cannot show. -->
+<!-- 4. Narrate: five questions about crediting the sky. Code in narrate.js. -->
 <h2>Narrate</h2>
-<p>This is a working page, not a finished case study. The next step is to read the sources behind the map entry and to find what radar, satellites and ritual records can each show about the same mountains.</p>
+<p>Weather cannot be run twice. There is no second 23 August 2025 without the rite, and no second 1 September without the aircraft. So every claim that an act brought rain is a claim about a day that never happened. Five questions follow from that.</p>
+
+<h3>1. What would count as success?</h3>
+<p>For seeding to have worked, a chain has to hold from the aircraft to the ground. Each link is measured with different instruments, and each can break.</p>
+<table class="small">
+<thead><tr><th>Link</th><th>How it is measured</th><th>Daegwallyeong, 2008–2018</th><th>Gangneung, 2025 (public record)</th></tr></thead>
+<tbody>
+<tr><td>Material released where and when planned</td><td>flight logs, generator records</td><td>aircraft tracks; a diffusion model gives when it should arrive</td><td>10 flights reported; paths not published</td></tr>
+<tr><td>The cloud holds supercooled water that can freeze</td><td>aircraft cloud probes, microwave radiometers</td><td>cloud droplet probes on the research aircraft</td><td>not published</td></tr>
+<tr><td>Ice forms and grows</td><td>aircraft particle probes, radar</td><td>particle probes; about +10 dBZ on aircraft radar in one 2008 case</td><td>not published</td></tr>
+<tr><td>More rain or snow reaches the ground</td><td>gauges, disdrometers, snow boards, radar estimates</td><td>disdrometer, snow depth, micro rain radar, S-band radar</td><td>rain was already falling on the flight days</td></tr>
+<tr><td>The extra is more than would have fallen anyway</td><td>randomised or target-and-control statistics; model runs with and without seeding</td><td>model runs with and without seeding; “probability of a seeding effect” rose from 43 % to 63 %, with the rise shown in 2018 only</td><td>the meteorologists declined to credit the flights</td></tr>
+</tbody></table>
+<p class="small">Sources: Cha et al. 2019 for 2008–2018; SBS, 10 September 2025 for 2025. The 2019 authors write that a meaningful statistical tendency needs many experiments over several years. Public claims since then, such as effectiveness “increasing more than 20 % from 2020 to 2023” (Ministry of Culture, Sports and Tourism, 2024), do not say how it was measured.</p>
+
+<h3>2. How is the weather measured?</h3>
+<p>Much of the evidence is radar. A radar does not measure rain. It measures how much of its pulse comes back, the reflectivity Z, and converts it to a rain rate R with a rule of the form <strong>Z = a R<sup>b</sup></strong>. The numbers a and b assume how big the drops are, and differ between rain and snow and between storms. So “+10 dBZ after seeding” means different amounts of rain depending on the rule chosen.</p>
+<p class="small"><label for="zr-base">Reflectivity before seeding</label> <input type="range" id="zr-base" min="0" max="45" step="1" value="20"> <span id="zr-base-out"></span> · <label for="zr-delta">Change</label> <input type="range" id="zr-delta" min="0" max="15" step="1" value="10"> <span id="zr-delta-out"></span></p>
+<table id="zr-table" class="small"></table>
+<p class="small"><strong>Modelled:</strong> textbook relations (Marshall and Palmer 1948; the US NEXRAD default, Fulton et al. 1998; Gunn and Marshall 1958 for snow). Radar beams over Daegwallyeong are also partly blocked by the mountains, and the instruments see different sizes of the world: a gauge is one point, a radar pixel is roughly a kilometre, the ERA5 cell on this page is 25 km, and the particles on the map travel about 20 km in three hours.</p>
+
+<h3>3. Is it a coincidence?</h3>
+<p>To tell a real effect from luck, you compare many seeded days with many unseeded ones, chosen at random. How many depends on how much rain varies from day to day and how big the effect is:</p>
+<p class="question">n = 2 (z<sub>α</sub> + z<sub>β</sub>)<sup>2</sup> (cv ÷ e)<sup>2</sup></p>
+<p class="small">n: seeded days needed, and as many unseeded ones · z<sub>α</sub> = 1.645: a 5 % chance of crediting luck · z<sub>β</sub> = 0.842: an 80 % chance of finding a real effect · cv: how much rain varies, standard deviation ÷ mean · e: the effect, as a share of the mean.</p>
+<p class="small"><label for="trials-effect">Effect of seeding</label> <input type="range" id="trials-effect" min="1" max="50" step="1" value="10"> <span id="trials-effect-out"></span></p>
+<p id="trials-out"></p>
+<canvas id="trials" width="1200" height="320" role="img" aria-label="Bar chart on a logarithmic scale comparing the number of seeded days needed with the number of rainy days since 1940 and the number of trials run.">Trials needed against trials run.</canvas>
+<p class="small"><strong>Reanalysed:</strong> cv from ERA5 rain in the cell over the pass on rainy days (1 mm or more), 16 August to 15 September, 1940–2024: <span id="trials-cv"></span>. <strong>Modelled:</strong> <span id="trials-mc"></span> A target-and-control design or radar tracking would need fewer days; the published Korean results read for this page do not describe a randomised design.</p>
+
+<h3>4. How much does it tip the scale?</h3>
+<p>Event attribution in climate science asks how much more likely an act made an outcome. If P<sub>0</sub> is the chance of rain without the act and P<sub>1</sub> the chance with it, the share of rainy outcomes the act can claim is</p>
+<p class="question">FAR = 1 − P<sub>0</sub> ÷ P<sub>1</sub></p>
+<p class="small">The formula does not know whether the act was a flight or a rite. <span role="radiogroup" aria-label="Act"><label><input type="radio" name="far-act" value="seeding" checked> seeding</label> <label><input type="radio" name="far-act" value="rite"> rite</label></span></p>
+<p class="small"><label for="far-outcome">Outcome</label> <select id="far-outcome"></select> · <label for="far-boost">If the act raised the chance by</label> <input type="range" id="far-boost" min="0" max="40" step="1" value="5"> <span id="far-boost-out"></span></p>
+<canvas id="far" width="1200" height="320" role="img" aria-label="One hundred squares: filled for days it would rain anyway, crossed for days the act adds, empty for dry days.">One hundred days: rain anyway, rain added by the act, dry.</canvas>
+<p id="far-out"></p>
+<p class="small">■ rain anyway (P<sub>0</sub> from the late-August baseline, reanalysed) · ⧄ rain the act would add (the slider, modelled: nobody has measured it) · □ dry. The amounts are as small: SBS put the possible seeding share of the 1.2 mm on 1 September at about 0.1 mm, assuming a 10 % effect.</p>
+
+<h3>5. Where do politics come in?</h3>
+<p>Korean seeding has been flown for snow at Daegwallyeong before the 2018 Winter Olympics, for fine dust, for drought and for wildfires, with 7.3 billion won budgeted in 2024 and commercial use as the goal for 2028. In a crisis, an aircraft is something visible to do. Credit is claimed in budgets and press releases, and declined when rain is already falling or when a flood follows. The rite has its own politics: who holds it, who it speaks for, what it asks of the city.</p>
+<p class="label">Interpretive: this reading is the sketch’s, drawn from the sources listed below.</p>
+
+<h3>Elsewhere and earlier</h3>
+<ul>
+<li><strong>The founding myth.</strong> In the Samguk yusa, Hwanung comes down to Taebaeksan with the Earl of Wind, the Master of Rain and the Master of Clouds (풍백·우사·운사). The weather was an office of the first state. Which mountain the myth means is debated.</li>
+<li><strong>San Diego, 1916.</strong> The city hired the rainmaker Charles Hatfield to fill a reservoir. Rain came in January 1916, the Lower Otay Dam burst and people died. The city called it an act of God and did not pay. Coincidence or not, nobody could show.</li>
+<li><strong>Dubai, April 2024.</strong> After record rain flooded the city, seeding was blamed. The National Center of Meteorology said no seeding was done during the event; World Weather Attribution found storms like it about 10–40 % heavier in today’s climate; a 2025 Bloomberg investigation questioned the flight record. Two attribution stories, one storm.</li>
+<li><strong><em>How to Kill a Cloud</em> (Tuija Halttunen, 2021).</strong> A Finnish documentary following the scientist Hannele Korhonen, funded by the UAE to make it rain, as she weighs what her results can and cannot show.</li>
+</ul>
+
+<p>On the same pass in the same weeks, a rite and a flight asked for rain, and rain came three weeks later, as it does most years. The meteorologists declined to credit their aircraft; the record does not say what the preservation society concluded. Neither can be tested against a day that did not happen. What can be shown is how often the sky answers anyway, and how many answers it would take to tell.</p>
 
 <h2>Sources and limits</h2>
 <ul>
   <li><strong>Wind and weather:</strong> ERA5 reanalysis (Copernicus Climate Change Service) through the <a href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo Historical Weather API</a>, fetched on 16 November 2026, CC BY 4.0. Script: <code>tools/fetch_weather.py</code>; candidate days: <code>tools/pick_days.py</code>.</li>
   <li><strong>Terrain:</strong> Copernicus DEM GLO-90 through the Open-Meteo Elevation API, fetched on 16 November 2026. Places: © OpenStreetMap contributors (ODbL). Script: <code>tools/fetch_map.py</code>.</li>
+  <li><strong>Success claims:</strong> Cha J.-W. et al. 2019, <a href="https://j-komes.or.kr/_PR/view/?aidx=21863&amp;bidx=1770">“Analysis of Results and Techniques about Precipitation Enhancement by Aircraft Seeding in Korea”</a>, <em>Atmosphere</em> 29(4): 481–499; <a href="https://www.mcst.go.kr/english/policy/kocis/newsView.jsp?pSeq=228">Ministry of Culture, Sports and Tourism, 27 May 2024</a>; <a href="https://www.koreatimes.co.kr/business/tech-science/20170604/korea-looks-to-cloud-seeding-in-war-on-fine-dust">Korea Times, 4 June 2017</a>; <a href="https://www.hankookilbo.com/news/article/201602251868147363">Hankook Ilbo, 25 February 2016</a>. Read 16 November 2026.</li>
+  <li><strong>Trials needed:</strong> computed in <code>tools/power.py</code> from ERA5, with the standard two-sample formula and a simulation check. A choice of method, not a measurement.</li>
+  <li><strong>Elsewhere and earlier:</strong> Samguk yusa, Gojoseon chapter; on Hatfield, <a href="https://www.snopes.com/san-diego-rainmaker/">Snopes</a> and the <a href="https://sdcwa.org/quench-a-thirst-flipbook/files/assets/basic-html/page31.html">San Diego County Water Authority</a>; on Dubai, <a href="https://www.cnbc.com/2024/04/17/uae-denies-cloud-seeding-took-place-before-severe-dubai-floods.html">CNBC, 17 April 2024</a>, <a href="https://www.downtoearth.org.in/climate-change/why-did-dubai-flood-world-weather-attribution-says-global-warming-not-cloud-seeding-the-reason-95831">Down to Earth on World Weather Attribution</a> and <a href="https://prod.cm.bloomberg.com/features/2025-dubai-storm-floods-cloud-seeding-geoengineering">Bloomberg, 2025</a>; <a href="https://cineuropa.org/en/newsdetail/402077/"><em>How to Kill a Cloud</em>, review in Cineuropa</a>.</li>
   <li><strong>Page:</strong> built from the <a href="https://github.com/RealtimeUrbanismLab/weather-commons/tree/main/sketches/_template">Realtime Weather starter template</a> (code MIT, text CC BY 4.0). Its synthetic wind animation was replaced on 16 November 2026 by the map above.</li>
   <li><strong>Case source:</strong> <a href="https://map.geoengineeringmonitor.org/wm/south-korea-cloud-seeding">“South Korea Cloud Seeding”</a>, Geoengineering Map, ETC Group and Heinrich Böll Foundation, read on 9 November 2026. Licence CC BY-NC-ND 4.0, so this page summarises and links to it. It is a secondary record, and its makers say the map is partial. The WMO registers it cites have not been read yet.</li>
   <li><strong>Experiment papers:</strong> <a href="https://ui.adsabs.harvard.edu/abs/2009AdAtS..26..222L/abstract">Lee et al. 2009</a>, <em>Advances in Atmospheric Sciences</em>, on the 2006 Daegwallyeong ground experiment. Only the abstract has been read so far.</li>
@@ -75,5 +137,7 @@
 </footer>
 </main>
 <script src="map.js"></script>
+<script src="case.js"></script>
+<script src="narrate.js"></script>
 </body>
 </html>
