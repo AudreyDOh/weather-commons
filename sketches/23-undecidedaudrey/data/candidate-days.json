@@ -1,0 +1,32 @@
+{
+ "about": "Candidate days in January-February 2006 that match the conditions described in Lee et al. 2009. Not the confirmed experiment days. Dominant 10 m wind from 45-135 degrees, daily mean relative humidity >= 80 %, daily mean temperature <= 0 C, in the ERA5 cell over Daegwallyeong.",
+ "days": [
+  {
+   "date": "2006-01-18",
+   "snow": 3.01,
+   "prcp": 4.3,
+   "t": -3.3,
+   "rh": 84,
+   "wdir": 56,
+   "wspd": 9.5
+  },
+  {
+   "date": "2006-01-19",
+   "snow": 4.34,
+   "prcp": 6.3,
+   "t": -4.7,
+   "rh": 89,
+   "wdir": 74,
+   "wspd": 10.3
+  },
+  {
+   "date": "2006-01-31",
+   "snow": 12.81,
+   "prcp": 20.3,
+   "t": -1.9,
+   "rh": 94,
+   "wdir": 88,
+   "wspd": 8.5
+  }
+ ]
+}

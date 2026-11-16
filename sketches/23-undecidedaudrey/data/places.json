@@ -1,0 +1,68 @@
+{
+ "about": "Map points. Positions from OpenStreetMap (© OpenStreetMap contributors, ODbL) and the NOAA GHCN-Daily station list. The 2006 generator site is not public, so the page shows an approximate experiment area around the pass instead.",
+ "places": [
+  {
+   "id": "pass",
+   "name": "Daegwallyeong pass",
+   "ko": "대관령",
+   "lat": 37.6844,
+   "lon": 128.7542,
+   "kind": "place",
+   "from": "OpenStreetMap, Daegwallyeong rest area at the old pass road"
+  },
+  {
+   "id": "shrine",
+   "name": "Guksaseonghwangsa and Sansindang",
+   "ko": "대관령 국사성황사·산신당",
+   "lat": 37.6965,
+   "lon": 128.7542,
+   "kind": "ritual",
+   "from": "OpenStreetMap node 대관령국사성황사; the mountain-god shrine stands beside it"
+  },
+  {
+   "id": "hoenggye",
+   "name": "Hoenggye",
+   "ko": "횡계 (대관령면)",
+   "lat": 37.6755,
+   "lon": 128.7077,
+   "kind": "place",
+   "from": "OpenStreetMap, Daegwallyeong-myeon"
+  },
+  {
+   "id": "yongpyong",
+   "name": "Yongpyong",
+   "ko": "용평",
+   "lat": 37.6282,
+   "lon": 128.6777,
+   "kind": "place",
+   "from": "OpenStreetMap, Yongpyong Resort"
+  },
+  {
+   "id": "seonjaryeong",
+   "name": "Seonjaryeong",
+   "ko": "선자령",
+   "lat": 37.7224,
+   "lon": 128.7452,
+   "kind": "place",
+   "from": "OpenStreetMap, saddle"
+  },
+  {
+   "id": "gangneung",
+   "name": "Gangneung",
+   "ko": "강릉",
+   "lat": 37.7518,
+   "lon": 128.8759,
+   "kind": "place",
+   "from": "OpenStreetMap, Gangneung city hall"
+  },
+  {
+   "id": "gn_station",
+   "name": "Gangneung weather station",
+   "ko": "강릉 관측소",
+   "lat": 37.771,
+   "lon": 128.868,
+   "kind": "instrument",
+   "from": "NOAA GHCN-Daily station list, KSM00047105"
+  }
+ ]
+}

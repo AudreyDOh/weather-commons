@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>23 · undecidedaudrey · Realtime Weather</title>
-<meta name="description" content="Audrey Doh’s first Realtime Weather sketch. Topic selection in progress, with a clearly labelled synthetic wind example.">
+<title>23 · Two asks at Daegwallyeong · Realtime Weather</title>
+<meta name="description" content="Cloud seeding for snow at Daegwallyeong in Korea’s Taebaek Mountains, 2006–2010, read beside the mountain-god rites at the same pass. By Audrey Doh.">
 <!-- style.css is the shared Realtime Weather look, copied into this folder. Add your own styles below it. -->
 <link rel="stylesheet" href="style.css">
 </head>
@@ -21,66 +21,59 @@
   </nav>
 </header>
 
-<h1>undecidedaudrey</h1>
+<h1>Two asks at Daegwallyeong</h1>
 
-<p class="lede">A first sketch by Audrey Doh. The weather event and research question are still being chosen.</p>
-<p class="muted small">23 · Audrey Doh · started 2026-11-02 · topic undecided</p>
+<p class="lede">Snow-making by cloud seeding at Daegwallyeong, in Korea’s Taebaek Mountains, 2006–2010, read beside the mountain-god rites held at the same pass.</p>
+<p class="muted small">23 · Audrey Doh · started 2026-11-02 · research in progress</p>
 
 <h2>Event</h2>
-<p class="question">Working question: which weather event, practice or intervention will this sketch examine, and what can its sources show?</p>
-<p>The case, place and period are not selected yet. This page records the starting point for the workshop.</p>
+<p class="question">Working question: how did the Daegwallyeong seeding experiments decide when to seed and whether it worked, and how does that compare with the way the rites at the same pass read the sky?</p>
+<p>In 2006 and from 2008 to 2010, the Korea Meteorological Administration’s research institute ran cloud seeding experiments to increase snowfall in the Taebaek Mountains. The 2006 ground experiment was at Daegwallyeong, a pass above Pyeongchang and Gangneung. According to the Geoengineering Map, there were nine ground-based experiments in early 2006 and 20 from aircraft over the next three winters. They used silver iodide, calcium chloride, aircraft and flare generators.</p>
+<p>Daegwallyeong is also where the Gangneung Danoje festival begins, with rites to the mountain god and the guardian deity of the pass. Both seeding and ritual ask the sky for something, and both face the same hard question: did it happen because of what was done, or would it have happened anyway?</p>
+<p class="label">Interpretive: this comparison is the sketch’s framing. It makes no claim that either the seeding or the rites worked.</p>
 
-<!-- 2. Simulate: a first model. This placeholder shows dots drifting in one steady wind. -->
+<!-- 2. Simulate: real 2006 wind over Daegwallyeong carries particles from the experiment area. Code in map.js. -->
 <h2>Simulate</h2>
-<canvas id="view" width="1200" height="600" role="img" aria-label="Synthetic particle motion: an invented steady flow with random spread. This is not observed weather.">Synthetic particles drift across an unlocated field. No observed weather data is used.</canvas>
-<p class="label">Synthetic: an invented flow toward the east with a small northward component. Not observed weather data.</p>
+<p>Where could the seeding material have gone? This map releases particles from around the pass and lets the 2006 wind carry them. Pick a day, then watch one day of wind play in about 36 seconds.</p>
+<p class="small"><span id="days" class="tabs" aria-label="Candidate day"></span></p>
+<p class="small"><button type="button" id="play">Pause</button> <label for="hour">Hour</label> <input type="range" id="hour" min="0" max="23" step="1" value="0"> <span id="clock" class="muted"></span></p>
+<canvas id="view" width="1200" height="1000" role="img" aria-label="Map of Daegwallyeong and Gangneung with terrain contours, the shrine, places, hourly wind arrows from ERA5 reanalysis, and modelled particles drifting from the pass.">Map of Daegwallyeong with 2006 wind and modelled particles. It needs JavaScript and a local server.</canvas>
+<p class="small"><strong>Candidate days:</strong> 18, 19 and 31 January 2006 are days whose reanalysed weather matches the conditions described for the experiments (easterly wind, humidity of 80 % or more, below freezing). They are not the confirmed experiment days, which are in the paywalled paper.</p>
+<p class="small"><strong>Reanalysed:</strong> the arrows are hourly 10 m wind from ERA5. ERA5 has one value per cell about 25 km across (dashed lines), so Daegwallyeong and Gangneung share a cell. The arrows between cell centres are interpolated.</p>
+<p class="small"><strong>Modelled:</strong> particles start inside the dashed circle, 3 km around the pass, because the generator site is not public. Each moves with the interpolated wind plus a random spread of up to 60 m per step, and is followed for 3 hours. They do not rise, fall, freeze or follow the terrain. They show where the wind pointed, not where silver iodide went or where snow fell.</p>
+<p class="small"><strong>Cartographic:</strong> contours every 200 m from the Copernicus DEM; the thick line is the coast. Places from OpenStreetMap.</p>
+<p class="small"><strong>Interpretive:</strong> the open diamond marks Guksaseonghwangsa and the mountain-god shrine, where the Gangneung Danoje rites begin. Placing it on the same map as the wind is this sketch’s framing, not a claim of any physical link.</p>
 
 <!-- 3. Situate: where, when, who. Add a map, places, institutions, dates. -->
 <h2>Situate</h2>
-<p>No location or date is assigned to the animation. After a case is chosen, this section will connect it to three to five relevant places or institutions.</p>
+<p>Places and institutions to research. Only the map entry and the first papers support these so far:</p>
+<ul>
+  <li>Daegwallyeong, where the 2006 ground experiment took place and later flights aimed;</li>
+  <li>the rites to the mountain god and guardian deity at Daegwallyeong, which open the Gangneung Danoje festival;</li>
+  <li>the Korea Meteorological Administration and its research institute;</li>
+  <li>the weather radar and satellites that may have recorded the seeding days.</li>
+</ul>
+<p>The map above places them. The ERA5 cell on the map is wider than the whole stretch from the pass to the coast: any effect of the seeding would sit inside one reanalysis cell.</p>
 
 <!-- 4. Narrate: the story in a few sentences, and what the model cannot show. -->
 <h2>Narrate</h2>
-<p>This is a preparation page, not a completed case study. You can see how a simple movement rule becomes an image. The next step is to choose a case and gather sources before making claims about weather or its effects.</p>
+<p>This is a working page, not a finished case study. The next step is to read the sources behind the map entry and to find what radar, satellites and ritual records can each show about the same mountains.</p>
 
 <h2>Sources and limits</h2>
 <ul>
-  <li><strong>Synthetic model:</strong> the <a href="https://github.com/RealtimeUrbanismLab/weather-commons/tree/main/sketches/_template">Realtime Weather starter template</a>, Realtime Urbanism Lab, copied on 2 November 2026. The code is MIT-licensed; original text is CC BY 4.0. No external weather dataset is loaded.</li>
-  <li><strong>Rule:</strong> 1,500 particles move 1.2 pixels east and 0.2 pixels north per animation frame, plus random spread of up to 0.3 pixels per axis. Particles wrap around the canvas edges. These are screen units, not metres or real elapsed time.</li>
-  <li><strong>Changes:</strong> the working title, author, research status and explanatory text were added. The template’s movement rule is unchanged.</li>
-  <li><strong>Research sources:</strong> to be selected after the case is chosen. Their dates, licences and limitations will be recorded here.</li>
+  <li><strong>Wind and weather:</strong> ERA5 reanalysis (Copernicus Climate Change Service) through the <a href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo Historical Weather API</a>, fetched on 16 November 2026, CC BY 4.0. Script: <code>tools/fetch_weather.py</code>; candidate days: <code>tools/pick_days.py</code>.</li>
+  <li><strong>Terrain:</strong> Copernicus DEM GLO-90 through the Open-Meteo Elevation API, fetched on 16 November 2026. Places: © OpenStreetMap contributors (ODbL). Script: <code>tools/fetch_map.py</code>.</li>
+  <li><strong>Page:</strong> built from the <a href="https://github.com/RealtimeUrbanismLab/weather-commons/tree/main/sketches/_template">Realtime Weather starter template</a> (code MIT, text CC BY 4.0). Its synthetic wind animation was replaced on 16 November 2026 by the map above.</li>
+  <li><strong>Case source:</strong> <a href="https://map.geoengineeringmonitor.org/wm/south-korea-cloud-seeding">“South Korea Cloud Seeding”</a>, Geoengineering Map, ETC Group and Heinrich Böll Foundation, read on 9 November 2026. Licence CC BY-NC-ND 4.0, so this page summarises and links to it. It is a secondary record, and its makers say the map is partial. The WMO registers it cites have not been read yet.</li>
+  <li><strong>Experiment papers:</strong> <a href="https://ui.adsabs.harvard.edu/abs/2009AdAtS..26..222L/abstract">Lee et al. 2009</a>, <em>Advances in Atmospheric Sciences</em>, on the 2006 Daegwallyeong ground experiment. Only the abstract has been read so far.</li>
+  <li><strong>Ritual and historical sources:</strong> not yet gathered. They will be labelled interpretive or historical.</li>
 </ul>
-<p><strong>What this sketch cannot show:</strong> weather at any real place or time, the effect of an intervention, or impacts on people or ecosystems. The animation is an illustrative placeholder.</p>
+<p><strong>What this sketch cannot show:</strong> where silver iodide actually went, how much snow fell at the pass on any day, whether the seeding or the rites worked, or impacts on people or ecosystems. The wind is a 25 km average, so it misses the way air is forced up and around the pass, which is what the experiments relied on.</p>
 
 <footer class="site-footer">
-  <p>undecidedaudrey · Audrey Doh · Realtime Weather working group, Weather Commons</p>
+  <p>Two asks at Daegwallyeong · Audrey Doh · Realtime Weather working group, Weather Commons</p>
 </footer>
 </main>
-<script>
-  // A tiny simulation: dots carried by a steady wind, with a little random spread.
-  // Replace it with your own model. Load your own files with relative paths, e.g. fetch('data/my-file.json').
-  const canvas = document.getElementById('view');
-  const ctx = canvas.getContext('2d');
-  const ink = getComputedStyle(document.body).color;           // black, or white in dark mode
-  const paper = getComputedStyle(document.body).backgroundColor;
-  const wind = { east: 1.2, north: 0.2 }; // pixels per frame (synthetic)
-  const spread = 0.6;                      // random wobble per frame
-  const dots = Array.from({ length: 1500 }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height }));
-
-  function step() {
-    ctx.globalAlpha = 0.15;                // fade old positions into trails
-    ctx.fillStyle = paper;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = ink;
-    for (const d of dots) {
-      d.x = (d.x + wind.east + (Math.random() - 0.5) * spread + canvas.width) % canvas.width;
-      d.y = (d.y - wind.north + (Math.random() - 0.5) * spread + canvas.height) % canvas.height;
-      ctx.fillRect(d.x, d.y, 2, 2);
-    }
-    requestAnimationFrame(step);
-  }
-  step();
-</script>
+<script src="map.js"></script>
 </body>
 </html>
