@@ -7,10 +7,11 @@ Open-Meteo and Copernicus ERA5. Values are reanalysed, not observed.
 Writes, in data/:
   winters.json  daily ERA5 values for the grid cell over Daegwallyeong, every January and
                 February from 1980 to 2010
-  wind-2006.json hourly 10 m wind on a 5 x 5 grid of ERA5 cells around Daegwallyeong,
-                for the 2006 candidate days chosen in pick_days.py
+  wind.json     hourly 10 m wind on a 5 x 5 grid of ERA5 cells around Daegwallyeong, for the
+                2006 candidate days (pick_days.py) and the 2025 rite and flight days (case_2025.py)
 
 Run from the sketch folder:  python3 tools/fetch_weather.py
+Run it once before pick_days.py and case_2025.py, and again after them for the wind.
 Needs Python 3 and curl.
 """
 
@@ -84,20 +85,27 @@ def fetch_winters():
     print("winters.json:", len(out["days"]), "days")
 
 
-def fetch_wind(dates):
+def fetch_wind(days):
+    """days: list of {date, label, kind, release}. One request per day keeps each call small."""
     lats, lons = [], []
     for la in GRID_LATS:
         for lo in GRID_LONS:
             lats.append(str(la))
             lons.append(str(lo))
-    cells = get({
-        "latitude": ",".join(lats), "longitude": ",".join(lons),
-        "start_date": min(dates), "end_date": max(dates),
-        "hourly": "wind_speed_10m,wind_direction_10m",
-        "timezone": "Asia/Seoul", "models": "era5", "wind_speed_unit": "ms",
-    })
-    times = cells[0]["hourly"]["time"]
-    keep = [i for i, t in enumerate(times) if t[:10] in dates]
+    out_days = []
+    for day in days:
+        cells = get({
+            "latitude": ",".join(lats), "longitude": ",".join(lons),
+            "start_date": day["date"], "end_date": day["date"],
+            "hourly": "wind_speed_10m,wind_direction_10m",
+            "timezone": "Asia/Seoul", "models": "era5", "wind_speed_unit": "ms",
+        })
+        hours = range(len(cells[0]["hourly"]["time"]))
+        # speed[hour][row][col] and dir[hour][row][col], rows south to north, cols west to east
+        out_days.append({**day,
+            "speed": [[[cells[r * 5 + c]["hourly"]["wind_speed_10m"][i] for c in range(5)] for r in range(5)] for i in hours],
+            "dir": [[[cells[r * 5 + c]["hourly"]["wind_direction_10m"][i] for c in range(5)] for r in range(5)] for i in hours]})
+        time.sleep(2)
     out = {
         "about": "ERA5 reanalysis via Open-Meteo, hourly 10 m wind on a 5 x 5 grid of 0.25 degree "
                  "cells around Daegwallyeong, Korea Standard Time. Speed in m/s, direction in "
@@ -105,20 +113,34 @@ def fetch_wind(dates):
         "fetched": time.strftime("%Y-%m-%d"),
         "lats": GRID_LATS,
         "lons": GRID_LONS,
-        "times": [times[i] for i in keep],
-        # speed[t][row][col] and dir[t][row][col], rows south to north, cols west to east
-        "speed": [[[cells[r * 5 + c]["hourly"]["wind_speed_10m"][i] for c in range(5)] for r in range(5)] for i in keep],
-        "dir": [[[cells[r * 5 + c]["hourly"]["wind_direction_10m"][i] for c in range(5)] for r in range(5)] for i in keep],
+        "days": out_days,
     }
-    (DATA / "wind-2006.json").write_text(json.dumps(out, separators=(",", ":")))
-    print("wind-2006.json:", len(out["times"]), "hours")
+    (DATA / "wind.json").write_text(json.dumps(out, separators=(",", ":")))
+    print("wind.json:", len(out_days), "days")
+
+
+def map_days():
+    """The days the map offers, in order, with what to release particles from."""
+    days = []
+    picked = DATA / "candidate-days.json"
+    if picked.exists():
+        for d in json.loads(picked.read_text())["days"]:
+            days.append({"date": d["date"], "kind": "candidate", "release": "pass",
+                         "label": "2006 candidate day"})
+    case = DATA / "case-2025.json"
+    if case.exists():
+        c = json.loads(case.read_text())
+        days.append({"date": c["rite"], "kind": "rite", "release": "shrine", "label": "2025 rain rite"})
+        for f in c["flight_days"]:
+            days.append({"date": f, "kind": "flight", "release": None, "label": "2025 seeding flight"})
+    return days
 
 
 if __name__ == "__main__":
     DATA.mkdir(exist_ok=True)
     fetch_winters()
-    picked = DATA / "candidate-days.json"
-    if picked.exists():
-        fetch_wind([d["date"] for d in json.loads(picked.read_text())["days"]])
+    days = map_days()
+    if days:
+        fetch_wind(days)
     else:
-        print("Run tools/pick_days.py, then run this again for the wind field.")
+        print("Run tools/pick_days.py and tools/case_2025.py, then run this again for the wind field.")

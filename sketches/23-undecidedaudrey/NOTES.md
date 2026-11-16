@@ -4,13 +4,20 @@ Working notes for sketch 23. Read this first.
 
 ## Next
 
-- Narrate (by 23 November): draw the snow profile from `data/epoch.json` on the page, matching days in 1980–2005 against an average winter day, and write the short public explanation around it.
-- Signal and noise: draw the winter totals from `data/totals.json` to show how much snowfall changes from year to year, against the size of effect the sources report.
-- Get the full text of Lee et al. 2009 (Audrey's library access), then replace the candidate days with the real experiment days and add the generator site, if the paper gives them.
-- If Audrey can download the Daegwallyeong station record (ASOS 100) from the KMA data portal as CSV, add it as the observed layer next to ERA5.
-- Find sources on the Daegwallyeong Sansinje and Guksaseonghwangje, especially any about rain, snow, drought or harvest.
+- Ask Audrey who "Alex Bomslay" is (mentioned with the Dubai 2024 flood); no source found under that name.
+- More folktales and older rites: 석척기우 (lizard rain rite), dragon rain rites, the green-frog tale; each needs a source before it goes on the page.
+- Check the Fulton et al. 1998 and Gunn–Marshall 1958 Z–R values against the papers.
+- Narrate scenes for the 2025 case, to choose from (proposed 2026-11-16):
+  - "The rain called the planes": flight days on the rain chart, rain on flight days against other days; selection bias made visible, maybe the map played backwards.
+  - "One sheet of paper": the possible seeding share on 1 September (about 10 % of 1.2 mm, about 0.1 mm, from SBS) beside the thickness of one sheet of paper, the paper burned at rites (soji).
+  - "One cell in 3,800": that 0.12 mm against the rain deficit by 20 August (861.1 − 403.4 mm, Segye Ilbo).
+  - Two texts: the rite's prayer (chungmun) beside the KMA explanation. Needs the 2025 prayer text.
+  - A ledger of who claimed what about the rain: preservation society, KMA, SBS headline, ERA5.
+- Observed rain: KMA station records for Gangneung (105) and Daegwallyeong (100), August–September 2025. NOAA GHCN-Daily has no 2025 rain for Gangneung. Needs Audrey's download from the KMA data portal.
+- Ask the Gangneung Danoje Preservation Society or find reports on what was said at the 2025 rite, and whether they made any claim about the rain afterwards.
+- The six 2025 flight days: only 1, 2 and 6 September are named. Find the others.
+- 2006 background: full text of Lee et al. 2009 for the experiment days and generator site; the 2006 snow profile (`data/epoch.json`) could become a second chart.
 - Peer check before publishing: is it clear, what is missing, does it claim too much?
-- Later, if there is time: Joseon rain rites (실록) against a long rainfall record, on the same snow-profile chart.
 
 ## Decisions
 
@@ -21,6 +28,9 @@ Working notes for sketch 23. Read this first.
 - 2026-11-09: the case is the Taebaek Mountains snow-enhancement cloud seeding (2006, 2008–2010), from the Geoengineering Map entry "South Korea Cloud Seeding". It is chosen because it overlaps with mountain rites at the same place, which suits Audrey's practice of reading Korean folk belief through science.
 - 2026-11-09: the sketch compares how seeding and ritual each judge whether the sky answered. It does not claim that rituals work or fail. Ritual material is labelled interpretive.
 - 2026-11-09: corrected the place. The map's "Taebaek Mountains" is the range, and the 2006 experiment was at Daegwallyeong, not Taebaeksan. The ritual pairing moves from Cheonjedan on Taebaeksan to the rites at Daegwallyeong that open Gangneung Danoje.
+- 2026-11-16: the main case moves to the 2025 drought: the rain rite at the shrine on 23 August and the KMA seeding flights from 26 August. 2006–2010 becomes background. Reason: dated, public sources for both asks, at the same pass, in the same weeks.
+- 2026-11-16: on the rite day the map releases particles at the shrine (interpretive); on flight days it shows wind only, because flight paths are not public.
+- 2026-11-16: baseline = start days 16–30 August, 1940–2024, ERA5; drought = driest 15 % by the previous 60 days of rain. These are choices; say so on the page.
 - 2026-11-16: page title "Two asks at Daegwallyeong"; the folder stays `23-undecidedaudrey`. Page in English, with Korean names for places.
 - 2026-11-16: the exact experiment days are paywalled, so the sketch uses candidate days chosen by a rule from the paper's abstract, labelled as candidates (18, 19 and 31 January 2006).
 - 2026-11-16: use ERA5 through Open-Meteo for wind and snow. ERA5-Land returned no values here, KMA station data needs a login, and NOAA GHCN-Daily has no Daegwallyeong station. ERA5's 25 km cell is shown on the map as a limit, not hidden.
@@ -77,3 +87,5 @@ English:
 - 2026-11-16: added data scripts (`tools/fetch_weather.py`, `tools/pick_days.py`, `tools/fetch_map.py`) and small data files in `data/` (about 190 KB).
 - 2026-11-16: replaced the template animation with the Daegwallyeong map: terrain, ERA5 grid, places, the shrine as an interpretive layer, hourly wind and modelled particles for three candidate days. Checked in a browser preview; particles leaving the pass at noon go 19–28 km west-south-west in 3 hours.
 - 2026-11-16: first result: matching days in 1980–2005 average 7.3 cm of ERA5 snowfall against 0.9 cm on an average winter day.
+- 2026-11-16: added the 2025 case: `tools/case_2025.py`, `data/case-2025.json`, `case.js`, events list, rain chart and baseline table; the map now has the rite day and three flight days (`data/wind.json` replaces `wind-2006.json`).
+- 2026-11-16: added the Narrate section: evidence-chain table, Z–R sliders, the sample-size formula with ERA5 cv (`tools/power.py`, `data/power.json`), FAR icon field, politics, and Dubai, Hatfield, the founding myth and How to Kill a Cloud.
