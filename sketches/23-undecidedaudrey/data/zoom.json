@@ -1,0 +1,32 @@
+{
+ "about": "ERA5 hourly precipitation (mm) for 2025-09-13, Korea Standard Time, in the cell centred 37.75 N 128.75 E, via Open-Meteo, CC BY 4.0. Reanalysed.",
+ "fetched": "2026-11-18",
+ "date": "2025-09-13",
+ "hourly_mm": [
+  3.8,
+  5.7,
+  7.2,
+  10.6,
+  6.3,
+  4.9,
+  6.3,
+  12.2,
+  16.3,
+  11.7,
+  3.0,
+  0.9,
+  0.7,
+  0.6,
+  0.3,
+  0.2,
+  0,
+  0,
+  0,
+  0.1,
+  0.1,
+  0,
+  0,
+  0
+ ],
+ "daily_mm": 90.9
+}
