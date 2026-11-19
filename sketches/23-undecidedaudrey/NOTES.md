@@ -4,6 +4,11 @@ Working notes for sketch 23. Read this first.
 
 ## Next
 
+- Galton sky for the other cases: same engine, each case's own days, outcome and shadow direction (rain-stopping asks put the shadow on the wetter side). Dubai, Beijing and Mandalika first; San Diego needs a pre-1940 record; Lahore's smog needs air-quality data.
+- Seven short cases are summarised, not computed. Later: a small 72-skies strip for the cases ERA5 can reach (Dubai, Mandalika hourly, Bhopal, Beijing), with each case's own definition of the outcome.
+- Unresolved in the cases: Hatfield's death toll and court rulings (sources conflict); rain in Utah on 4–6 June 2021 (only an opinion column); Dubai flights on 15 April (Bloomberg vs the National Center of Meteorology).
+- When the Gangneung station record arrives, add "data source" as a fifth axis of the 72 skies (ERA5 or station), making 144.
+- The Blind Sky (designed 2026-11-16, not built): a listening experiment with a staircase threshold, catch trials, random labels "rite" or "aircraft", and a printable verdict. Build after the 72 skies settle.
 - Ask Audrey who "Alex Bomslay" is (mentioned with the Dubai 2024 flood); no source found under that name.
 - More folktales and older rites: 석척기우 (lizard rain rite), dragon rain rites, the green-frog tale; each needs a source before it goes on the page.
 - Check the Fulton et al. 1998 and Gunn–Marshall 1958 Z–R values against the papers.
@@ -31,6 +36,9 @@ Working notes for sketch 23. Read this first.
 - 2026-11-16: the main case moves to the 2025 drought: the rain rite at the shrine on 23 August and the KMA seeding flights from 26 August. 2006–2010 becomes background. Reason: dated, public sources for both asks, at the same pass, in the same weeks.
 - 2026-11-16: on the rite day the map releases particles at the shrine (interpretive); on flight days it shows wind only, because flight paths are not public.
 - 2026-11-16: baseline = start days 16–30 August, 1940–2024, ERA5; drought = driest 15 % by the previous 60 days of rain. These are choices; say so on the page.
+- 2026-11-16: replaced the FAR slider (an invented P1) with the 72 skies: a multiverse of definitions, asking only whether the rain was unusual. The station axis is replaced for now by the reference period (1940–2024 or 1991–2020).
+- 2026-11-16: the page presents eight cases in the same four parts (ask, what followed, who claimed what, what cannot be known), with Daegwallyeong at length. Title kept. Detail is folded so the page stays simple.
+- 2026-11-16: the Galton sky uses one board of real days only (no simulated second board). The only modelled mark is the faint 10 % shadow of the 2025 drop. The same 10 % is used for every case so they compare fairly.
 - 2026-11-16: page title "Two asks at Daegwallyeong"; the folder stays `23-undecidedaudrey`. Page in English, with Korean names for places.
 - 2026-11-16: the exact experiment days are paywalled, so the sketch uses candidate days chosen by a rule from the paper's abstract, labelled as candidates (18, 19 and 31 January 2006).
 - 2026-11-16: use ERA5 through Open-Meteo for wind and snow. ERA5-Land returned no values here, KMA station data needs a login, and NOAA GHCN-Daily has no Daegwallyeong station. ERA5's 25 km cell is shown on the map as a limit, not hidden.
@@ -89,3 +97,7 @@ English:
 - 2026-11-16: first result: matching days in 1980–2005 average 7.3 cm of ERA5 snowfall against 0.9 cm on an average winter day.
 - 2026-11-16: added the 2025 case: `tools/case_2025.py`, `data/case-2025.json`, `case.js`, events list, rain chart and baseline table; the map now has the rite day and three flight days (`data/wind.json` replaces `wind-2006.json`).
 - 2026-11-16: added the Narrate section: evidence-chain table, Z–R sliders, the sample-size formula with ERA5 cv (`tools/power.py`, `data/power.json`), FAR icon field, politics, and Dubai, Hatfield, the founding myth and How to Kill a Cloud.
+- 2026-11-16: added the 72 skies (`tools/skies.py`, `data/skies.json`, specification curve in `narrate.js`) and the concept line "The sky happens once. A cause is not observed; it is assembled from choices."
+- 2026-11-16: added the eight-case table and seven short case cards from news and secondary sources; folded the map, baseline and methods.
+- 2026-11-16: added the Galton sky for Daegwallyeong (`tools/galton.py`, `data/galton.json`, `galton.js`), placed before the 72 skies.
+- 2026-11-18: added the zoom into 13 September 2025 (`tools/zoom.py`, `data/zoom.json`, `zoom.js`): hourly ERA5 rain as raindrops, a gauge, one drop in eleven hollow as a 10 % share, and a world-view switch.
