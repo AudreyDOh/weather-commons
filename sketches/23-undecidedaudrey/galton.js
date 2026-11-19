@@ -18,7 +18,7 @@ const AXIS = { left: 60, right: W - 40, y: H - 60 };
 const ROWS = [140, 200, 260, 320];   // flipper rows
 const DOT = 6;                        // stacked dot width, px
 const LAYER = 3;                      // height of each stacked day, px
-const PER_FRAME = 1;                  // drops released per frame (about 60 a second)
+const RELEASE_EVERY = 3;              // frames between drops (about 20 a second)
 
 const xOf = mm => AXIS.left + Math.min(mm, MAX_MM) / MAX_MM * (AXIS.right - AXIS.left);
 const binOf = mm => Math.floor((xOf(mm) - AXIS.left) / DOT);
@@ -75,7 +75,7 @@ function launch(day, big = false, shadow = false) {
   pts.push([target, AXIS.y - 10]);
   // Turn every flipper towards this day's wind.
   ROWS.forEach((_, r) => flipTarget[r] = flipTarget[r].map(() => t.angle));
-  const drop = { day, pts, s: 0, big, shadow, speed: big ? 0.006 : 0.02 };
+  const drop = { day, pts, s: 0, big, shadow, speed: big ? 0.0025 : 0.007 };
   falling.push(drop);
   return drop;
 }
@@ -88,7 +88,7 @@ function position(drop) {
 
 function loop() {
   if (!running) return;
-  for (let k = 0; k < PER_FRAME && queue.length; k++) launch(queue.pop());
+  if (frame % RELEASE_EVERY === 0 && queue.length) launch(queue.pop());
   step();
   draw();
   if (++frame % 20 === 0) describe();
@@ -97,7 +97,7 @@ function loop() {
 }
 
 function step() {
-  ROWS.forEach((_, r) => flipAngle[r] = flipAngle[r].map((a, i) => a + (flipTarget[r][i] - a) * 0.15));
+  ROWS.forEach((_, r) => flipAngle[r] = flipAngle[r].map((a, i) => a + (flipTarget[r][i] - a) * 0.04));
   for (const d of falling) d.s += d.speed;
   const done = falling.filter(d => d.s >= 1);
   falling = falling.filter(d => d.s < 1);

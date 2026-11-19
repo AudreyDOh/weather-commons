@@ -101,3 +101,4 @@ English:
 - 2026-11-16: added the eight-case table and seven short case cards from news and secondary sources; folded the map, baseline and methods.
 - 2026-11-16: added the Galton sky for Daegwallyeong (`tools/galton.py`, `data/galton.json`, `galton.js`), placed before the 72 skies.
 - 2026-11-18: added the zoom into 13 September 2025 (`tools/zoom.py`, `data/zoom.json`, `zoom.js`): hourly ERA5 rain as raindrops, a gauge, one drop in eleven hollow as a 10 % share, and a world-view switch.
+- 2026-11-18: slowed the Galton sky so it reads calmer: drops fall about three times slower, one day every three frames (about 20 a second, under two minutes for all 2,040; "Fill the board" skips ahead), flippers turn gently.
