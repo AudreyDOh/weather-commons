@@ -23,21 +23,33 @@
 
 <h1>Two asks at Daegwallyeong</h1>
 
-<p class="lede">When people ask the sky for weather, in a rite or with an aircraft, and the weather comes, who made it happen? Three boards of real days at Daegwallyeong, Korea, where both were tried in the drought of 2025.</p>
+<p class="lede">When people ask the sky for weather, in a rite or with an aircraft, and the weather comes, who made it happen? Two speculative skies, built from real days, at Daegwallyeong, Korea, where both were tried in the drought of 2025.</p>
 <p class="muted small">23 · Audrey Doh · started 2026-11-02 · research in progress</p>
 
 
 <p>In August 2025 Gangneung, below the Daegwallyeong pass, ran short of water. A rain rite was held at the pass’s shrine on 23 August, and the Korea Meteorological Administration flew cloud seeding aircraft from 26 August. Heavy rain came on 13 September. The meteorologists said themselves that the rain on their flight days did not come from seeding.</p>
 <p class="question">The sky happens once. A cause is not observed; it is assembled from choices.</p>
 
-<h2>Three Galton skies</h2>
-<p>Each falling drop is <strong>a real day</strong>: a day between 16 August and 8 September, in one of the years 1940–2024, over the same pass. It bounces off that day’s real wind and lands at <strong>the rain that actually followed</strong>, the largest day of rain in the next three weeks. The same day falls through three machines at once.</p>
-<p>The middle machine is <strong>the record</strong>: the chance of rain that the weather alone gave. On the left, the same days <strong>if the rite had worked</strong>, adding 10 % to the rain. On the right, <strong>if seeding had worked</strong>, adding 1 mm, about what the National Institute of Meteorological Sciences says one hour of flying adds. The weather sets the chance: keep only the days that were as dry as 2025 and the chance of a 50 mm day within three weeks falls from about one in two to under one in three. Then drop the rain of 13 September 2025, the day both asks landed on.</p>
-<p>Hide the names and guess which machine is the record. If the asks had worked, you could tell.</p>
-<p class="small"><button type="button" id="galton-act" disabled>Drop 2025: 13 September, 90.9 mm</button> <button type="button" id="galton-dry" aria-pressed="false">Only days as dry as 2025</button> <button type="button" id="galton-overlay" aria-pressed="false">Overlay</button> <button type="button" id="galton-hide">Hide the names</button> · <button type="button" id="galton-fill">Fill now</button> <button type="button" id="galton-again">Start again</button></p>
-<canvas id="galton" class="full" width="1800" height="900" role="img" aria-label="Three Galton boards side by side: the same real days fall past flippers turned to each day's wind and pile up by the rain that followed, as recorded in the middle, with 10 % added for the rite on the left and 1 mm added for seeding on the right. The three piles look almost the same.">The same real days pile up in three machines: as recorded, if the rite worked, and if seeding worked.</canvas>
-<p id="galton-out"></p>
-<p class="small"><strong>Reanalysed:</strong> where each drop lands in the record, the wind that turns the flippers, and the rain in the 60 days before each day are ERA5 values for the 25 km cell over the pass. <strong>Modelled:</strong> the two other machines. The rite’s 10 % is this page’s assumption; no one has measured a rite. The 1 mm for seeding is the institute’s figure for one hour of flying (Dong-A Ilbo, 4 September 2025), added as if the flight met the wettest day, which is generous; the meteorologists put the effect on 1 September 2025 at about 0.1 mm. <strong>Drawn:</strong> the paths between the flippers are a picture, not a physical model. <strong>Chance:</strong> the order of the days, and which machine is which when the names are hidden. Neighbouring days often share the same storm, which is why some columns stand tall.</p>
+<h2>Two speculative skies</h2>
+<p>Each falling drop is <strong>a real day</strong>: a day between 16 August and 8 September, in one of the years 1940–2024, over the same pass. It bounces off that day’s real wind and lands at the largest day of rain in the three weeks that followed. <span style="color:#2a78d6">Blue</span> is <strong>the record</strong>: what the weather did. Black is <strong>a speculative sky</strong>: the same three weeks rolled again, one day at a time, as if the ask had worked. Every roll comes out differently. The chance is in the speculation; the weather underneath is real.</p>
+<div class="note">
+  <p><strong>Compared with what?</strong> Rites are held in droughts, and dry weather tends to stay dry. After an ordinary late-summer day, a day of heavy rain (50 mm or more) comes within three weeks about one time in two. After a day as dry as 23 August 2025, under one time in three. Press “Only days as dry as 2025” to keep just those days: the piles shrink and slide towards less rain, before any rite or aircraft. To judge the 2025 asks fairly, compare them with dry days.</p>
+</div>
+<p class="small"><button type="button" id="spec-act" disabled>Drop 2025</button> <button type="button" id="spec-dry" aria-pressed="false">Only days as dry as 2025</button> · <button type="button" id="spec-fill">Fill now</button> <button type="button" id="spec-again">Start again</button></p>
+
+<h3>If the rite worked</h3>
+<p>No one has measured what a rite does, so here it does what people ask of it: it makes rain more likely. On each of the 21 days, a dry day turns rainy with the chance on the slider, and takes the rain of a real rainy day from the same season; a day that was already rainy gets that much more.</p>
+<p class="small"><label for="spec-power">Power of the rite</label> <input type="range" id="spec-power" min="0" max="50" step="1" value="10"> <span id="spec-power-out">10 %</span> · <button type="button" id="spec-roll-rite">Roll again</button></p>
+<canvas id="spec-rite" class="full" width="1800" height="640" role="img" aria-label="Galton board: the record's pile in blue behind, and a speculative pile in black for a world where the rite raises the chance of rain on each of the following 21 days.">The record and a speculative sky in which the rite worked.</canvas>
+<p id="spec-rite-out"></p>
+
+<h3>If seeding worked</h3>
+<p>Seeding has rules, from the people who do it. Aircraft can only seed clouds that are already there, so the speculative flights go up only on days with rain already falling and cloud of 60 % or more: up to six such days in the two weeks after the ask, one or two hours each, as in 2025. Each flight day gains between 10 % of its rain (the Korea Meteorological Administration’s figure) and 1 mm per hour of flying (the National Institute of Meteorological Sciences’), at most 8.5 mm, the institute’s best day in 2020–2024. A clear day gains nothing.</p>
+<p class="small"><button type="button" id="spec-roll-seed">Roll again</button></p>
+<canvas id="spec-seed" class="full" width="1800" height="640" role="img" aria-label="Galton board: the record's pile in blue behind, and a speculative pile in black for a world where seeding adds rain on cloudy, rainy days in the following two weeks.">The record and a speculative sky in which seeding worked.</canvas>
+<p id="spec-seed-out"></p>
+
+<p class="small"><strong>Reanalysed:</strong> the record (blue), each day’s rain and cloud cover, the rain in the 60 days before it, and the wind that turns the flippers: ERA5 for the 25 km cell over the pass. <strong>Interpretive and modelled:</strong> the rite’s power, which no one has measured. <strong>Modelled:</strong> the seeding rules and effects, from the agencies’ own figures (SBS, 10 September 2025; Dong-A Ilbo, 4 September 2025), with “seedable” set by this page at rain of 0.1 mm or more and cloud of 60 % or more; in 2025 the reports name flights on 1, 2 and 6 September, all such days. <strong>Chance:</strong> the order of the days and every roll of the speculative skies. <strong>Drawn:</strong> the paths between the flippers. Neighbouring days often share the same storm, which is why some columns stand tall.</p>
 
 <details>
 <summary>Archive: the eight cases, the 2025 timeline, the wind map, the zoom into 13 September, seventy-two skies and the methods</summary>
