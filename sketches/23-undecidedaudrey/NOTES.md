@@ -40,6 +40,7 @@ Working notes for sketch 23. Read this first.
 - 2026-11-16: the page presents eight cases in the same four parts (ask, what followed, who claimed what, what cannot be known), with Daegwallyeong at length. Title kept. Detail is folded so the page stays simple.
 - 2026-11-16: the Galton sky uses one board of real days only (no simulated second board). The only modelled mark is the faint 10 % shadow of the 2025 drop. The same 10 % is used for every case so they compare fairly.
 - 2026-11-16: page title "Two asks at Daegwallyeong"; the folder stays `23-undecidedaudrey`. Page in English, with Korean names for places.
+- 2026-11-23: Audrey asked to show only the Galton sky. Everything else (cases, timeline, map, baseline, zoom, 72 skies, methods) is folded, unchanged, into one Archive on the page. Sources and limits stays open. Nothing deleted.
 - 2026-11-16: the exact experiment days are paywalled, so the sketch uses candidate days chosen by a rule from the paper's abstract, labelled as candidates (18, 19 and 31 January 2006).
 - 2026-11-16: use ERA5 through Open-Meteo for wind and snow. ERA5-Land returned no values here, KMA station data needs a login, and NOAA GHCN-Daily has no Daegwallyeong station. ERA5's 25 km cell is shown on the map as a limit, not hidden.
 - 2026-11-16: draw the coast from the terrain (height 0) instead of Natural Earth, which is too coarse at this scale.

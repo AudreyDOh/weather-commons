@@ -2,7 +2,7 @@
 
 Author: Audrey Doh · Started: 2026-11-02 · Status: sketch · Stack: static HTML + JS
 
-When people ask the sky for weather, in a rite or with an aircraft, and the weather comes, who made it happen? Eight cases, each in four parts (the ask, what followed, who claimed what, what cannot be known): Daegwallyeong 2025 at length, and Dubai 2024, Mandalika 2022, Bhopal 2019, Utah 2021, Beijing 2008, Lahore 2023 and San Diego 1916 in short. At Daegwallyeong, in the Gangneung drought of 2025, a rain rite was held at the mountain-god shrine (23 August) and the Korea Meteorological Administration flew seeding aircraft (from 26 August).
+When people ask the sky for weather, in a rite or with an aircraft, and the weather comes, who made it happen? Eight cases, each in four parts (the ask, what followed, who claimed what, what cannot be known): Daegwallyeong 2025 at length, and Dubai 2024, Mandalika 2022, Bhopal 2019, Utah 2021, Beijing 2008, Lahore 2023 and San Diego 1916 in short. The page now shows only the Galton sky for Daegwallyeong; everything else is kept, unchanged, in a folded Archive below it. At Daegwallyeong, in the Gangneung drought of 2025, a rain rite was held at the mountain-god shrine (23 August) and the Korea Meteorological Administration flew seeding aircraft (from 26 August).
 
 ## Run
 

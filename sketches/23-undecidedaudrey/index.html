@@ -23,8 +23,23 @@
 
 <h1>Two asks at Daegwallyeong</h1>
 
-<p class="lede">When people ask the sky for weather, in a rite or with an aircraft, and the weather comes, who made it happen? Eight cases from seven countries, and one at length: Daegwallyeong, Korea, in the drought of 2025.</p>
+<p class="lede">When people ask the sky for weather, in a rite or with an aircraft, and the weather comes, who made it happen? One board of real days at Daegwallyeong, Korea, where both were tried in the drought of 2025.</p>
 <p class="muted small">23 · Audrey Doh · started 2026-11-02 · research in progress</p>
+
+
+<p>In August 2025 Gangneung, below the Daegwallyeong pass, ran short of water. A rain rite was held at the pass’s shrine on 23 August, and the Korea Meteorological Administration flew cloud seeding aircraft from 26 August. Heavy rain came on 13 September. The meteorologists said themselves that the rain on their flight days did not come from seeding.</p>
+<p class="question">The sky happens once. A cause is not observed; it is assembled from choices.</p>
+
+<h2>The Galton sky</h2>
+<p>Each falling drop is <strong>a real day</strong>: a day between 16 August and 8 September, in one of the years 1940–2024, over the same pass. It bounces off that day’s real wind and lands at <strong>the rain that actually followed</strong>, the largest day of rain in the next three weeks. The pile is what the sky does <strong>when nobody asks</strong>.</p>
+<p>Then drop a 2025 day: the rite or the first flight. The faint drop beside it is <strong>where it would have landed if the ask had changed the rain by 10 %</strong>. The gap between them is the ask’s share; the width of the pile is how much the sky varies anyway. When the share is far smaller than the width, no one can see the ask’s effect: not the scientist, not the shaman.</p>
+<p class="small"><button type="button" data-act="rite" disabled>◇ Drop the rite, 23 Aug 2025</button> <button type="button" data-act="flight" disabled>▲ Drop the flight, 1 Sep 2025</button> · <button type="button" id="galton-fill">Fill the pile now</button> <button type="button" id="galton-again">Start again</button></p>
+<canvas id="galton" width="1200" height="760" role="img" aria-label="A Galton board: 2,040 real days fall past flippers turned to each day's wind and pile up by the rain that followed; the 2025 rite and flight drops land inside the pile, with a faint shadow 8 mm to the left.">Each real day falls and piles up by the rain that followed.</canvas>
+<p id="galton-out"></p>
+<p class="small"><strong>Reanalysed:</strong> where each drop lands, and the wind that turns the flippers, are ERA5 values for that day in the 25 km cell over the pass. <strong>Drawn:</strong> the paths between the flippers are a picture, not a physical model. <strong>Modelled:</strong> only the faint drop, which assumes a 10 % effect. Every other drop is a real day. Neighbouring days often share the same storm, which is why some columns stand tall.</p>
+
+<details>
+<summary>Archive: the eight cases, the 2025 timeline, the wind map, the zoom into 13 September, seventy-two skies and the methods</summary>
 
 <div class="note">
   <p><strong>In brief.</strong> Weather cannot be run twice, so no one can prove that a rite or a seeding flight brought the rain.</p>
@@ -157,13 +172,6 @@
 <p class="question">The sky happens once. A cause is not observed; it is assembled from choices.</p>
 <p>There is no second 23 August 2025 without the rite, and no second 1 September without the aircraft. So every claim that an act brought rain is a claim about a day that never happened. The question here is narrower: was the rain that followed unusual?</p>
 
-<h3>The Galton sky</h3>
-<p>Each falling drop is <strong>a real day</strong>: a day between 16 August and 8 September, in one of the years 1940–2024, over the same pass. It bounces off that day’s real wind and lands at <strong>the rain that actually followed</strong>, the largest day of rain in the next three weeks. The pile is what the sky does <strong>when nobody asks</strong>.</p>
-<p>Then drop a 2025 day: the rite or the first flight. The faint drop beside it is <strong>where it would have landed if the ask had changed the rain by 10 %</strong>. The gap between them is the ask’s share; the width of the pile is how much the sky varies anyway. When the share is far smaller than the width, no one can see the ask’s effect: not the scientist, not the shaman.</p>
-<p class="small"><button type="button" data-act="rite" disabled>◇ Drop the rite, 23 Aug 2025</button> <button type="button" data-act="flight" disabled>▲ Drop the flight, 1 Sep 2025</button> · <button type="button" id="galton-fill">Fill the pile now</button> <button type="button" id="galton-again">Start again</button></p>
-<canvas id="galton" width="1200" height="760" role="img" aria-label="A Galton board: 2,040 real days fall past flippers turned to each day's wind and pile up by the rain that followed; the 2025 rite and flight drops land inside the pile, with a faint shadow 8 mm to the left.">Each real day falls and piles up by the rain that followed.</canvas>
-<p id="galton-out"></p>
-<p class="small"><strong>Reanalysed:</strong> where each drop lands, and the wind that turns the flippers, are ERA5 values for that day in the 25 km cell over the pass. <strong>Drawn:</strong> the paths between the flippers are a picture, not a physical model. <strong>Modelled:</strong> only the faint drop, which assumes a 10 % effect. Every other drop is a real day. Neighbouring days often share the same storm, which is why some columns stand tall.</p>
 
 <h3>Inside one drop: 13 September 2025</h3>
 <p>Both 2025 drops landed on the same day of rain: 13 September, three weeks after the rite. Open it up and the day falls again, hour by hour, as raindrops. Each stands for 0.1 mm, and the gauge on the right fills to the day’s 91 mm.</p>
@@ -220,6 +228,7 @@
 <p class="small">Older and elsewhere: in the Samguk yusa, Hwanung comes down to Taebaeksan with the Earl of Wind, the Master of Rain and the Master of Clouds (풍백·우사·운사); which mountain the myth means is debated. <em>How to Kill a Cloud</em> (Tuija Halttunen, 2021) follows the scientist Hannele Korhonen, funded by the UAE to make rain, as she weighs what her results can show.</p>
 
 <p>In all eight cases the weather answered, or did not, and someone took the credit or refused it. At Daegwallyeong, in the same weeks, a rite and a flight asked for rain, and rain came three weeks later, as it does most years. The meteorologists declined to credit their aircraft; the record does not say what the preservation society concluded. Neither can be tested against a day that did not happen. What can be shown is how often the sky answers anyway, and how many answers it would take to tell.</p>
+</details>
 
 <h2>Sources and limits</h2>
 <ul>
