@@ -42,6 +42,7 @@ Working notes for sketch 23. Read this first.
 - 2026-11-16: page title "Two asks at Daegwallyeong"; the folder stays `23-undecidedaudrey`. Page in English, with Korean names for places.
 - 2026-11-23: Audrey asked to show only the Galton sky. Everything else (cases, timeline, map, baseline, zoom, 72 skies, methods) is folded, unchanged, into one Archive on the page. Sources and limits stays open. Nothing deleted.
 - 2026-11-23: the Galton sky becomes three machines side by side (if the rite worked +10 %, the record, if seeding worked +1 mm), with an overlay, a filter for days as dry as 2025 (prior 60-day rain added to `galton.json`), and a hide-the-names guessing game. The old single 10 % shadow is replaced by the left machine. Seeding's +1 mm is the NIMS per-flight-hour figure; the 2.7/4.4/0.9 mm modelling numbers seen in a search summary were not found in the source and are not used.
+- 2026-11-23: the three machines become two speculative skies (if the rite worked, if seeding worked), each re-rolling the real three weeks day by day, with the record overlaid behind in blue. Blue is the one colour on the page, at Audrey's request. The rite raises the chance of rain (slider); seeding follows the agencies' rules and figures and acts only on seedable days. Hide-the-names and the three-machine overlay are retired.
 - 2026-11-16: the exact experiment days are paywalled, so the sketch uses candidate days chosen by a rule from the paper's abstract, labelled as candidates (18, 19 and 31 January 2006).
 - 2026-11-16: use ERA5 through Open-Meteo for wind and snow. ERA5-Land returned no values here, KMA station data needs a login, and NOAA GHCN-Daily has no Daegwallyeong station. ERA5's 25 km cell is shown on the map as a limit, not hidden.
 - 2026-11-16: draw the coast from the terrain (height 0) instead of Natural Earth, which is too coarse at this scale.
@@ -50,6 +51,7 @@ Working notes for sketch 23. Read this first.
 
 ## Questions
 
+- Seedable rule (rain 0.1 mm+, cloud 60 %+) is this page's; KMA's actual criteria (supercooled water, cloud top temperature) are not public for 2025.
 - Is +1 mm the fairest seeding world? Alternatives: +10 % of the flight day's rain (KMA), or the 2020–2024 daily maximum of 8.5 mm (NIMS, design unpublished). Same question for the rite's 10 %.
 
 - Sources disagree on how many airborne experiments there were after 2008 (20, 23, 36, 54), because they count different periods. Which count covers 2008–2010 exactly?

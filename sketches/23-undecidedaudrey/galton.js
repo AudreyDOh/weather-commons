@@ -1,61 +1,102 @@
-// Three Galton skies. The same real days (data/galton.json, tools/galton.py) fall through three
-// machines at once, past flippers turned to each day's wind, and land at the largest daily rain of
-// the next three weeks.
-//   If the rite worked   every landing +10 %        (modelled: an assumed effect)
-//   The record           every landing as it fell   (reanalysed, ERA5)
-//   If seeding worked    every landing +1 mm        (modelled: about one hour of flying, by the
-//                                                     National Institute of Meteorological Sciences'
-//                                                     figure, as if it fell on the wettest day)
-// The weather sets the chance: "Only days as dry as 2025" keeps the days with as little rain in the
-// 60 days before as the rite day had. "Overlay" draws the three piles on one board.
-// "Hide the names" shuffles the machines; the viewer guesses which one is the record.
-// The 2025 drop is the rain of 13 September 2025, 90.9 mm, the same in every machine.
+// Two speculative skies. Each drop is a real day (data/galton.json). Its three weeks of real
+// weather (data/days.json) are rolled again, one day at a time, as if an ask had worked:
+//
+//   If the rite worked     a dry day turns rainy with chance P, taking the rain of a real rainy day
+//                          from the same season; a rainy day gets P more. P is a slider: no one has
+//                          measured a rite, so this is interpretive and modelled.
+//   If seeding worked      flights on up to six "seedable" days (rain already falling, cloud 60 % or
+//                          more) in the two weeks after the day, one or two hours each. Each flight
+//                          day gains between 10 % of its rain (KMA) and 1 mm per flight hour (NIMS),
+//                          at most 8.5 mm (NIMS, 2020-2024 maximum). Clear days gain nothing. Modelled.
+//
+// The drop lands at the largest day of rain in the three weeks, speculative in ink, with the real
+// pile behind it in colour. Every roll is different: the chance is in the model, the weather is real.
 
 (() => {
-const canvas = document.getElementById('galton');
-if (!canvas) return;
-const g = canvas.getContext('2d');
-const W = canvas.width, H = canvas.height;
+const canvases = { rite: document.getElementById('spec-rite'), seed: document.getElementById('spec-seed') };
+if (!canvases.rite || !canvases.seed) return;
+const $ = id => document.getElementById(id);
 const ink = getComputedStyle(document.body).color;
 const paper = getComputedStyle(document.body).backgroundColor;
-const $ = id => document.getElementById(id);
+const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+const REAL = dark ? 'rgba(57,135,229,0.55)' : 'rgba(42,120,214,0.45)';   // the record, behind
+const REAL_LINE = dark ? '#3987e5' : '#2a78d6';
 
-const WORLDS = [
-  { id: 'rite', name: 'If the rite worked', sub: 'every day +10 %, modelled', land: mm => mm * 1.1 },
-  { id: 'real', name: 'The record', sub: 'ERA5, as it fell', land: mm => mm },
-  { id: 'seed', name: 'If seeding worked', sub: 'every day +1 mm, modelled', land: mm => mm + 1 },
-];
-const REAL = 1;
-const PANEL = 550, GAP = 45, LEFT0 = 30;
-const MAX_MM = 250, HEAVY = 50;       // HEAVY: the chance shown is of a day this wet or wetter
-const ROWS = [170, 230, 290];         // flipper rows
-const TOP = 130;                      // where drops enter
-const AXIS_Y = H - 100;
-const DOT = 5, WIDE_DOT = 12, LAYER = 3;   // column width side by side, and on the overlay
-const RELEASE_EVERY = 3;              // frames between days (about 20 a second)
-const SPEED = 0.007, BIG_SPEED = 0.0025;
-const ACT = { date: '2025-09-13', mm: 90.9 };   // the rain both 2025 asks landed on
+const W = 1800, H = 640;
+const LEFT = 70, RIGHT = W - 40, AXIS_Y = H - 80, TOP = 120;
+const ROWS = [170, 230, 290];
+const MAX_MM = 250, HEAVY = 50, WAIT = 21, CAMPAIGN = 14, MAX_FLIGHT_DAYS = 6;
+const BIN = 12, LAYER = 4;
+const RELEASE_EVERY = 3, SPEED = 0.007, BIG_SPEED = 0.0025;
+const SEEDABLE_CLOUD = 60, KMA_SHARE = 0.10, NIMS_MM_PER_HOUR = 1, NIMS_MAX = 8.5;
+const RITE_DATE = '2025-08-23', FLIGHTS_FROM = '2025-08-26', FLIGHTS_TO = '2025-09-06';
 
-let data, days = [], queue = [], falling = [], landed, flipAngle = 0, flipTarget = 0;
-let order = [0, 1, 2], hidden = false, overlay = false, dryOnly = false;
-let guesses = { right: 0, all: 0 }, verdict = '';
-let running = false, frame = 0, actDropped = false, actFalling = false;
+let galton, years, pool = [], days = [], queue = [], falling = [], landed = [];
+let ritePower = 0.10, rollSeed = { rite: 1, seed: 1 };
+let dryOnly = false, running = false, frame = 0, flip = 0, flipTarget = 0;
+let act = null;   // the 2025 day once dropped
 
-// Panel geometry: three side by side, or one wide board for the overlay.
-function panel(slot) {
-  if (overlay) return { px: LEFT0, pw: W - 2 * LEFT0, left: LEFT0 + 40, right: W - LEFT0 - 20 };
-  const px = LEFT0 + slot * (PANEL + GAP);
-  return { px, pw: PANEL, left: px + 20, right: px + PANEL - 10 };
+const xOf = mm => LEFT + Math.min(mm, MAX_MM) / MAX_MM * (RIGHT - LEFT);
+const index = date => { const d = new Date(date + 'T00:00:00Z'); return { y: String(d.getUTCFullYear()), i: (d.getUTCMonth() === 7 ? 0 : 31) + d.getUTCDate() - 1 }; };
+
+// A small seeded random generator, so a roll can be replayed when the slider moves.
+function rng(seed) {
+  return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 }
-const xOf = (p, mm) => p.left + Math.min(mm, MAX_MM) / MAX_MM * (p.right - p.left);
+const hash = s => { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h; };
 
-fetch('data/galton.json').then(r => r.json()).then(d => {
-  data = d;
+// The real rain on the days after a date: wait days, starting the next day.
+function after(date, n = WAIT) {
+  const { y, i } = index(date), r = years[y].rain, c = years[y].cloud;
+  return { rain: r.slice(i + 1, i + 1 + n), cloud: c.slice(i + 1, i + 1 + n) };
+}
+
+function riteWorld(date) {
+  const r = rng(hash(date) ^ rollSeed.rite * 7919), { rain } = after(date);
+  return Math.max(...rain.map(mm => {
+    const u = r(), v = r();
+    if (mm < 1) return u < ritePower ? pool[Math.floor(v * pool.length)] : mm;
+    return mm * (1 + ritePower);
+  }));
+}
+
+// Seeding: flights start the day after the ask (in 2025, three days after the rite: see seed2025).
+function seedWorld(date, start = 1, end = CAMPAIGN) {
+  const r = rng(hash(date) ^ rollSeed.seed * 104729), { rain, cloud } = after(date);
+  let flights = 0;
+  return Math.max(...rain.map((mm, k) => {
+    const hours = r() < 0.7 ? 2 : 1, w = r();
+    const seedable = k + 1 >= start && k + 1 <= end && mm >= 0.1 && (cloud[k] ?? 0) >= SEEDABLE_CLOUD;
+    if (!seedable || flights >= MAX_FLIGHT_DAYS) return mm;
+    flights++;
+    const a = KMA_SHARE * mm, b = NIMS_MM_PER_HOUR * hours;
+    return mm + Math.min(NIMS_MAX, Math.min(a, b) + w * Math.abs(a - b));
+  }));
+}
+
+// 2025 as it happened: the rite on 23 August; flights from 26 August to 6 September.
+const offset = (a, b) => Math.round((new Date(b) - new Date(a)) / 864e5);
+const real2025 = () => Math.max(...after(RITE_DATE).rain);
+const rite2025 = () => riteWorld(RITE_DATE);
+const seed2025 = () => seedWorld(RITE_DATE, offset(RITE_DATE, FLIGHTS_FROM), offset(RITE_DATE, FLIGHTS_TO));
+
+// Each roll is cached per day; a new roll or a new slider value clears it.
+const memo = f => { const c = new Map(); const m = date => { if (!c.has(date)) c.set(date, f(date)); return c.get(date); }; m.clear = () => c.clear(); return m; };
+const MACHINES = {
+  rite: { model: memo(riteWorld), act: rite2025, out: 'spec-rite-out', name: 'if the rite worked' },
+  seed: { model: memo(date => seedWorld(date)), act: seed2025, out: 'spec-seed-out', name: 'if seeding worked' },
+};
+
+Promise.all([fetch('data/galton.json').then(r => r.json()), fetch('data/days.json').then(r => r.json())]).then(([g, d]) => {
+  galton = g; years = d.years;
+  // Rainy days (1 mm or more) of the season, 16 August - 29 September, 1940-2024: what a rite might add.
+  for (const [y, v] of Object.entries(years)) if (y < '2025') v.rain.slice(15, 60).forEach(mm => { if (mm >= 1) pool.push(mm); });
   restart();
   new IntersectionObserver((entries, obs) => {
     if (entries.some(e => e.isIntersecting)) { go(); obs.disconnect(); }
-  }).observe(canvas);
-}).catch(err => { $('galton-out').textContent = 'Could not load the data: ' + err.message; });
+  }).observe(canvases.rite);
+}).catch(err => { $('spec-rite-out').textContent = 'Could not load the data: ' + err.message; });
 
 function shuffled(list) {
   const a = list.slice();
@@ -63,244 +104,178 @@ function shuffled(list) {
   return a;
 }
 
-const dryCut = () => data.acts[0].prior;   // rain in the 60 days before the 2025 rite
-
 function restart() {
-  days = dryOnly ? data.drops.filter(d => d.prior <= dryCut()) : data.drops;
-  landed = WORLDS.map(() => []);
-  falling = []; actDropped = false; actFalling = false;
-  queue = shuffled(days);
-  $('galton-act').disabled = true;
-  describe(); draw();
+  const cut = galton.acts[0].prior;
+  days = dryOnly ? galton.drops.filter(d => d.prior <= cut) : galton.drops;
+  queue = shuffled(days); falling = []; landed = []; act = null;
+  $('spec-act').disabled = true;
+  draw(); describe();
 }
 
 function go() { if (!running) { running = true; requestAnimationFrame(loop); } }
 
-// Wind blowing from wdir pushes towards wdir + 180. Screen x is east, screen y is south.
 function towards(day) {
   const a = (day.wdir + 180) * Math.PI / 180;
   return { dx: Math.sin(a), angle: Math.atan2(-Math.cos(a), Math.sin(a)) };
 }
 
-// One day falls through all three machines at once, on the same path until it lands.
-function launch(day, big = false) {
-  const t = towards(day);
-  const start = (Math.random() - 0.5) * 60;
-  const kick = t.dx * Math.min(day.wspd || 10, 40) * 2;
-  flipTarget = t.angle;
-  WORLDS.forEach((w, wi) => {
-    const p = panel(order.indexOf(wi));
-    const x0 = p.px + p.pw / 2 + start;
-    const mm = big ? day.mm : w.land(day.mm);
-    const target = xOf(p, mm);
-    const pts = [[x0, TOP]];
-    ROWS.forEach((y, k) => {
-      const f = (k + 1) / (ROWS.length + 1);
-      pts.push([x0 + (target - x0) * f + kick * (1 - f) * (k % 2 ? -0.6 : 1), y]);
-    });
-    pts.push([target, AXIS_Y - 10]);
-    falling.push({ day, wi, mm, pts, s: 0, big, speed: big ? BIG_SPEED : SPEED });
-  });
+function path(day, mm) {
+  const t = towards(day), x0 = W / 2 + (Math.random() - 0.5) * 80, kick = t.dx * Math.min(day.wspd || 10, 40) * 3;
+  const target = xOf(mm), pts = [[x0, TOP]];
+  ROWS.forEach((y, k) => { const f = (k + 1) / (ROWS.length + 1); pts.push([x0 + (target - x0) * f + kick * (1 - f) * (k % 2 ? -0.6 : 1), y]); });
+  pts.push([target, AXIS_Y - 10]);
+  return pts;
 }
 
-function position(d) {
-  const seg = d.pts.length - 1, u = Math.min(d.s, 1) * seg, i = Math.min(Math.floor(u), seg - 1), f = u - i;
-  const [xa, ya] = d.pts[i], [xb, yb] = d.pts[i + 1];
+function launch(day) {
+  flipTarget = towards(day).angle;
+  falling.push({ day, s: 0, speed: SPEED, pts: path(day, day.mm) });
+}
+
+function position(d, pts) {
+  const seg = pts.length - 1, u = Math.min(d.s, 1) * seg, i = Math.min(Math.floor(u), seg - 1), f = u - i;
+  const [xa, ya] = pts[i], [xb, yb] = pts[i + 1];
   return [xa + (xb - xa) * f, ya + (yb - ya) * f];
 }
 
 function loop() {
   if (frame % RELEASE_EVERY === 0 && queue.length) launch(queue.pop());
-  flipAngle += (flipTarget - flipAngle) * 0.04;
+  flip += (flipTarget - flip) * 0.04;
   for (const d of falling) d.s += d.speed;
-  for (const d of falling.filter(d => d.s >= 1)) {
-    if (d.big) { actDropped = true; actFalling = false; continue; }
-    landed[d.wi].push(d.mm);
-  }
+  for (const d of falling.filter(d => d.s >= 1)) { if (d.big) act.done = true; else landed.push(d.day); }
   falling = falling.filter(d => d.s < 1);
   draw();
   if (++frame % 20 === 0) describe();
   if (queue.length || falling.length) requestAnimationFrame(loop);
-  else { running = false; describe(); $('galton-act').disabled = actDropped; }
+  else { running = false; describe(); $('spec-act').disabled = !!act; }
 }
 
-const chance = v => v.length ? Math.round(100 * v.filter(x => x >= HEAVY).length / v.length) : 0;
-const share = (v, mm) => v.length ? Math.round(100 * v.filter(x => x >= mm).length / v.length) : 0;
-function heights(p, v) {
-  const dot = overlay ? WIDE_DOT : DOT;
-  const cols = new Array(Math.ceil((p.right - p.left) / dot) + 1).fill(0);
-  for (const mm of v) cols[Math.floor((xOf(p, mm) - p.left) / dot)]++;
+function columns(values) {
+  const cols = new Array(Math.ceil((RIGHT - LEFT) / BIN) + 1).fill(0);
+  for (const mm of values) cols[Math.floor((xOf(mm) - LEFT) / BIN)]++;
   return cols;
 }
+const chance = v => v.length ? Math.round(100 * v.filter(x => x >= HEAVY).length / v.length) : 0;
+function overlap(a, b) {
+  if (!a.length) return 100;
+  const bin = v => Math.floor(Math.min(v, MAX_MM) / 10), A = {}, B = {};
+  a.forEach(v => { A[bin(v)] = (A[bin(v)] || 0) + 1; }); b.forEach(v => { B[bin(v)] = (B[bin(v)] || 0) + 1; });
+  let s = 0; for (const k in A) s += Math.min(A[k], B[k] || 0);
+  return Math.round(100 * s / a.length);
+}
 
-function flippers(p) {
+function drawMachine(id) {
+  const m = MACHINES[id], g = canvases[id].getContext('2d');
+  const real = landed.map(d => d.mm), spec = landed.map(d => m.model(d.date));
+  g.fillStyle = paper; g.fillRect(0, 0, W, H);
+  g.fillStyle = g.strokeStyle = ink;
+
+  // Legend and live chances.
+  g.textAlign = 'left'; g.font = 'bold 32px system-ui, sans-serif';
+  g.fillText(id === 'rite' ? 'If the rite worked' : 'If seeding worked', LEFT, 48);
+  g.font = '24px system-ui, sans-serif';
+  g.fillText(`■ speculative ${chance(spec)} %`, LEFT, 88);
+  g.fillStyle = REAL_LINE; g.fillText(`■ the record ${chance(real)} %`, LEFT + 290, 88);
+  g.fillStyle = ink; g.fillText(`chance of a day of ${HEAVY} mm or more within three weeks · piles overlap ${overlap(real, spec)} %`, LEFT + 560, 88);
+
+  // Flippers, turned to the falling day's wind.
   g.lineWidth = 3;
   ROWS.forEach((y, r) => {
-    const n = overlay ? 13 : 5, step = (p.right - p.left) / n, off = r % 2 ? step / 2 : step / 4;
+    const n = 13, step = (RIGHT - LEFT) / n, off = r % 2 ? step / 2 : step / 4;
     for (let i = 0; i < n; i++) {
-      const x = p.left + off + i * step, len = 18, c = Math.cos(flipAngle), s = Math.sin(flipAngle);
-      const x1 = x + len * c, y1 = y + len * s;
+      const x = LEFT + off + i * step, len = 18, c = Math.cos(flip), s = Math.sin(flip), x1 = x + len * c, y1 = y + len * s;
       g.beginPath(); g.moveTo(x - len * c, y - len * s); g.lineTo(x1, y1);
-      g.lineTo(x1 - 8 * Math.cos(flipAngle - 0.5), y1 - 8 * Math.sin(flipAngle - 0.5));
-      g.moveTo(x1, y1); g.lineTo(x1 - 8 * Math.cos(flipAngle + 0.5), y1 - 8 * Math.sin(flipAngle + 0.5));
+      g.lineTo(x1 - 8 * Math.cos(flip - 0.5), y1 - 8 * Math.sin(flip - 0.5));
+      g.moveTo(x1, y1); g.lineTo(x1 - 8 * Math.cos(flip + 0.5), y1 - 8 * Math.sin(flip + 0.5));
       g.stroke();
     }
   });
   g.lineWidth = 1;
-}
 
-function axisAt(p) {
-  g.beginPath(); g.moveTo(p.left, AXIS_Y); g.lineTo(p.right, AXIS_Y); g.stroke();
-  g.font = '24px system-ui, sans-serif'; g.textAlign = 'center';
-  for (const mm of overlay ? [0, 50, 100, 150, 200, 250] : [0, 100, 200]) {
-    const x = xOf(p, mm);
-    g.beginPath(); g.moveTo(x, AXIS_Y); g.lineTo(x, AXIS_Y + 8); g.stroke();
-    g.fillText(mm === 250 ? '250+ mm' : `${mm}`, x, AXIS_Y + 34);
+  // The record behind, in colour; the speculative pile in front, as narrower stacked days.
+  g.fillStyle = REAL;
+  columns(real).forEach((c, i) => { if (c) g.fillRect(LEFT + i * BIN, AXIS_Y - c * LAYER, BIN - 1, c * LAYER); });
+  g.fillStyle = ink;
+  columns(spec).forEach((c, i) => { for (let j = 0; j < c; j++) g.fillRect(LEFT + i * BIN + 3, AXIS_Y - (j + 1) * LAYER, BIN - 7, LAYER - 1); });
+
+  // Axis and the heavy-rain line.
+  g.beginPath(); g.moveTo(LEFT, AXIS_Y); g.lineTo(RIGHT, AXIS_Y); g.stroke();
+  g.textAlign = 'center';
+  for (const mm of [0, 50, 100, 150, 200, 250]) {
+    g.beginPath(); g.moveTo(xOf(mm), AXIS_Y); g.lineTo(xOf(mm), AXIS_Y + 8); g.stroke();
+    g.fillText(mm === MAX_MM ? '250+' : `${mm}`, xOf(mm), AXIS_Y + 34);
   }
-  if (!overlay) g.fillText('mm', p.right - 10, AXIS_Y + 34);
-  // The heavy-rain line the chances refer to.
+  g.fillText('largest day of rain in the three weeks after each day, mm', W / 2, AXIS_Y + 66);
   g.save(); g.setLineDash([3, 6]); g.globalAlpha = 0.5;
-  g.beginPath(); g.moveTo(xOf(p, HEAVY), TOP + 200); g.lineTo(xOf(p, HEAVY), AXIS_Y); g.stroke();
-  g.restore();
-}
+  g.beginPath(); g.moveTo(xOf(HEAVY), TOP + 200); g.lineTo(xOf(HEAVY), AXIS_Y); g.stroke(); g.restore();
 
-function act2025(p) {
-  if (!actDropped) return;
-  const x = xOf(p, ACT.mm), top = AXIS_Y - 300;
-  g.lineWidth = 3;
-  g.beginPath(); g.arc(x, top, 12, 0, 2 * Math.PI); g.stroke();
-  g.beginPath(); g.moveTo(x, top + 14); g.lineTo(x, AXIS_Y); g.stroke();
-  g.lineWidth = 1;
-  g.textAlign = 'left'; g.font = '24px system-ui, sans-serif';
-  g.fillText('2025', x + 20, top + 8);
-}
-
-function draw() {
-  g.fillStyle = paper; g.fillRect(0, 0, W, H);
-  g.fillStyle = g.strokeStyle = ink;
-
-  if (overlay) {
-    const p = panel(0);
-    g.textAlign = 'left'; g.font = 'bold 30px system-ui, sans-serif';
-    g.fillText('All three on one board', p.left, 44);
-    g.font = '24px system-ui, sans-serif';
-    g.fillText(`■ the record ${chance(landed[REAL])} %    ─ if the rite worked ${chance(landed[0])} %    ┄ if seeding worked ${chance(landed[2])} %`, p.left, 80);
-    g.fillText(`chance of a day of ${HEAVY} mm or more within three weeks`, p.left, 110);
-    flippers(p);
-    // The record as stacked days; the two other worlds as outlines of their piles.
-    heights(p, landed[REAL]).forEach((c, i) => {
-      for (let j = 0; j < c; j++) g.fillRect(p.left + i * WIDE_DOT, AXIS_Y - (j + 1) * LAYER, WIDE_DOT - 2, LAYER - 1);
-    });
-    [[0, []], [2, [8, 6]]].forEach(([wi, dash]) => {
-      const cols = heights(p, landed[wi]);
-      g.save(); g.lineWidth = 2.5; g.setLineDash(dash);
-      g.beginPath(); g.moveTo(p.left, AXIS_Y);
-      cols.forEach((c, i) => { g.lineTo(p.left + i * WIDE_DOT, AXIS_Y - c * LAYER); g.lineTo(p.left + (i + 1) * WIDE_DOT, AXIS_Y - c * LAYER); });
-      g.stroke(); g.restore();
-    });
-    axisAt(p); act2025(p);
-  } else {
-    for (let slot = 0; slot < 3; slot++) {
-      const wi = order[slot], w = WORLDS[wi], p = panel(slot);
-      g.textAlign = 'center';
-      g.font = 'bold 32px system-ui, sans-serif';
-      g.fillText(hidden ? 'ABC'[slot] : w.name, p.px + p.pw / 2, 44);
-      g.font = '24px system-ui, sans-serif';
-      if (!hidden) g.fillText(w.sub, p.px + p.pw / 2, 78);
-      g.fillText(`${HEAVY} mm+ in three weeks: ${chance(landed[wi])} %`, p.px + p.pw / 2, 110);
-      flippers(p);
-      heights(p, landed[wi]).forEach((c, i) => {
-        for (let j = 0; j < c; j++) g.fillRect(p.left + i * DOT, AXIS_Y - (j + 1) * LAYER, DOT - 1, LAYER - 1);
-      });
-      axisAt(p); act2025(p);
-    }
+  // 2025: the record in colour, this roll in ink.
+  if (act && act.done) {
+    const r = real2025(), s = m.act(), top = AXIS_Y - 300;
+    g.lineWidth = 3;
+    g.strokeStyle = REAL_LINE; g.beginPath(); g.arc(xOf(r), top, 12, 0, 2 * Math.PI); g.stroke();
+    g.beginPath(); g.moveTo(xOf(r), top + 14); g.lineTo(xOf(r), AXIS_Y); g.stroke();
+    g.strokeStyle = ink; g.beginPath(); g.arc(xOf(s), top - 50, 12, 0, 2 * Math.PI); g.stroke();
+    g.beginPath(); g.moveTo(xOf(s), top - 36); g.lineTo(xOf(s), AXIS_Y); g.stroke();
+    g.lineWidth = 1; g.textAlign = 'left';
+    g.fillStyle = REAL_LINE; g.fillText(`2025 as it fell, ${r.toFixed(1)} mm`, xOf(r) + 20, top + 8);
+    g.fillStyle = ink; g.fillText(`2025 ${m.name}, ${s.toFixed(1)} mm`, xOf(Math.max(r, s)) + 20, top - 42);
   }
 
-  // Falling drops. On the overlay only the record's drop is drawn solid.
+  // Falling drops: the record's in colour, the speculative one in ink, on the same path until the end.
   for (const d of falling) {
-    const [x, y] = position(d);
-    const solid = !d.big && (!overlay || d.wi === REAL);
-    g.beginPath(); g.arc(x, y, d.big ? 12 : 3.5, 0, 2 * Math.PI);
-    if (solid) g.fill();
-    else { g.lineWidth = d.big ? 3 : 1.5; g.fillStyle = paper; g.fill(); g.stroke(); g.fillStyle = ink; g.lineWidth = 1; }
+    const sm = d.big ? m.act() : m.model(d.day.date), rm = d.big ? real2025() : d.day.mm;
+    const pr = position(d, d.pts), ps = position(d, d.pts.map((p, k) => k === d.pts.length - 1 ? [xOf(sm), p[1]] : k === d.pts.length - 2 ? [p[0] + (xOf(sm) - xOf(rm)) * 0.5, p[1]] : p));
+    const rad = d.big ? 12 : 4;
+    g.fillStyle = REAL_LINE; g.beginPath(); g.arc(pr[0], pr[1], rad, 0, 2 * Math.PI); g.fill();
+    g.fillStyle = ink; g.beginPath(); g.arc(ps[0], ps[1], rad * 0.8, 0, 2 * Math.PI); g.fill();
   }
-
-  g.textAlign = 'center'; g.font = '24px system-ui, sans-serif';
-  g.fillText(`largest day of rain in the three weeks after each day · ${dryOnly ? `only days as dry as 2025 (${dryCut()} mm or less in the 60 days before)` : 'all days, 16 Aug – 8 Sep, 1940–2024'}`, W / 2, H - 20);
-  g.textAlign = 'left';
+  return { real, spec };
 }
+
+function draw() { if (galton) { MACHINES.rite.last = drawMachine('rite'); MACHINES.seed.last = drawMachine('seed'); } }
 
 function describe() {
-  if (!data) return;
-  const n = landed[REAL].length;
-  let text = `${n.toLocaleString('en-GB')} of ${days.length.toLocaleString('en-GB')} real days have fallen`
-    + (dryOnly ? ', only days as dry as 2025.' : '.');
-  if (hidden) {
-    text += ' The names are hidden. Which machine is the record? Click it.';
-  } else if (n) {
-    text += ` The weather alone gave a day of ${HEAVY} mm or more within three weeks ${chance(landed[REAL])} % of the time.`
-      + ` If the rite had added 10 % to every day, ${chance(landed[0])} %. If seeding had added 1 mm, ${chance(landed[2])} %.`;
+  if (!galton) return;
+  const n = landed.length, base = `${n.toLocaleString('en-GB')} of ${days.length.toLocaleString('en-GB')} real days${dryOnly ? ' as dry as 2025' : ''} have fallen.`;
+  for (const [id, m] of Object.entries(MACHINES)) {
+    const { real, spec } = m.last || { real: [], spec: [] };
+    let t = base;
+    if (n) t += ` In the record, a day of ${HEAVY} mm or more came within three weeks after ${chance(real)} % of them; ${m.name}, ${chance(spec)} % in this roll. The two piles overlap by ${overlap(real, spec)} %.`;
+    if (act && act.done) {
+      const s = m.act();
+      t += ` 2025: ${real2025().toFixed(1)} mm fell on 13 September; ${m.name}, this roll gives ${s.toFixed(1)} mm.`;
+      if (id === 'seed') t += ' The last flight was on 6 September, a week before that rain, so seeding could not touch it.';
+    }
+    $(m.out).textContent = t;
   }
-  if (actDropped && !hidden) {
-    text += ` The 2025 drop is the rain of 13 September, ${ACT.mm} mm: as much or more followed ${share(landed[REAL], ACT.mm)} % of these days in the record,`
-      + ` ${share(landed[0], ACT.mm)} % if the rite worked and ${share(landed[2], ACT.mm)} % if seeding worked. The one drop sits as easily in any of the three.`;
-  }
-  if (verdict) text += ' ' + verdict;
-  if (guesses.all) text += ` Guesses so far: ${guesses.right} right of ${guesses.all}. By luck alone, one in three.`;
-  $('galton-out').textContent = text;
 }
 
-canvas.addEventListener('click', e => {
-  if (!hidden) return;
-  const r = canvas.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width;
-  const slot = [0, 1, 2].find(s => { const p = panel(s); return x >= p.px && x <= p.px + p.pw; });
-  if (slot === undefined) return;
-  const right = order[slot] === REAL;
-  guesses.all++; if (right) guesses.right++;
-  verdict = right
-    ? `Right: ${'ABC'[slot]} is the record, after ${landed[REAL].length.toLocaleString('en-GB')} days.`
-    : `Not this time: ${'ABC'[slot]} is “${WORLDS[order[slot]].name.toLowerCase()}”. The record is ${'ABC'[order.indexOf(REAL)]}.`;
-  hidden = false; canvas.style.cursor = ''; $('galton-overlay').disabled = false;
-  describe(); draw();
+$('spec-power').addEventListener('input', e => {
+  ritePower = +e.target.value / 100;
+  $('spec-power-out').textContent = `${e.target.value} %`;
+  MACHINES.rite.model.clear(); draw(); describe();
 });
-
-$('galton-hide').addEventListener('click', () => {
-  order = shuffled([0, 1, 2]); hidden = true; overlay = false; verdict = '';
-  canvas.style.cursor = 'pointer';
-  $('galton-overlay').disabled = true; $('galton-overlay').setAttribute('aria-pressed', 'false');
-  restart(); go();
+$('spec-roll-rite').addEventListener('click', () => { rollSeed.rite++; MACHINES.rite.model.clear(); draw(); describe(); });
+$('spec-roll-seed').addEventListener('click', () => { rollSeed.seed++; MACHINES.seed.model.clear(); draw(); describe(); });
+$('spec-act').addEventListener('click', () => {
+  if (act) return;
+  act = { done: false }; $('spec-act').disabled = true;
+  const a = galton.acts[0], day = { date: RITE_DATE, mm: real2025(), wdir: a.wdir, wspd: a.wspd };
+  falling.push({ day, big: true, s: 0, speed: BIG_SPEED, pts: path(day, day.mm) });
+  go();
 });
-$('galton-overlay').addEventListener('click', e => {
-  if (hidden) return;
-  overlay = !overlay;
-  e.target.setAttribute('aria-pressed', overlay);
-  e.target.textContent = overlay ? 'Side by side' : 'Overlay';
-  for (const d of falling) d.s = 1;   // drops in flight land at once; their paths were for the old layout
-  go(); draw(); describe();
-});
-$('galton-dry').addEventListener('click', e => {
+$('spec-dry').addEventListener('click', e => {
   dryOnly = !dryOnly;
   e.target.setAttribute('aria-pressed', dryOnly);
   e.target.textContent = dryOnly ? 'All days' : 'Only days as dry as 2025';
   restart(); go();
 });
-$('galton-act').addEventListener('click', () => {
-  if (actDropped || actFalling) return;
-  actFalling = true; $('galton-act').disabled = true;
-  launch({ ...ACT, wdir: data.acts[0].wdir, wspd: data.acts[0].wspd }, true);
-  go();
+$('spec-fill').addEventListener('click', () => {
+  landed.push(...falling.filter(d => !d.big).map(d => d.day), ...queue);
+  queue = []; falling = falling.filter(d => d.big);
+  if (!falling.length) $('spec-act').disabled = !!act;
+  draw(); describe();
 });
-$('galton-fill').addEventListener('click', () => {
-  const rest = [...new Set(falling.filter(d => !d.big).map(d => d.day))].concat(queue);
-  queue = [];
-  falling = falling.filter(d => d.big);
-  for (const day of rest) WORLDS.forEach((w, wi) => landed[wi].push(w.land(day.mm)));
-  if (!falling.length) $('galton-act').disabled = actDropped;
-  describe(); draw();
-});
-$('galton-again').addEventListener('click', () => {
-  order = [0, 1, 2]; hidden = false; verdict = ''; canvas.style.cursor = '';
-  $('galton-overlay').disabled = false;
-  restart(); go();
-});
+$('spec-again').addEventListener('click', () => { restart(); go(); });
 })();
